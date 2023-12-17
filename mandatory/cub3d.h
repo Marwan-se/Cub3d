@@ -7,7 +7,7 @@
 #include <fcntl.h>
 #include <math.h>
 #include <string.h>
-#include "mlx.h"
+// #include "mlx.h"
 
 
 
