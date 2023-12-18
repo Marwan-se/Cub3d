@@ -7,8 +7,9 @@
 #include <fcntl.h>
 #include <math.h>
 #include <string.h>
-// #include "mlx.h"
+#include "mlx.h"
 
+void    check_map_syntax(char *file);
 
 
 #endif

@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror
 MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
 RM = rm -f
 INC = cub3d.h
-SRC =  mandatory/main.c
+SRC =  mandatory/main.c mandatory/parsing/parsing.c
 
 OBJ = $(SRC:.c=.o)
 
