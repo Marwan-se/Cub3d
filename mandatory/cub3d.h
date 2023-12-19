@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 17:31:11 by msekhsou          #+#    #+#             */
-/*   Updated: 2023/12/18 17:34:44 by msekhsou         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:29:27 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <fcntl.h>
 #include <math.h>
 #include <string.h>
-#include "mlx.h"
+// #include "mlx.h"
 
 #define BUFFER_SIZE 32
 
@@ -30,8 +30,9 @@ int	ft_strlen(char *str);
 char	*ft_strchr(char *s, int i);
 char	*ft_strdup(char *s1);
 char	*ft_strjoin(char *s1, char *s2);
-char	*get_next_line(int fd);
+char	*get_next_line(int fd, char **line);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char	**read_map_file(char *file);
 
 
 
