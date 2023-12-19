@@ -1,7 +1,7 @@
 Name = cub3d
-CC = CC
-CFLAGS = -Wall -Wextra -Werror
-MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
+CC = cc
+# CFLAGS = -Wall -Wextra -Werror
+# MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
 RM = rm -f
 INC = cub3d.h
 SRC =  mandatory/main.c mandatory/parsing/parsing.c mandatory/utils/utils.c mandatory/utils/utils1.c mandatory/utils/utils2.c 
