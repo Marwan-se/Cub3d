@@ -6,7 +6,7 @@
 /*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 10:13:58 by mlahlafi          #+#    #+#             */
-/*   Updated: 2023/12/20 23:45:34 by mlahlafi         ###   ########.fr       */
+/*   Updated: 2023/12/22 00:38:04 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static	mlx_image_t* image;
 static	Player	p;
+static	struct Ray rays[NUM_RAYS];
 // -----------------------------------------------------------------------------
 
 void	ft_setup()
@@ -25,7 +26,7 @@ void	ft_setup()
 	p.height = 1;
 	p.turnDirection = 0;
 	p.walkDirection = 0;
-	p.roatationAngle = M_PI / 2;
+	p.rotationAngle = M_PI / 2;
 	p.walkSpeed = 200;
 	p.turnSpeed = 45 * (M_PI / 180);
 }
@@ -63,7 +64,7 @@ void	ft_DDA(int X0, int Y0, int X1, int Y1)
         Y += Yinc;
 		// printf("x0 is %f y0 is %f\n", X, Y);
     } 
-} 
+}
 
 int	mapHasWallAt(float x, float y)
 {
@@ -77,12 +78,152 @@ int	mapHasWallAt(float x, float y)
 	return (map[mapGridIndexY][mapGridIndexX] != 0);
 }
 
+float	ft_normalize(float rayAngle)
+{
+	float	angle;
+
+	angle = ramainder(angle, (2 * M_PI));
+	if (angle < 0)
+		angle += 2 * M_PI;
+	return (angle);
+}
+float	ft_pointsDisatnce(int x1, int y1, int x2, int y2)
+{
+	return (sqrt(pow(x2- x1, 2) + pow(y2 - y1, 2)));
+}
+//------------------------------------Choose the smallest one: horizental || vertical -----------------------------------------
+void	chooseSmallestDistance(info info1, info info2, int id, float rayAngle)
+{
+	float	horizDistance;
+	float	vertDistance;
+	
+	horizDistance =	info1.foundWallHit * ft_pointsDisatnce(p.x, p.y, info1.wallHitX, info1.wallHitY) + !info1.foundWallHit * INT_MAX;
+	vertDistance =	info2.foundWallHit * ft_pointsDisatnce(p.x, p.y, info2.wallHitX, info2.wallHitY) + !info2.foundWallHit * INT_MAX;
+	if (vertDistance < horizDistance)
+	{
+		rays[id].distance = vertDistance;
+		rays[id].wallHitX = info2.wallHitX;
+		rays[id].wallHitY = info2.wallHitY;
+		rays[id].Content = info2.wallContent; 
+		rays[id].HitVertical = 1;
+	}
+	else
+	{
+		rays[id].distance = horizDistance;
+		rays[id].wallHitX = info1.wallHitX;
+		rays[id].wallHitY = info1.wallHitY;
+		rays[id].Content = info1.wallContent; 
+		rays[id].HitVertical = 0;
+	}
+	rays[id].rayAngle = rayAngle;
+	rays[id].isFacingUp = !info1.facingDown;
+	rays[id].isFacingDown = info1.facingDown;
+	rays[id].isFacingLeft = !info1.facingDown;
+	rays[id].isFacingRight = info1.facingRight;
+}
+//------------------------------------vertical intersection code -----------------------------------------
+void	verticalIntersection(float rayAngle, int id, info * info2)
+{
+	info2->wallHitX = 0;
+	info2->wallHitY = 0;
+	info2->wallContent = 0;
+	info2->foundWallHit = 0;
+	info2->wallContent = 0;
+	info2->facingDown = (rayAngle > 0 && rayAngle < M_PI);
+	info2->facingRight = (rayAngle > 3 / 2 * M_PI) || (rayAngle < M_PI / 2);
+	info2->xIntercept = floor(p.x / TILE_SIZE) * TILE_SIZE;
+	info2->xIntercept += TILE_SIZE * info2->facingRight;
+	info2->yIntercept = p.y + (info2->xIntercept - p.x) * tan(FOV_ANGLE);
+	info2->xStep = TILE_SIZE;
+	info2->xStep *= -1 * !info2->facingRight + 1 * info2->facingRight;
+	info2->yStep = TILE_SIZE / tan(FOV_ANGLE);
+	info2->yStep *= -1 * (!info2->facingDown && info2->xStep > 0) + 1 * info2->facingDown;
+	info2->yStep *= -1 * (info2->facingDown && info2->xStep < 0) + 1 * !info2->facingRight;
+	info2->nextX = info2->xIntercept;
+	info2->nextY = info2->yIntercept;
+	while (info2->nextX >= 0 && info2->nextX <= WINDOW_WIDTH && info2->nextY >= 0 && info2->nextY <= WINDOW_HEIGHT)
+	{
+		info2->xCheck = info2->nextX + (-1 * !info2->facingRight);
+		info2->yCheck = info2->nextY;
+		if (mapHasWallAt(info2->xCheck, info2->yCheck))
+		{
+			info2->foundWallHit = 1;
+			info2->wallHitX = info2->nextX;
+			info2->wallHitY = info2->nextY;
+			info2->wallContent = map[(int)floot(info2->yCheck / TILE_SIZE)][(int)floot(info2->xCheck / TILE_SIZE)];
+			//wallHit
+			break ;
+		}
+		else
+			(info2->nextX += info2->xStep) && (info2->nextY += info2->yStep);	
+	}
+}
+
+void	ft_cast_ray(float rayAngle, int id)
+{
+	info	info1;
+	info	info2;
+//------------------------------------horizental intersection code -----------------------------------------
+	info1.wallHitX = 0;
+	info1.wallHitY = 0;
+	info1.wallContent = 0;
+	info1.foundWallHit = 0;
+	rayAngle = ft_normalize(rayAngle);
+	info1.facingDown = (rayAngle > 0 && rayAngle < M_PI);
+	info1.facingRight = (rayAngle > 3 / 2 * M_PI) || (rayAngle < M_PI / 2);
+
+	info1.yIntercept = floor(p.y / TILE_SIZE) * TILE_SIZE;
+	info1.yIntercept += TILE_SIZE * info1.facingDown;
+	info1.xIntercept = p.x + (info1.yIntercept - p.y) / tan(FOV_ANGLE);
+	info1.yStep = TILE_SIZE;
+	info1.yStep *= -1 * !info1.facingDown + 1 * info1.facingDown;
+	info1.xStep = TILE_SIZE / tan(FOV_ANGLE);
+	info1.xStep *= -1 * (!info1.facingRight && info1.xStep > 0) + 1 * info1.facingRight;
+	info1.xStep *= -1 * (info1.facingRight && info1.xStep < 0) + 1 * !info1.facingRight;
+	info1.nextX = info1.xIntercept;
+	info1.nextY = info1.yIntercept;
+	while (info1.nextX >= 0 && info1.nextX <= WINDOW_WIDTH && info1.nextY >= 0 && info1.nextY <= WINDOW_HEIGHT)
+	{
+		info1.xCheck = info1.nextX;
+		info1.yCheck = info1.nextY + (-1 * !info1.facingDown);
+		if (mapHasWallAt(info1.xCheck, info1.yCheck))
+		{
+			info1.wallHitX = info1.nextX;
+			info1.wallHitY = info1.nextY;
+			info1.foundWallHit = 1;
+			info1.wallContent = map[(int)floot(info1.yCheck / TILE_SIZE)][(int)floot(info1.xCheck / TILE_SIZE)];
+			//wallHit
+			break ;
+		}
+		else
+			(info1.nextX += info1.xStep) && (info1.nextY += info1.yStep);
+			
+	}
+	verticalIntersection(rayAngle, id, &info2);
+	chooseSmallestDistance(info1, info2, id, rayAngle);
+}
+
+void	ft_cast_rays(void *param)
+{
+	float	rayAngle;
+	int		id;
+
+	id = 0;
+	rayAngle = p.rotationAngle - FOV_ANGLE / 2;
+	while (id < NUM_RAYS)
+	{
+		cast_ray(rayAngle, id);
+		rayAngle += FOV_ANGLE / NUM_RAYS;
+		id++;
+	}
+}
+
 void	ft_move_player(void *param)
 {
-	p.roatationAngle += p.turnDirection * p.turnSpeed * 0.1;
+	p.rotationAngle += p.turnDirection * p.turnSpeed * 0.1;
 	float	moveStep = p.walkDirection * p.walkSpeed * 0.1;
-	float	newPlayerX = p.x + cos(p.roatationAngle) * moveStep * 0.2;
-	float	newPlayerY = p.y + sin(p.roatationAngle) * moveStep * 0.2;
+	float	newPlayerX = p.x + cos(p.rotationAngle) * moveStep * 0.2;
+	float	newPlayerY = p.y + sin(p.rotationAngle) * moveStep * 0.2;
 
 	if (!mapHasWallAt(newPlayerX, newPlayerY))
 	{
@@ -94,6 +235,7 @@ void	ft_move_player(void *param)
 void	ft_update(void *param)
 {
 	ft_move_player(param);
+	ft_cast_rays(param);
 }
 
 void	ft_renderPlayer(void *param)
@@ -115,7 +257,7 @@ void	ft_renderPlayer(void *param)
 		// printf("i is %d, j is %d\n", i ,j);
 		i++;
 	}
-	ft_DDA(p.x, p.y, p.x + (float) cos(p.roatationAngle) * 40, p.y + sin(p.roatationAngle) * 40);
+	ft_DDA(p.x, p.y, p.x + (float) cos(p.rotationAngle) * 40, p.y + sin(p.rotationAngle) * 40);
 	
 }
 void	ft_renderMap(void *param)

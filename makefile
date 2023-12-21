@@ -31,8 +31,8 @@ LIBFT = libft/libft.a
 all : $(NAME)
 
 $(MLX42) :
-	cmake -S MLX42 -B MLX42/build
-	make -C MLX42/build -j4
+	@cmake -S MLX42 -B MLX42/build
+	@make -C MLX42/build -j4
 
 
 $(NAME) : $(OBJ) $(MLX42) $(LIBFT)
