@@ -1,10 +1,10 @@
 Name = cub3d
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror
-# MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
+CFLAGS = -Wall -Wextra -Werror
+MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
 RM = rm -f
 INC = cub3d.h
-SRC =  mandatory/main.c mandatory/parsing/parsing.c mandatory/utils/utils.c mandatory/utils/utils1.c mandatory/utils/utils2.c 
+SRC =  mandatory/main.c mandatory/parsing/check_syntax.c mandatory/utils/utils.c mandatory/utils/utils1.c mandatory/utils/utils2.c mandatory/parsing/read_map.c mandatory/parsing/parsing.c
 
 OBJ = $(SRC:.c=.o)
 

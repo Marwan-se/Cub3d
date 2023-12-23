@@ -5,39 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 17:27:49 by msekhsou          #+#    #+#             */
-/*   Updated: 2023/12/19 12:21:44 by msekhsou         ###   ########.fr       */
+/*   Created: 2023/12/20 10:27:09 by msekhsou          #+#    #+#             */
+/*   Updated: 2023/12/20 11:37:59 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../cub3d.h"
 
-char	*get_next_line(int fd, char **line)
+int	ft_strncmp(char *s1, char *s2, size_t n)
 {
-	char	*buff;
-	int		i;
-	int		j;
+	size_t	i;
 
+	if (n == 0)
+		return (0);
 	i = 0;
-	j = 0;
-	buff = malloc(sizeof(char) * 100);
-	while (read(fd, &buff[i], 1) > 0)
+	while (s1[i] == s2[i] && s1[i] != '\0')
 	{
-		if (buff[i] == '\n')
-		{
-			buff[i] = '\0';
-			*line = malloc(sizeof(char) * (i + 1));
-			while (j < i)
-			{
-				(*line)[j] = buff[j];
-				j++;
-			}
-			(*line)[j] = '\0';
-			return (buff);
-		}
-		i++;
+		if (i < (n - 1))
+			i++;
+		else
+			return (0);
 	}
-	return (NULL);
+	return ((unsigned char)(s1[i]) - (unsigned char)(s2[i]));
 }
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
@@ -59,3 +49,4 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	dst[j] = '\0';
 	return (i);
 }
+
