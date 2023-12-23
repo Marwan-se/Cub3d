@@ -15,9 +15,9 @@
 #define MAP_NUM_COLS 20
 #define WINDOW_WIDTH (MAP_NUM_COLS * TILE_SIZE)
 #define WINDOW_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
-#define FOV_ANGLE (60 * M_PI / 180)
+#define FOV_ANGLE (80 * M_PI / 180)
 #define NUM_RAYS WINDOW_WIDTH
-#define MINI_MAP_SACALE_FACTOR 0.5
+#define SACALE_FACTOR 0.5
 
 const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1, 1},
@@ -39,6 +39,8 @@ typedef struct info
 {
     int		facingDown;
 	int		facingRight;
+    int		facingLeft;
+    int		facingUp;
 	float	xIntercept;
 	float	yIntercept;
 	float	xStep;
@@ -59,13 +61,14 @@ typedef struct Ray
     float   wallHitX;
     float   wallHitY;
     float   distance;
-    int     HitVertical;
+    int     wasHitVertical;
+    int     wasHitHorz;
     int     isFacingUp;
     int     isFacingDown;
     int     isFacingLeft;
     int     isFacingRight;
-    int     Content;
-} rays[NUM_RAYS];
+    int     wallHitContent;
+} Rays;
 
 typedef struct Player
 {
@@ -79,3 +82,7 @@ typedef struct Player
 	float	walkSpeed;
 	float	turnSpeed;
 } Player;
+
+void    ft_horizentalIntersection(float rayAngle, int stripId, info * info1);
+void	ft_verticalIntersection(float rayAngle, int id, info * info2);
+void	ft_chooseSmallestDistance(info info1, info info2, int id, float rayAngle);
