@@ -6,7 +6,7 @@
 /*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 10:13:58 by mlahlafi          #+#    #+#             */
-/*   Updated: 2023/12/23 20:20:26 by mlahlafi         ###   ########.fr       */
+/*   Updated: 2023/12/24 23:30:17 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,6 @@ void	ft_DDA(int X0, int Y0, int X1, int Y1, int tileColor)
 		// printf("x0 is %f y0 is %f\n", X, Y);
     } 
 }
-
-int	mapHasWallAt(float x, float y)
-{
-	int	mapGridIndexX;
-	int	mapGridIndexY;
-
-	if (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT)
-		return (TRUE);
-	mapGridIndexX = floor(x / TILE_SIZE);
-	mapGridIndexY = floor(y / TILE_SIZE);
-	return (map[mapGridIndexY][mapGridIndexX] != 0);
-}
-
 // float	ft_normalize(float rayAngle)
 // {
 // 	float	angle;
@@ -152,6 +139,10 @@ void	ft_chooseSmallestDistance(info info1, info info2, int id, float rayAngle)
 		rays[id].wasHitVertical = 0;
 	}
 	rays[id].rayAngle = rayAngle;
+	if (vertDistance == horizDistance)
+	{
+		printf("heloo we are the same \n");
+	}
 	rays[id].isFacingUp = !info1.facingDown;
 	rays[id].isFacingDown = info1.facingDown;
 	rays[id].isFacingLeft = !info1.facingRight;
@@ -238,6 +229,18 @@ void	ft_cast_rays(void *param)
 	}
 }
 
+int	mapHasWallAt(float x, float y)
+{
+	int	mapGridIndexX;
+	int	mapGridIndexY;
+
+	if (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT)
+		return (TRUE);
+	mapGridIndexX = floor(x / TILE_SIZE);
+	mapGridIndexY = floor(y / TILE_SIZE);
+	return (map[mapGridIndexY][mapGridIndexX] != 0);
+}
+
 void	ft_move_player(void *param)
 {
 	p.rotationAngle += p.turnDirection * p.turnSpeed * 0.1;
@@ -245,9 +248,12 @@ void	ft_move_player(void *param)
 	float	newPlayerX = p.x + cos(p.rotationAngle) * moveStep * 0.2;
 	float	newPlayerY = p.y + sin(p.rotationAngle) * moveStep * 0.2;
 
-	if (!mapHasWallAt(newPlayerX, newPlayerY))
+	if (!mapHasWallAt(newPlayerX, p.y))
 	{
 		p.x = newPlayerX;
+	}
+	if (!mapHasWallAt(p.x, newPlayerY))
+	{
 		p.y = newPlayerY;
 	}
 }
@@ -271,14 +277,14 @@ void	ft_renderPlayer(void *param)
 		j = p.x;
 		while (j < p.width + p.x)
 		{
-			mlx_put_pixel(image, j * SACALE_FACTOR, i * SACALE_FACTOR, tileColor);
+			mlx_put_pixel(image, j * SACALE_FACTOR, i * SACALE_FACTOR, 0xff0000ff);
 			j++;
 		}
 		// printf("i is %d, j is %d\n", i ,j);
 		i++;
 	}
 	// printf ("render player angle, %f\n", p.rotationAngle);
-	ft_DDA(p.x, p.y, p.x + (float) cos(p.rotationAngle) * 40, p.y + sin(p.rotationAngle) * 40, tileColor);
+	ft_DDA(p.x, p.y, p.x + (float) cos(p.rotationAngle) * 40, p.y + sin(p.rotationAngle) * 40, 0xff0000ff);
 }
 void	ft_renderMap(void *param)
 {
@@ -323,11 +329,72 @@ void	ft_renederRays(void *param)
 	}
 	
 }
+
+void	ft_generate_projection()
+{
+	int	i;
+	int	y;
+	float	wallHight;
+	int	perponDistance;
+	static int	oldRotationalAngle;
+	float			DPP;
+	int			wallTopPixel;
+	int			wallBottomPixel;
+	i = 0;
+	// if (!oldRotationalAngle)
+	// {
+	// 	oldRotationalAngle = p.rotationAngle;
+	// 	perponDistance = rays[i].distance * cos(rays[i].rayAngle);
+	// }
+	// if (oldRotationalAngle != p.rotationAngle)
+	// {
+	// 	perponDistance = rays[i].distance * cos(rays[i].rayAngle);
+	// 	oldRotationalAngle = p.rotationAngle;
+	// }
+	while (i < NUM_RAYS)
+	{
+		y = 0;
+		DPP = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
+		wallHight = (TILE_SIZE / (cos(rays[i].rayAngle - p.rotationAngle) * rays[i].distance)) * DPP;
+		int wallStripHight = (int) wallHight;
+		wallTopPixel = WINDOW_HEIGHT / 2 - wallStripHight / 2;
+		wallTopPixel = (wallTopPixel < 0) ? 0 : wallTopPixel;
+		wallBottomPixel = WINDOW_HEIGHT / 2 + wallStripHight / 2;
+		wallBottomPixel = wallBottomPixel > WINDOW_HEIGHT ? WINDOW_HEIGHT : wallBottomPixel;
+		if (wallHight > WINDOW_HEIGHT)
+			wallHight = WINDOW_HEIGHT;
+		while (y < wallHight)
+		{
+			if (rays[i].distance >= 50)
+				mlx_put_pixel(image, i, y + WINDOW_HEIGHT / 2 - wallHight / 2, ft_pixel(255, 255, 255, 255 / (rays[i].distance / 50)));
+			else
+				mlx_put_pixel(image, i, y + WINDOW_HEIGHT / 2 - wallHight / 2, ft_pixel(255, 255, 255, 255));
+
+			y++;
+		}
+		i++;
+	}
+	
+}
+
 void	ft_render(void *param)
 {
-	ft_renderMap(param);
-	ft_renederRays(param);
+	int hCenter = WINDOW_HEIGHT / 2;
+	for(int i = 0; i < WINDOW_WIDTH; i++)
+	{
+		for (int j = 0; j < hCenter; j++)
+		{
+			mlx_put_pixel(image, i, j, ft_pixel(2, 215, 246, 255));
+		}
+		for (int j = hCenter; j < WINDOW_HEIGHT; j++)
+		{
+			mlx_put_pixel(image, i, j, ft_pixel(82, 67, 6, 255));
+		}
+	}
+	// ft_renederRays(param);
+	ft_generate_projection();
 	// ft_setup();
+	ft_renderMap(param);
 	ft_renderPlayer(param);
 }
 
@@ -397,6 +464,7 @@ int	main(int argc, const char* argv[])
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
+	ft_memset(image->pixels, 128, image->width * image->height * BPP);
 	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
 	{
 		mlx_close_window(mlx);

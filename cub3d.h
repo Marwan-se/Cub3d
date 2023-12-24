@@ -17,14 +17,15 @@
 #define WINDOW_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
 #define FOV_ANGLE (80 * M_PI / 180)
 #define NUM_RAYS WINDOW_WIDTH
-#define SACALE_FACTOR 0.5
+#define SACALE_FACTOR 0.2
+#define BPP sizeof(int32_t)
 
 const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1},
+    {1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
@@ -35,6 +36,8 @@ const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
 
+
+// 1 1
 typedef struct info
 {
     int		facingDown;
@@ -82,7 +85,7 @@ typedef struct Player
 	float	walkSpeed;
 	float	turnSpeed;
 } Player;
-
+int     mapHasWallAt(float x, float y);
 void    ft_horizentalIntersection(float rayAngle, int stripId, info * info1);
 void	ft_verticalIntersection(float rayAngle, int id, info * info2);
 void	ft_chooseSmallestDistance(info info1, info info2, int id, float rayAngle);
