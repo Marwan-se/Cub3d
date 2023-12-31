@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:04 by msekhsou          #+#    #+#             */
-/*   Updated: 2023/12/23 16:55:36 by msekhsou         ###   ########.fr       */
+/*   Updated: 2023/12/28 23:20:01 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static size_t	ft_counter(char const *s, char c)
 	return (w);
 }
 
-static char	*ft_mem_word(char const *s, char c)
+static char	*ft_mem_word(char *s, char c)
 {
 	int		i;
 	char	*tab;
@@ -54,7 +54,7 @@ static char	**ft_free( char **tab, int i)
 	return (NULL);
 }
 
-static char	**ft_fixn(char const *s, char c)
+static char	**ft_fixn(char *s, char c)
 {
 	int		i;
 	int		words;
@@ -81,7 +81,7 @@ static char	**ft_fixn(char const *s, char c)
 	return (tab);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	if (!s)
 		return (NULL);

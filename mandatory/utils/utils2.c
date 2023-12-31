@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:14 by msekhsou          #+#    #+#             */
-/*   Updated: 2023/12/20 12:17:08 by msekhsou         ###   ########.fr       */
+/*   Updated: 2023/12/30 17:16:12 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,21 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	return (str);
 }
 
-int	ft_strlen(char *str)
+size_t	ft_strlen(char *s)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	if(s == NULL)
+		return (0);
+	if(!s)
+		return (0);
+	while (s[i] != '\0')
+	{
 		i++;
+	}
 	return (i);
 }
-
 char	*ft_strchr(char *s, int i)
 {
 	while (*s)
@@ -68,7 +73,11 @@ char	*ft_strdup(char *s)
 
 	i = 0;
 	j = ft_strlen(s);
+	if(s == NULL)
+		return (NULL);
 	str = (char *)malloc(sizeof(*str) * (j + 1));
+	if (!str)
+		return (NULL);
 	while (i < j)
 	{
 		str[i] = s[i];
@@ -102,7 +111,6 @@ char	*ft_strjoin(char *s1, char *s2)
 		str[len++] = s2[j++];
 	}
 	str[len] = '\0';
-	// free(s1);
 	return (str);
 }
 

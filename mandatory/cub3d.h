@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:19 by msekhsou          #+#    #+#             */
-/*   Updated: 2023/12/20 12:07:21 by msekhsou         ###   ########.fr       */
+/*   Updated: 2023/12/30 02:44:27 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,51 @@
 #include <string.h>
 #include "mlx.h"
 
-#define BUFFER_SIZE 32
+typedef struct Player
+{
+	float	x;
+	float	y;
+	float	width;
+	float	height;
+	int		turnDirection;
+	int		walkDirection;
+	float	rotationAngle;
+	float	walkSpeed;
+	float	turnSpeed;
+} Player;
 
-void    check_map_syntax(char *file);
-char	**ft_split(char const *s, char c);
+// typedef struct s_parse
+// {
+// 	char **map;
+// 	char *str;
+// 	char *no;
+// 	char *so;
+// 	char *we;
+// 	char *ea;
+// 	char **fsl;
+// 	// char *s;
+	
+// } t_parse;
+
+void	check_map_syntax(char *file, int ac);
 char	*ft_substr(char *s, unsigned int start, size_t len);
-int	ft_strlen(char *str);
 char	*ft_strchr(char *s, int i);
 char	*ft_strdup(char *s1);
 char	*ft_strjoin(char *s1, char *s2);
 char	*get_next_line(int fd, char **line);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-char	**read_map_file(char *file);
-void	parse(char *file);
+int parsing(char **map, int file);
 int	ft_strncmp(char *s1, char *s2, size_t n);
-int	check_ffl(char *file);
-
+int check_fsl(char *str);
+int map_handling(char **fsl, char **map, int file);
+int check_space_nd_newline(char **map, char *str);
+int check_xpm(char **fsl);
+int	check_dupfsl(char **fsl);
+int fc_space(char *s, int *k);
+size_t	ft_strlcpy(char *dst,  char *src, size_t dstsize);
+size_t	ft_strlcat(char *dst, char *src, size_t dstsize);
+char	**ft_split(char *s, char c);
+size_t	ft_strlen(char *str);
+char	**read_map_file(int file);
 
 
 

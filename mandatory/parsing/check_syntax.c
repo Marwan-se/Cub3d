@@ -6,17 +6,22 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:26:51 by msekhsou          #+#    #+#             */
-/*   Updated: 2023/12/20 10:27:50 by msekhsou         ###   ########.fr       */
+/*   Updated: 2023/12/25 17:09:30 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	check_map_syntax(char *file)
+void	check_map_syntax(char *file, int ac)
 {
 	int	i;
 
 	i = 0;
+	if(ac != 2)
+	{
+		printf("Error: Wrong number of arguments\n");
+		exit(1);
+	}
 	while(file[i])
 	{
 		if(file[i] == '.')
