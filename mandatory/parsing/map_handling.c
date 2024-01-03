@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:30:12 by msekhsou          #+#    #+#             */
-/*   Updated: 2023/12/31 23:54:39 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/03 16:08:28 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,29 +66,61 @@ int	check_dupfsl(char **fsl)
 }
 
 
-int	check_the_player_inmap(char **map)
+// int	check_player(char **map, int i, int *k, char *p)
+// {
+// 	int	j;
+
+// 	i = 6;
+// 	while (map[i])
+// 	{
+// 		j = 0;
+// 		while (map[i][j])
+// 		{
+// 			if (map[i][j] != '1' && map[i][j] != '0' \
+// 				&& map[i][j] != 'N' && map[i][j] != 'S' \
+// 				&& map[i][j] != 'E' && map[i][j] != 'W' && map[i][j] != ' ')
+// 				return (printf("Invalid Character!\n"));
+// 			if (map[i][j] == 'N' || map[i][j] == 'S' \
+// 				|| map[i][j] == 'E' || map[i][j] == 'W')
+// 			{
+// 				*p = map[i][j];
+// 				(*k)++;
+// 			}
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
+int	check_player(char **map, char *player)
 {
-	int i;
-	int j;
-	int k;
-	
+	int	i;
+	int	counter;
+	int	rst;
+
 	i = 6;
-	j = 0;
-	k = 0;
-	while (map[i])
+	rst = 0;
+	while(map[i])
 	{
-		j = 0;
-		while(map[i][j])
+		counter = 0;
+		while(map[i][counter])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W')
-				k++;
-			j++;
+			if (map[i][counter] == 'N' || map[i][counter] == 'S' \
+				|| map[i][counter] == 'E' || map[i][counter] == 'W')
+			{
+				*player = map[i][counter];
+				rst++;
+			}
+			counter++;
 		}
 		i++;
-		
 	}
-	if (k != 1)
+	if (rst != 1)
+	{
+		printf("Error: Player is not in the map\n");
 		return (1);
+	}
 	return (0);
 }
 
@@ -156,10 +188,88 @@ int fc_space(char *s, int *k)
 	return (0);
 }
 
+int map_closed(char **map, int i, int j, char player)
+{
+    if (map[i][j + 1] != '1' && map[i][j + 1] != '0' \
+		&& map[i][j + 1] != player)
+		return (1);
+	if (map[i][j - 1] != '1' && map[i][j - 1] != '0' \
+		&& map[i][j - 1] != player)
+		return (1);
+	if (map[i + 1][j] != '1' && map[i + 1][j] != '0' \
+		&& map[i + 1][j] != player)
+		return (1);
+	if (map[i - 1][j] != '1' && map[i - 1][j] != '0' \
+		&& map[i - 1][j] != player)
+		return (1);
+	else
+		return (0);
+}
+
+// int	map_isclosed(char **map, int i, char c, char p)
+// {
+// 	int	k;
+// 	int	j;
+
+// 	k = 0;
+// 	while (map[k])
+// 		k++;
+// 	while (map[++i])
+// 	{
+// 		j = -1;
+// 		while (map[i][++j])
+// 		{
+// 			if (map[i][0] == c || \
+// 				(map[6][j] != '1' && map[6][j] != ' ' && i == 6) \
+// 				|| (map[k - 1][j] != '1' && map[k - 1][j] != ' ' && i == k - 1))
+// 				return (1);
+// 			if (map[i][j] == c && i != 6 && i != k - 1)
+// 				if (map_closed(map, i, j, p))
+// 					return (1);
+// 		}
+// 	}
+// 	return (0);
+// }
+
+int	is_the_map_closed(char **map, char mpchr, char player)
+{
+	int i;
+	int j;
+	int index;
+	
+	index = 0;
+	while (map[index])
+		index++;
+	i = 5;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == mpchr)
+			{
+				if (i == 5 || i == index - 1)
+					return (1);
+				if (map[i][j + 1] != mpchr && map[i][j + 1] != '1' && map[i][j + 1] != '0' && map[i][j + 1] != player)
+					return (1);
+				if (map[i][j - 1] != mpchr && map[i][j - 1] != '1' && map[i][j - 1] != '0' && map[i][j - 1] != player)
+					return (1);
+				if (map[i + 1][j] != mpchr && map[i + 1][j] != '1' && map[i + 1][j] != '0' && map[i + 1][j] != player)
+					return (1);
+				if (map[i - 1][j] != mpchr && map[i - 1][j] != '1' && map[i - 1][j] != '0' && map[i - 1][j] != player)
+					return (1);
+			}
+			j++;
+		}
+	}
+	return (0);
+}
+
+
 int map_handling(char **fsl, char **map, int file)
 {
 	int i;
-	// int j;
+	char player;
 	(void)file;
 
 	i = 0;
@@ -188,7 +298,28 @@ int map_handling(char **fsl, char **map, int file)
 		printf("duplicate elements\n");
 		return(1);
 	}
-	else if (check_the_player_inmap(map))
+	else if(check_player(map, &player))
 		return(1);
+	// else if (map_isclosed(map, 5, '0', player))
+	// {
+	// 	printf("map is not closed\n");
+	// 	return(1);
+	// }
+	// else if (map_isclosed(map, 5, player, '0'))
+	// {
+	// 	printf("map is not closed\n");
+	// 	return(1);
+	// }
+	else if (is_the_map_closed(map, '0', player))
+	{
+		printf("map is not closed\n");
+		return(1);
+	}
+	else if (is_the_map_closed(map, player, '0'))
+	{
+		printf("map is not closed\n");
+		return(1);
+	}
+
 	return(0);
 }

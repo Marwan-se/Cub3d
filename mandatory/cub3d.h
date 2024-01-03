@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:19 by msekhsou          #+#    #+#             */
-/*   Updated: 2023/12/30 02:44:27 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/01 22:33:55 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ size_t	ft_strlcat(char *dst, char *src, size_t dstsize);
 char	**ft_split(char *s, char c);
 size_t	ft_strlen(char *str);
 char	**read_map_file(int file);
+int map_closed(char **map, int i, int j, char p);
 
 
 

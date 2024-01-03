@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:14 by msekhsou          #+#    #+#             */
-/*   Updated: 2023/12/30 17:16:12 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/01 22:35:26 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ size_t	ft_strlen(char *s)
 	int	i;
 
 	i = 0;
-	if(s == NULL)
-		return (0);
 	if(!s)
 		return (0);
 	while (s[i] != '\0')
