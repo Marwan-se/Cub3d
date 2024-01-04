@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:26:47 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/04 16:12:06 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/04 21:06:14 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int validate_map(char **map, char *s)
     int count = 0;
     int map_size = 0;
     int pattern_found = 0;
+    int k = 0;
+    char *ptr;
 
     while (s[i])
 	{
@@ -30,19 +32,21 @@ int validate_map(char **map, char *s)
             i++;
             while (s[i] == '\n')
                 i++;
-            int k = 0;
-            char *ptr = malloc(sizeof(char) * 2);
-			if (!ptr)
-				exit(1);
+            ptr = malloc(sizeof(char) * 2);
+            if (!ptr)
+            {
+                write(2, "Error: Malloc failed\n", 22);
+                exit(1);
+            }
             while (s[i] != '\n')
                 ptr[k++] = s[i++];
             ptr[k] = '\0';
 
-            if (strncmp(ptr, map[6], strlen(ptr)) == 0)
+            if (ft_strncmp(ptr, map[6], ft_strlen(ptr)) == 0)
 			{
                 pattern_found = 1;
                 free(ptr);
-                break;
+                break ;
             }
             free(ptr);
         }
@@ -58,10 +62,8 @@ int validate_map(char **map, char *s)
     }
     while (map[map_size])
         map_size++;
-
     if ((map_size - 6 - 1) != count)
 		return 1;
-
     return 0;
 }
 char *read_file_contents(int file)
@@ -72,7 +74,10 @@ char *read_file_contents(int file)
 
     line = (char *)malloc(sizeof(char) * 2);
     if (!line)
-        return NULL;
+    {
+        write(2, "Error: Malloc failed\n", 22);
+        exit(1);
+    }
     joind_str = NULL;
     i = 1;
     while (i > 0)
@@ -97,7 +102,7 @@ char **read_map_file(int file)
 
     if (file == -1)
 	{
-        printf("Error: Can't open file\n");
+        write(2, "Error: File not found\n", 22);
         return NULL;
     }
     joind_str = read_file_contents(file);
@@ -106,7 +111,7 @@ char **read_map_file(int file)
     map = ft_split(joind_str, '\n');
 	if(validate_map(map, joind_str))
 	{
-		printf("Error: Invalid map\n");
+		write(2, "Error: Invalid map\n", 19);
 		exit(1);
 	}
     free(joind_str);

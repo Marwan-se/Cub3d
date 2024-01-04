@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:30:12 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/04 16:11:25 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/04 21:17:35 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ int	check_player(char **map, char *player)
 		{
 			if(invalid_map_char(map, i, counter) )
 			{
-				printf("Error: Invalid map character\n");
-				return (1);
+				write(2, "Error: Invalid map character\n", 29);
+				exit(1);
 			}
 			if (map[i][counter] == 'N' || map[i][counter] == 'S' \
 				|| map[i][counter] == 'E' || map[i][counter] == 'W')
@@ -130,8 +130,8 @@ int	check_player(char **map, char *player)
 	}
 	if (rst != 1)
 	{
-		printf("Error: Player is not in the map\n");
-		return (1);
+		write(2, "Error: Player is not in the map\n", 32);
+		exit(1);
 	}
 	return (0);
 }
@@ -242,24 +242,24 @@ int map_handling(char **fsl, char **map, int file)
 	{
 		if(check_fsl(fsl[i]))
 		{
-			printf("error in the first six line\n");
+			write(2, "Error: in elements\n", 19);
 			return(1);		
 		}
 		i++;
 	}
-	if (check_xpm(fsl))
-	{
-		printf("texture 404\n");
-		return(1);
-	}
+	// if (check_xpm(fsl))
+	// {
+	// 	write(2, "Error: in xpm\n", 14);
+	// 	return(1);
+	// }
 	if (check_fcc(fsl))
 	{
-		printf("not the right color\n");
+		write(2, "Error: in RGB\n", 14);
 		return(1);
 	}
 	else if(check_dupfsl(fsl))
 	{
-		printf("duplicate elements\n");
+		write(2, "Error: Duplicate elements\n", 26);
 		return(1);
 	}
 	else if(check_player(map, &player))

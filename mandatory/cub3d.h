@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:19 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/01 22:33:55 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/04 21:18:12 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct Player
 	
 // } t_parse;
 
-void	check_map_syntax(char *file, int ac);
+void	check_syntax(char *file, int ac);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_strchr(char *s, int i);
 char	*ft_strdup(char *s1);
