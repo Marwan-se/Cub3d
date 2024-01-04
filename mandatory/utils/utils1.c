@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:09 by msekhsou          #+#    #+#             */
-/*   Updated: 2023/12/28 23:13:06 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/03 21:41:54 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	ft_strncmp(char *s1, char *s2, size_t n)
 {
 	size_t	i;
 
+	i = 0;
 	if (n == 0)
 		return (0);
-	i = 0;
 	while (s1[i] == s2[i] && s1[i] != '\0')
 	{
 		if (i < (n - 1))

@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:30:12 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/03 16:08:28 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/04 16:11:25 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int check_xpm(char **fsl)
 	s = ft_strchr(fsl[i], ' ');
 	while (fsl[i])
 	{
-		if (!strchr(fsl[i], ','))
+		if (!ft_strchr(fsl[i], ','))
 		{
 			if (s[j] == ' ')
 			{
@@ -66,32 +66,39 @@ int	check_dupfsl(char **fsl)
 }
 
 
-// int	check_player(char **map, int i, int *k, char *p)
-// {
-// 	int	j;
-
-// 	i = 6;
-// 	while (map[i])
-// 	{
-// 		j = 0;
-// 		while (map[i][j])
-// 		{
-// 			if (map[i][j] != '1' && map[i][j] != '0' \
-// 				&& map[i][j] != 'N' && map[i][j] != 'S' \
-// 				&& map[i][j] != 'E' && map[i][j] != 'W' && map[i][j] != ' ')
-// 				return (printf("Invalid Character!\n"));
-// 			if (map[i][j] == 'N' || map[i][j] == 'S' \
-// 				|| map[i][j] == 'E' || map[i][j] == 'W')
-// 			{
-// 				*p = map[i][j];
-// 				(*k)++;
-// 			}
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
+int check_empty_line(char **map, int map_size)
+{
+    int i = 0;
+    while (i < map_size)
+	{
+        int empty_line = 1;
+        int j = 0;
+        while (map[i][j] != '\0')
+		{
+            if (map[i][j] != ' ')
+			{
+                empty_line = 0;
+                break;
+            }
+            j++;
+        }
+        if (empty_line) {
+            return 1;
+        }
+        i++;
+    }
+    return 0;
+}
+int	invalid_map_char(char **map, int i, int j)
+{
+	if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != 'N' && \
+		map[i][j] != 'S' && map[i][j] != 'E' && \
+		map[i][j] != 'W' && map[i][j] != ' ' )
+		return (1);
+	if (check_empty_line(map, i))
+		return (1);
+	return (0);
+}
 
 int	check_player(char **map, char *player)
 {
@@ -106,6 +113,11 @@ int	check_player(char **map, char *player)
 		counter = 0;
 		while(map[i][counter])
 		{
+			if(invalid_map_char(map, i, counter) )
+			{
+				printf("Error: Invalid map character\n");
+				return (1);
+			}
 			if (map[i][counter] == 'N' || map[i][counter] == 'S' \
 				|| map[i][counter] == 'E' || map[i][counter] == 'W')
 			{
@@ -128,24 +140,24 @@ int	check_fcc(char **fsl)
 {
 	int i;
 	int j;
-	int k;
+	int index;
 	char **var;
 	char *str;
 
 	i = 0;
 	j = 0;
-	k = 0;
+	index = 0;
 	while (fsl[i])
 	{
 		if(ft_strchr(fsl[i], ','))
 		{
 			str = ft_strchr(fsl[i], ' ');
 			++str;
-			if (fc_space(str, &k))
+			if (fc_space(str, &index))
 				return (1);
-			if (k != 2)
+			if (index != 2)
 				return (1);
-			k = 0;
+			index = 0;
 			var = ft_split(str, ',');
 			j = 0;
 			while (var[j])
@@ -159,13 +171,6 @@ int	check_fcc(char **fsl)
 		}
 		i++;
 	}
-	return (0);
-}
-
-int	ft_isdigit(int c)
-{
-	if (c >= 48 && c <= 57)
-		return (1);
 	return (0);
 }
 
@@ -188,82 +193,41 @@ int fc_space(char *s, int *k)
 	return (0);
 }
 
-int map_closed(char **map, int i, int j, char player)
+int	map_isclosed(char **map, int i, char c, char p)
 {
-    if (map[i][j + 1] != '1' && map[i][j + 1] != '0' \
-		&& map[i][j + 1] != player)
-		return (1);
-	if (map[i][j - 1] != '1' && map[i][j - 1] != '0' \
-		&& map[i][j - 1] != player)
-		return (1);
-	if (map[i + 1][j] != '1' && map[i + 1][j] != '0' \
-		&& map[i + 1][j] != player)
-		return (1);
-	if (map[i - 1][j] != '1' && map[i - 1][j] != '0' \
-		&& map[i - 1][j] != player)
-		return (1);
-	else
-		return (0);
-}
+	int	k;
+	int	j;
 
-// int	map_isclosed(char **map, int i, char c, char p)
-// {
-// 	int	k;
-// 	int	j;
-
-// 	k = 0;
-// 	while (map[k])
-// 		k++;
-// 	while (map[++i])
-// 	{
-// 		j = -1;
-// 		while (map[i][++j])
-// 		{
-// 			if (map[i][0] == c || \
-// 				(map[6][j] != '1' && map[6][j] != ' ' && i == 6) \
-// 				|| (map[k - 1][j] != '1' && map[k - 1][j] != ' ' && i == k - 1))
-// 				return (1);
-// 			if (map[i][j] == c && i != 6 && i != k - 1)
-// 				if (map_closed(map, i, j, p))
-// 					return (1);
-// 		}
-// 	}
-// 	return (0);
-// }
-
-int	is_the_map_closed(char **map, char mpchr, char player)
-{
-	int i;
-	int j;
-	int index;
-	
-	index = 0;
-	while (map[index])
-		index++;
-	i = 5;
-	while (map[i])
+	k = 0;
+	while (map[k])
+		k++;
+	while (map[++i])
 	{
-		j = 0;
-		while (map[i][j])
+		j = -1;
+		while (map[i][++j])
 		{
-			if (map[i][j] == mpchr)
+			if (map[i][0] == c || (map[6][j] != '1' && map[6][j] != ' ' && i == 6) \
+				|| (map[k - 1][j] != '1' && map[k - 1][j] != ' ' && i == k - 1))
+				return (1);
+			if (map[i][j] == c && i != 6 && i != k - 1)
 			{
-				if (i == 5 || i == index - 1)
+				if (map[i][j + 1] != '1' && map[i][j + 1] != '0' && map[i][j + 1] != p)
 					return (1);
-				if (map[i][j + 1] != mpchr && map[i][j + 1] != '1' && map[i][j + 1] != '0' && map[i][j + 1] != player)
+				if (map[i][j - 1] != '1' && map[i][j - 1] != '0' \
+					&& map[i][j - 1] != p)
 					return (1);
-				if (map[i][j - 1] != mpchr && map[i][j - 1] != '1' && map[i][j - 1] != '0' && map[i][j - 1] != player)
+				if (map[i + 1][j] != '1' && map[i + 1][j] != '0' \
+					&& map[i + 1][j] != p)
 					return (1);
-				if (map[i + 1][j] != mpchr && map[i + 1][j] != '1' && map[i + 1][j] != '0' && map[i + 1][j] != player)
-					return (1);
-				if (map[i - 1][j] != mpchr && map[i - 1][j] != '1' && map[i - 1][j] != '0' && map[i - 1][j] != player)
+				if (map[i - 1][j] != '1' && map[i - 1][j] != '0' \
+					&& map[i - 1][j] != p)
 					return (1);
 			}
-			j++;
 		}
 	}
 	return (0);
 }
+
 
 
 int map_handling(char **fsl, char **map, int file)
@@ -274,20 +238,20 @@ int map_handling(char **fsl, char **map, int file)
 
 	i = 0;
 	
-	while (fsl[i])
+	while (fsl[i] != NULL)
 	{
-		if(check_fsl(fsl[i++]))
+		if(check_fsl(fsl[i]))
 		{
-			i++;
 			printf("error in the first six line\n");
-			return(1);
+			return(1);		
 		}
+		i++;
 	}
-	// if (check_xpm(fsl))
-	// {
-	// 	printf("not the right texture\n");
-	// 	return(1);
-	// }
+	if (check_xpm(fsl))
+	{
+		printf("texture 404\n");
+		return(1);
+	}
 	if (check_fcc(fsl))
 	{
 		printf("not the right color\n");
@@ -300,26 +264,15 @@ int map_handling(char **fsl, char **map, int file)
 	}
 	else if(check_player(map, &player))
 		return(1);
-	// else if (map_isclosed(map, 5, '0', player))
-	// {
-	// 	printf("map is not closed\n");
-	// 	return(1);
-	// }
-	// else if (map_isclosed(map, 5, player, '0'))
-	// {
-	// 	printf("map is not closed\n");
-	// 	return(1);
-	// }
-	else if (is_the_map_closed(map, '0', player))
+	else if (map_isclosed(map, 5, '0', player))
 	{
 		printf("map is not closed\n");
 		return(1);
 	}
-	else if (is_the_map_closed(map, player, '0'))
+	else if (map_isclosed(map, 5, player, '0'))
 	{
 		printf("map is not closed\n");
 		return(1);
 	}
-
 	return(0);
 }
