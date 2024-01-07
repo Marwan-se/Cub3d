@@ -6,72 +6,89 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:26:47 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/04 21:06:14 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/06 06:03:33 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
-int validate_map(char **map, char *s)
+int check_map_lines(char *line, int i, char *map)
+{
+    int map_len = ft_strlen(map);
+    int j = 0;
+    
+    while (line[i] != '\n')
+    {
+        if (line[i] != map[j])
+            return 0;
+        i++;
+        j++;
+    }
+    return (j == map_len);
+}
+
+int find_newline(char *map, char *line)
 {
     int i = 0;
-    int count = 0;
-    int map_size = 0;
-    int pattern_found = 0;
-    int k = 0;
-    char *ptr;
-
-    while (s[i])
-	{
-        if (s[i] == '\n')
-		{
+    int string_len = ft_strlen(line);
+    
+    while (i < string_len)
+    {
+        if (line[i] == '\n')
+        {
             i++;
-            while (s[i] == '\n')
+            while (line[i] == '\n')
                 i++;
-            ptr = malloc(sizeof(char) * 2);
-            if (!ptr)
-            {
-                write(2, "Error: Malloc failed\n", 22);
-                exit(1);
-            }
-            while (s[i] != '\n')
-                ptr[k++] = s[i++];
-            ptr[k] = '\0';
-
-            if (ft_strncmp(ptr, map[6], ft_strlen(ptr)) == 0)
-			{
-                pattern_found = 1;
-                free(ptr);
-                break ;
-            }
-            free(ptr);
+            if (check_map_lines(line, i, map))
+                break;
         }
         i++;
     }
-    if (!pattern_found)
-        return -1;
-    while (s[i])
-	{
-        if (s[i] == '\n')
-            count++;
+    return i;
+}
+
+int check_empty_newline(char **map, char *line)
+{
+    int i;
+    char **map_ptr;
+    int map_count;
+    int char_count;
+
+    map_ptr = map;
+    char_count = 0;
+    map_count = 0;
+    i = find_newline(map_ptr[6], line);
+    while (line[i])
+    {
+        if (line[i] == '\n')
+            char_count++;
         i++;
     }
-    while (map[map_size])
-        map_size++;
-    if ((map_size - 6 - 1) != count)
-		return 1;
+    while (*map_ptr)
+    {
+        map_count++;
+        map_ptr++;
+    }
+    if (map_count - 7 != char_count)
+        return 1;
     return 0;
 }
-char *read_file_contents(int file)
+
+char    **read_map_file(int file)
 {
+    char **map;
     char *joind_str;
     char *line;
     int i;
 
+    if (file == -1)
+    {
+        write(2, "Error: File not found\n", 22);
+        return NULL;
+    }
     line = (char *)malloc(sizeof(char) * 2);
     if (!line)
     {
@@ -92,28 +109,12 @@ char *read_file_contents(int file)
         joind_str = ft_strjoin(joind_str, line);
     }
     free(line);
-    return (joind_str);
-}
-
-char **read_map_file(int file)
-{
-    char **map;
-    char *joind_str;
-
-    if (file == -1)
-	{
-        write(2, "Error: File not found\n", 22);
-        return NULL;
-    }
-    joind_str = read_file_contents(file);
-    if (!joind_str)
-        return NULL;
     map = ft_split(joind_str, '\n');
-	if(validate_map(map, joind_str))
-	{
-		write(2, "Error: Invalid map\n", 19);
-		exit(1);
-	}
+    if (check_empty_newline(map, joind_str))
+    {
+        write(2, "remove the extra newline!\n", 27);
+        exit(1);
+    }
     free(joind_str);
     close(file);
     return map;

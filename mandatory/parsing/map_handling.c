@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:30:12 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/04 21:17:35 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/07 07:25:16 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,7 @@ int	map_isclosed(char **map, int i, char c, char p)
 
 
 
+
 int map_handling(char **fsl, char **map, int file)
 {
 	int i;
@@ -266,13 +267,14 @@ int map_handling(char **fsl, char **map, int file)
 		return(1);
 	else if (map_isclosed(map, 5, '0', player))
 	{
-		printf("map is not closed\n");
+		printf("map is not closed1\n");
 		return(1);
 	}
 	else if (map_isclosed(map, 5, player, '0'))
 	{
-		printf("map is not closed\n");
+		printf("map is not closed2\n");
 		return(1);
 	}
+
 	return(0);
 }
