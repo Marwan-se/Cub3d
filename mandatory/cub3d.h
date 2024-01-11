@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:19 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/04 21:18:12 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/10 00:33:17 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <fcntl.h>
 #include <math.h>
 #include <string.h>
-#include "mlx.h"
+// #include "mlx.h"
 
 typedef struct Player
 {

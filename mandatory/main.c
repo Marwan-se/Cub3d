@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:23 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/07 06:25:07 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/11 06:25:06 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,23 @@ void	map_error(char **map)
 	}
 }
 
+void replace_spaces_with_2(char **map)
+{
+    int i = 0;
+    int j = 0;
+    int line_count = 0;
 
-void replace_spaces(char **map) {
-    int mapStartIndex = -1;
-
-    // Find the starting index of the map
-    for (int i = 0; map[i] != NULL; i++) {
-        if (strstr(map[i], "11") != NULL) {
-            mapStartIndex = i;
-            break;
-        }
-    }
-
-    if (mapStartIndex != -1) {
-        // Replace spaces in the map rows
-        for (int i = mapStartIndex; map[i] != NULL; i++) {
-            int len = strlen(map[i]);
-            for (int j = 0; j < len; j++) {
-                if (map[i][j] == ' ') {
+    while (map[i]) {
+        if (line_count >= 6) {
+            j = 0;
+            while (map[i][j]) {
+                if (map[i][j] == ' ')
                     map[i][j] = '2';
-                }
+                j++;
             }
         }
+        i++;
+        line_count++;
     }
 }
 
@@ -67,7 +62,7 @@ int main(int ac, char **av)
 	map = read_map_file(fd);
 	map_error(map);
 	parsing(map, fd);
-	// replace_spaces(map);
+	replace_spaces_with_2(map);
 	int i = 0;
 	while (map[i])
 	{
