@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:23 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/14 21:02:00 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/14 22:43:39 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,25 @@ void	map_error(char **map)
 	}
 }
 
-// void replace_spaces_with_2(char **map)
-// {
-//     int i = 0;
-//     int j = 0;
-//     int line_count = 0;
+void replace_spaces_with_2(char **map)
+{
+    int i = 0;
+    int j = 0;
+    int line_count = 0;
 
-//     while (map[i]) {
-//         if (line_count >= 6) {
-//             j = 0;
-//             while (map[i][j]) {
-//                 if (map[i][j] == ' ')
-//                     map[i][j] = '2';
-//                 j++;
-//             }
-//         }
-//         i++;
-//         line_count++;
-//     }
-// }
+    while (map[i]) {
+        if (line_count >= 6) {
+            j = 0;
+            while (map[i][j]) {
+                if (map[i][j] == ' ')
+                    map[i][j] = '2';
+                j++;
+            }
+        }
+        i++;
+        line_count++;
+    }
+}
 
 char** full_map(char** map)
 {
@@ -111,6 +111,7 @@ int main(int ac, char **av)
 	map_error(map);
 	parsing(map, fd);
 	map = full_map(map);
+    replace_spaces_with_2(map);
 	int i = 0;
 	while (map[i])
 	{
