@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:30:12 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/07 07:25:16 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:52:36 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,19 @@ int	check_player(char **map, char *player)
 	return (0);
 }
 
+void	free_2darray(char **array)
+{
+	int i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
+
 int	check_fcc(char **fsl)
 {
 	int i;
@@ -154,7 +167,9 @@ int	check_fcc(char **fsl)
 			str = ft_strchr(fsl[i], ' ');
 			++str;
 			if (fc_space(str, &index))
+			{
 				return (1);
+			}
 			if (index != 2)
 				return (1);
 			index = 0;
@@ -162,12 +177,13 @@ int	check_fcc(char **fsl)
 			j = 0;
 			while (var[j])
 			{
-				if (atoi(var[j]) > 255 || atoi(var[j]) < 0)
+				if (ft_atoi(var[j]) > 255 || ft_atoi(var[j]) < 0)
 					return (1);
 				j++;
 			}
 			if (j != 3)
 				return (1);
+			free_2darray(var);
 		}
 		i++;
 	}
@@ -244,7 +260,7 @@ int map_handling(char **fsl, char **map, int file)
 		if(check_fsl(fsl[i]))
 		{
 			write(2, "Error: in elements\n", 19);
-			return(1);		
+			exit(1);		
 		}
 		i++;
 	}
@@ -256,25 +272,24 @@ int map_handling(char **fsl, char **map, int file)
 	if (check_fcc(fsl))
 	{
 		write(2, "Error: in RGB\n", 14);
-		return(1);
+		exit(1);
 	}
 	else if(check_dupfsl(fsl))
 	{
 		write(2, "Error: Duplicate elements\n", 26);
-		return(1);
+		exit(1);
 	}
 	else if(check_player(map, &player))
-		return(1);
+		exit(1);
 	else if (map_isclosed(map, 5, '0', player))
 	{
 		printf("map is not closed1\n");
-		return(1);
+		exit(1);
 	}
 	else if (map_isclosed(map, 5, player, '0'))
 	{
 		printf("map is not closed2\n");
-		return(1);
+		exit(1);
 	}
-
 	return(0);
 }

@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:14 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/01 22:35:26 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:24:46 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	len = -1;
 	while (s1[++len])
 		str[len] = s1[len];
+	free(s1);
 	j = 0;
 	while (s2[j])
 	{
@@ -112,3 +113,29 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
+int	ft_atoi(const char *str)
+{
+	int	x;
+	int	sign;
+	int	res;
+
+	x = 0;
+	res = 0;
+	sign = 1;
+	while (str[x] == 32 || (str[x] >= 9 && str[x] <= 13))
+		x++;
+	if (str[x] == '-')
+	{
+		sign = -1;
+		x++;
+	}
+	else if (str[x] == '+')
+		x++;
+	while (str[x] != '\0' && str[x] >= '0' && str[x] <= '9')
+	{
+		res *= 10;
+		res += str[x] - 48;
+		x++;
+	}
+	return (res * sign);
+}

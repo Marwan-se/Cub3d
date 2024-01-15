@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:26:47 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/06 06:03:33 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/15 10:17:00 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ char    **read_map_file(int file)
     map = ft_split(joind_str, '\n');
     if (check_empty_newline(map, joind_str))
     {
+        free(joind_str);
         write(2, "remove the extra newline!\n", 27);
         exit(1);
     }

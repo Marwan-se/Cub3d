@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:19 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/14 13:11:57 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:55:03 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <fcntl.h>
 #include <math.h>
 #include <string.h>
-// #include "mlx.h"
+#include "mlx.h"
 
 typedef struct Player
 {
@@ -35,19 +35,6 @@ typedef struct Player
 	float	turnSpeed;
 } Player;
 
-// typedef struct s_parse
-// {
-// 	char **map;
-// 	char *str;
-// 	char *no;
-// 	char *so;
-// 	char *we;
-// 	char *ea;
-// 	char **fsl;
-// 	// char *s;
-	
-// } t_parse;
-
 void	check_syntax(char *file, int ac);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_strchr(char *s, int i);
@@ -58,7 +45,6 @@ int parsing(char **map, int file);
 int	ft_strncmp(char *s1, char *s2, size_t n);
 int check_fsl(char *str);
 int map_handling(char **fsl, char **map, int file);
-int check_space_nd_newline(char **map, char *str);
 int check_xpm(char **fsl);
 int	check_dupfsl(char **fsl);
 int fc_space(char *s, int *k);
@@ -68,6 +54,8 @@ char	**ft_split(char *s, char c);
 size_t	ft_strlen(char *str);
 char	**read_map_file(int file);
 int map_closed(char **map, int i, int j, char p);
+int	ft_atoi(const char *str);
+void	free_2darray(char **array);
 
 
 

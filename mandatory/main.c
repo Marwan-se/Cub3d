@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:23 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/14 22:43:39 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:08:48 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,33 +51,40 @@ void replace_spaces_with_2(char **map)
     }
 }
 
-char** full_map(char** map)
+
+void    free_map(char **map)
+{
+    int i = 0;
+    while (map[i])
+    {
+        free(map[i]);
+        i++;
+    }
+    free(map);
+}
+
+char **full_map(char** map)
 {
     int max_length = 0;
     int i, j;
     int rows;
 
-    // Find the number of rows
     rows = 0;
     while (map[rows])
-    {
         rows++;
-    }
-
-    // Find the length of the longest line
-    for (i = 0; i < rows; i++)
+    i = 0;
+    while (i < rows)
     {
-        int length = strlen(map[i]);
+        int length = ft_strlen(map[i]);
         if (length > max_length)
-        {
             max_length = length;
-        }
+        i++;
     }
-
-    char** rectangle_map = (char**)malloc((rows + 1) * sizeof(char*)); // Increase the size by 1 for the NULL sentinel
-    for (i = 0; i < rows; i++)
+    char **rectangle_map = (char**)malloc((rows + 1) * sizeof(char*));
+    i = 0;
+    while (i < rows)
     {
-        if (i < 6) // Skip the first six lines
+        if (i < 6)
         {
             rectangle_map[i] = (char*)malloc((strlen(map[i]) + 1) * sizeof(char));
             strcpy(rectangle_map[i], map[i]);
@@ -86,36 +93,43 @@ char** full_map(char** map)
         {
             rectangle_map[i] = (char*)malloc((max_length + 1) * sizeof(char));
             strcpy(rectangle_map[i], map[i]);
-
-            // Replace empty spaces with '2'
-            for (j = strlen(rectangle_map[i]); j < max_length; j++)
+            j = ft_strlen(rectangle_map[i]);
+            while (j < max_length)
             {
                 rectangle_map[i][j] = '2';
+                j++;
             }
             rectangle_map[i][max_length] = '\0';
         }
+        i++;
     }
-    rectangle_map[rows] = NULL; // Add the NULL sentinel
-    return rectangle_map;
+    rectangle_map[rows] = NULL;
+    return (rectangle_map);
 }
+
 
 int main(int ac, char **av)
 {
 	char **map;
 	int fd;
-
+    
 	check_syntax(av[1], ac);
 	fd = open(av[1], O_RDONLY);
 	fd_error(fd);
+
 	map = read_map_file(fd);
 	map_error(map);
 	parsing(map, fd);
 	map = full_map(map);
     replace_spaces_with_2(map);
-	int i = 0;
-	while (map[i])
-	{
-		printf("%s\n", map[i]);
-		i++;
-	}
+
+    while(1);
+    // int i = 0;
+    // while (map[i])
+    // {
+    //     printf("%s\n", map[i]);
+    //     i++;
+    // }
+    
+    
 }

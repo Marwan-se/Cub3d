@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 02:33:54 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/04 21:07:30 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:55:21 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ int parsing(char **map, int file)
     }
     fsl[i] = NULL;
     map_handling(fsl, map, file);
+    free_2darray(fsl);
     return (0);
 }
