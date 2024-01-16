@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   mlx_loop.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/03/28 16:34:17 by W2Wizard      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   mlx_loop.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/28 01:24:36 by W2Wizard          #+#    #+#             */
+/*   Updated: 2024/01/06 10:02:22 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ bool mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param)
 void mlx_loop(mlx_t* mlx)
 {
 	MLX_NONNULL(mlx);
-
 	double start, oldstart = 0;
 	while (!glfwWindowShouldClose(mlx->window))
 	{
@@ -107,7 +106,6 @@ void mlx_loop(mlx_t* mlx)
 
 		if ((mlx->width > 1 || mlx->height > 1))
 			mlx_update_matrix(mlx);
-
 		mlx_exec_loop_hooks(mlx);
 		mlx_render_images(mlx);
 		mlx_flush_batch(mlx->context);

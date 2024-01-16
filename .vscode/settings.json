@@ -1,5 +1,15 @@
 {
     "files.associations": {
-        "cub3d.h": "c"
+        "cub3d.h": "c",
+        "mlx42.h": "c",
+        "__bit_reference": "c",
+        "__hash_table": "c",
+        "__string": "c",
+        "algorithm": "c",
+        "cstring": "c",
+        "locale": "c",
+        "string": "c",
+        "vector": "c",
+        "math.h": "c"
     }
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlahlafi <mlahlafi@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 10:42:12 by mlahlafi          #+#    #+#             */
-/*   Updated: 2022/11/05 22:45:23 by mlahlafi         ###   ########.fr       */
+/*   Updated: 2024/01/13 13:30:16 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
+char	*get_next_line(int fd);
 typedef struct s_list
 {
 	void			*content;

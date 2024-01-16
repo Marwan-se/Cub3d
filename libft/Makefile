@@ -34,7 +34,8 @@ ft_strrchr.c \
 ft_strtrim.c \
 ft_substr.c \
 ft_tolower.c \
-ft_toupper.c 
+ft_toupper.c \
+ft_get_next_line.c
 OBJ = $(SRC:.c=.o)
 BONUSOBJ = ft_lstadd_back.o \
 ft_lstadd_front.o \
