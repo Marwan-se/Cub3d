@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:23 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/15 15:08:48 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/16 23:28:48 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ void replace_spaces_with_2(char **map)
     int j = 0;
     int line_count = 0;
 
-    while (map[i]) {
-        if (line_count >= 6) {
+    while (map[i])
+    {
+        if (line_count >= 6)
+        {
             j = 0;
             while (map[i][j]) {
                 if (map[i][j] == ' ')
@@ -66,7 +68,8 @@ void    free_map(char **map)
 char **full_map(char** map)
 {
     int max_length = 0;
-    int i, j;
+    int i;
+    int j;
     int rows;
 
     rows = 0;
@@ -81,17 +84,32 @@ char **full_map(char** map)
         i++;
     }
     char **rectangle_map = (char**)malloc((rows + 1) * sizeof(char*));
+    if(!rectangle_map)
+    {
+        write(2, "Error: Malloc failed\n", 22);
+        exit(1);
+    }
     i = 0;
     while (i < rows)
     {
         if (i < 6)
         {
             rectangle_map[i] = (char*)malloc((strlen(map[i]) + 1) * sizeof(char));
+            if(!rectangle_map[i])
+            {
+                write(2, "Error: Malloc failed\n", 22);
+                exit(1);
+            }
             strcpy(rectangle_map[i], map[i]);
         }
         else
         {
             rectangle_map[i] = (char*)malloc((max_length + 1) * sizeof(char));
+            if(!rectangle_map[i])
+            {
+                write(2, "Error: Malloc failed\n", 22);
+                exit(1);
+            }
             strcpy(rectangle_map[i], map[i]);
             j = ft_strlen(rectangle_map[i]);
             while (j < max_length)
@@ -116,20 +134,17 @@ int main(int ac, char **av)
 	check_syntax(av[1], ac);
 	fd = open(av[1], O_RDONLY);
 	fd_error(fd);
-
 	map = read_map_file(fd);
 	map_error(map);
 	parsing(map, fd);
 	map = full_map(map);
     replace_spaces_with_2(map);
-
-    while(1);
-    // int i = 0;
-    // while (map[i])
-    // {
-    //     printf("%s\n", map[i]);
-    //     i++;
-    // }
+    int i = 0;
+    while (map[i])
+    {
+        printf("%s\n", map[i]);
+        i++;
+    }
     
     
 }
