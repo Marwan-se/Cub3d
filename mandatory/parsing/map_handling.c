@@ -6,43 +6,45 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:30:12 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/16 23:25:44 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/17 01:00:54 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int check_xpm(char **fsl)
-{
-	int i;
-	int j;
-	char *s;
-	int fd;
+// int check_xpm(char **fsl)
+// {
+// 	int i;
+// 	int j;
+// 	char *s;
+// 	int fd;
 
-	i = 0;
-	j = 0;
-	fd = open(fsl[i], O_RDWR);
-	s = ft_strchr(fsl[i], ' ');
-	while (fsl[i])
-	{
-		if (!ft_strchr(fsl[i], ','))
-		{
-			if (s[j] == ' ')
-			{
-				while (s[j] == ' ')
-					++s;
-			}
-			if (fd == -1 || strcmp(strrchr(s, '.'), ".xpm") != 0)
-			{
-				close(fd);
-				return (1);
-			}
-			close(fd);
-		}
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	j = 0;
+// 	fd = open(fsl[i], O_RDWR);
+// 	s = ft_strchr(fsl[i], ' ');
+// 	while (fsl[i])
+// 	{
+// 		if (!ft_strchr(fsl[i], ','))
+// 		{
+// 			if (s[j] == ' ')
+// 			{
+// 				while (s[j] == ' ')
+// 					++s;
+// 			}
+// 			if (fd == -1 || strcmp(strrchr(s, '.'), ".png") != 0)
+// 			{
+// 				close(fd);
+// 				return (1);
+// 			}
+// 			close(fd);
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
+
 
 int	check_dupfsl(char **fsl)
 {
@@ -149,6 +151,8 @@ void	free_2darray(char **array)
 	free(array);
 }
 
+
+
 int	check_fcc(char **fsl)
 {
 	int i;
@@ -177,7 +181,7 @@ int	check_fcc(char **fsl)
 			j = 0;
 			while (var[j])
 			{
-				if (ft_atoi(var[j]) > 255 || ft_atoi(var[j]) < 0)
+				if (ft_atoi(var[j]) < 0 || ft_atoi(var[j]) > 255)
 					return (1);
 				j++;
 			}
@@ -264,9 +268,9 @@ int map_handling(char **fsl, char **map, int file)
 		}
 		i++;
 	}
-	// if (check_xpm(fsl))
+	// if (check_texture(fsl))
 	// {
-	// 	write(2, "Error: in xpm\n", 14);
+	// 	write(2, "Error: in texture\n", 19);
 	// 	return(1);
 	// }
 	if (check_fcc(fsl))

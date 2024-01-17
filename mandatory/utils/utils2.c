@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:14 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/16 15:08:13 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/17 01:07:21 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,29 +113,37 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-int	ft_atoi(const char *str)
+
+
+int ft_atoi(const char *str)
 {
-	int	x;
-	int	sign;
-	int	res;
+    int x;
+    int sign;
+    int res;
 
 	x = 0;
-	res = 0;
 	sign = 1;
-	while (str[x] == 32 || (str[x] >= 9 && str[x] <= 13))
-		x++;
-	if (str[x] == '-')
-	{
-		sign = -1;
-		x++;
-	}
-	else if (str[x] == '+')
-		x++;
-	while (str[x] != '\0' && str[x] >= '0' && str[x] <= '9')
-	{
-		res *= 10;
-		res += str[x] - 48;
-		x++;
-	}
-	return (res * sign);
+	res = 0;
+    while (str[x] == ' ' || (str[x] >= '\t' && str[x] <= '\r'))
+        x++;
+    if (str[x] == '-')
+    {
+        sign = -1;
+        x++;
+    }
+    else if (str[x] == '+')
+        x++;
+    while (str[x] >= '0' && str[x] <= '9')
+    {
+        if (res > INT_MAX / 10 || (res == INT_MAX / 10 && (str[x] - '0') > INT_MAX % 10))
+        {
+            if (sign == -1)
+                return INT_MIN;
+            else
+                return INT_MAX;
+        }
+        res = res * 10 + (str[x] - '0');
+        x++;
+    }
+    return res * sign;
 }

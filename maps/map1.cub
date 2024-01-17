@@ -1,8 +1,8 @@
-SO ./texture.xpm
+SO ./texture.png
 F 1,1,255
-NO ./texture.xpm
-EA ./texture.xpm
-WE ./texture.xpm
+NO ./texture.png
+EA ./texture.png
+WE ./texture.png
 C 0,1,0
 
 
