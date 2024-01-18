@@ -6,7 +6,7 @@
 /*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 10:13:58 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/16 06:27:43 by mlahlafi         ###   ########.fr       */
+/*   Updated: 2024/01/19 00:03:18 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_setup(void *param)
 	// 	exit(0);
 	// printf("hello world \n");
 	cub = param;
-	cub->p.y = MAP_NUM_COLS * TILE_SIZE / 2;
+	cub->p.y = MAP_NUM_ROWS * TILE_SIZE / 2;
 	cub->p.x = MAP_NUM_COLS * TILE_SIZE / 2;
 	cub->p.width = 1;
 	cub->p.height = 1;
@@ -76,7 +76,7 @@ void	ft_setup(void *param)
 	cub->p.walkDirection = 0;
 	cub->p.turnDirection2 = 0;
 	cub->p.rotationAngle = M_PI / 2;
-	cub->p.walkSpeed = 1200;
+	cub->p.walkSpeed = 250;
 	cub->p.turnSpeed = 10 * (M_PI / 180);
 	cub->texture[0] = mlx_load_png("./brick.png");
 	cub->texture[1] = mlx_load_png("./Prev3.png");
@@ -306,12 +306,12 @@ int	mapHasWallAt(cub3d_t *cub,float x, float y)
 	if (mapGridIndexX > MAP_NUM_COLS)
 	{
 		mapGridIndexX = MAP_NUM_COLS;
-		// printf("%d | %d", mapGridIndexX, mapGridIndexY);
 	}
 	if (mapGridIndexY > MAP_NUM_ROWS)
 	{
 		mapGridIndexY = MAP_NUM_ROWS;
 	}
+		// printf("%d | %d", mapGridIndexX, mapGridIndexY);
 	// if (mapGridIndexX < 0)
 	// 	mapGridIndexX = 0;
 	// if (mapGridIndexY)
@@ -344,25 +344,16 @@ void	ft_update(void *param)
 }
 void	ft_renderPlayer(cub3d_t *cub)
 {
-	int		i;
-	int		j;
-	int		tileColor;
+	mlx_put_pixel(cub->image, 150-1, 100-1, 0x0000FFFF);
+	mlx_put_pixel(cub->image, 150, 100-1, 0x0000FFFF);
+	mlx_put_pixel(cub->image, 150+1, 100-1, 0x0000FFFF);
+	mlx_put_pixel(cub->image, 150-1, 100, 0x0000FFFF);
+	mlx_put_pixel(cub->image, 150, 100, 0x0000FFFF);
+	mlx_put_pixel(cub->image, 150+1, 100, 0x0000FFFF);
+	mlx_put_pixel(cub->image, 150-1, 100+1, 0x0000FFFF);
+	mlx_put_pixel(cub->image, 150, 100+1, 0x0000FFFF);
+	mlx_put_pixel(cub->image, 150+1, 100+1, 0x0000FFFF);
 
-	i = cub->p.y;
-	tileColor = ft_pixel(255, 255, 255, 255);
-	while (i < cub->p.height + cub->p.y)
-	{
-		j = cub->p.x;
-		while (j < cub->p.width + cub->p.x)
-		{
-			mlx_put_pixel(cub->image, j * SACALE_FACTOR, i * SACALE_FACTOR, 0xff0000ff);
-			j++;
-		}
-		// printf("i is %d, j is %d\n", i ,j);
-		i++;
-	}
-	// printf ("render player angle, %f\n", p.rotationAngle);
-	ft_DDA(cub->p.x, cub->p.y, cub->p.x + (float) cos(cub->p.rotationAngle) * 40, cub->p.y + sin(cub->p.rotationAngle) * 40, cub);
 }
 void	ft_renderMap(void *param)
 {
@@ -378,21 +369,40 @@ void	ft_renderMap(void *param)
 	j = 0;
 	tileColor = 0;
 	mlx = param;
-	while(i < cub->image->height)
+	int Cx = 0;
+	int Cy = 0;
+	int startX;
+	int startY;
+
+	Cx = cub->p.x;
+	Cy = cub->p.y;
+	startX = cub->p.x- 150 + TILE_SIZE;
+	startY = cub->p.y - 100 + TILE_SIZE;
+	int x;
+	int y;
+	// printf("%f, %f\n", Cx, Cy);
+	while(i < 200)
 	{
 		j = 0;
-		while (j < cub->image->width)
+		while (j < 300)
 		{
-			if (map[i / TILE_SIZE][j / TILE_SIZE] != 0)
-				tileColor = ft_pixel(255, 255, 255, 255);
+			x = (startX + j) / TILE_SIZE - 1;
+			y = (startY + i) / TILE_SIZE - 1;
+			if (x < 0 || y < 0)
+				tileColor = ft_pixel(0, 0, 0, 0);
+			else if (x < 20 && y < 13 && map[y][x] == '0')
+				tileColor = 0xFFFFFFFF;
+			else if (x < 20 && y < 13 && map[y][x] == '1')
+				tileColor = 0x808080FF;
 			else
 				tileColor = ft_pixel(0, 0, 0, 0);
-			mlx_put_pixel(cub->image, j * SACALE_FACTOR, i * SACALE_FACTOR, tileColor);
+			mlx_put_pixel(cub->image, j , i, tileColor);
 			j++;
 			// printf("hello i is %d, j is %d\n", image->width , j / TILE_SIZE);
 		}
 		i++;
 	}
+	// mlx_put_pixel(cub->image, (int)Cx, (int)Cy, 0x0000FFFF);
 }
 void	ft_renederRays(cub3d_t *cub)
 {
@@ -486,7 +496,7 @@ void	ft_generate_projection(cub3d_t *cub)
 			int	distanceFromTop = w + wallStripHight / 2 - WINDOW_HEIGHT / 2;
 			int	texetureOffSetY = distanceFromTop * (((float) TEXTURE_HEIGHT) / wallStripHight);
 			// printf("texetureOffSetY  = %d, textureOffSetX = %d\n", texetureOffSetY, textureOffSetX);
-			tileColor = choice[(TEXTURE_WIDTH * texetureOffSetY) + textureOffSetX];
+			tileColor = choice[(TEXTURE_WIDTH * texetureOffSetY) + textureOffSetX * TEXTURE_WIDTH / TILE_SIZE];
 			// printf("heloo \n");
 			// printf("tileColor %d\n", texture->width * texetureOffSetY + textureOffSetX);
 			mlx_put_pixel(cub->image, i, w, tileColor);
@@ -508,11 +518,11 @@ void	ft_render(void *param)
 	cub3d_t	*cub;
 	cub = param;
 
-	// ft_renderMap(param);
-	// ft_renederRays(param);
-	// ft_renderPlayer(param);
+	ft_renederRays(param);
 	// ft_setup(param);
 	ft_generate_projection(param);
+	ft_renderMap(param);
+	ft_renderPlayer(param);
 }
 
 void ft_hook(void* param)
