@@ -6,43 +6,11 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:30:12 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/17 01:00:54 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/20 03:28:23 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-// int check_xpm(char **fsl)
-// {
-// 	int i;
-// 	int j;
-// 	char *s;
-// 	int fd;
-
-// 	i = 0;
-// 	j = 0;
-// 	fd = open(fsl[i], O_RDWR);
-// 	s = ft_strchr(fsl[i], ' ');
-// 	while (fsl[i])
-// 	{
-// 		if (!ft_strchr(fsl[i], ','))
-// 		{
-// 			if (s[j] == ' ')
-// 			{
-// 				while (s[j] == ' ')
-// 					++s;
-// 			}
-// 			if (fd == -1 || strcmp(strrchr(s, '.'), ".png") != 0)
-// 			{
-// 				close(fd);
-// 				return (1);
-// 			}
-// 			close(fd);
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
 
 
 
@@ -84,13 +52,14 @@ int check_empty_line(char **map, int map_size)
             }
             j++;
         }
-        if (empty_line) {
+        if (empty_line)
             return 1;
-        }
         i++;
     }
     return 0;
 }
+
+
 int	invalid_map_char(char **map, int i, int j)
 {
 	if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != 'N' && \
@@ -102,14 +71,28 @@ int	invalid_map_char(char **map, int i, int j)
 	return (0);
 }
 
-int	check_player(char **map, char *player)
+void	store_directions(t_Player *p, char c)
+{
+	if (c == 'N')
+		p->rotationAngle = 3 * M_PI / 2;
+	else if (c == 'S')
+		p->rotationAngle = M_PI / 2;
+	else if (c == 'E')
+		p->rotationAngle = 0;
+	else if (c == 'W')
+		p->rotationAngle = M_PI;
+}
+
+int	check_player(char **map, t_cub3d *player, char *tmp)
 {
 	int	i;
 	int	counter;
 	int	rst;
+	
 
 	i = 6;
 	rst = 0;
+	player->p = malloc(sizeof(t_Player));
 	while(map[i])
 	{
 		counter = 0;
@@ -123,7 +106,10 @@ int	check_player(char **map, char *player)
 			if (map[i][counter] == 'N' || map[i][counter] == 'S' \
 				|| map[i][counter] == 'E' || map[i][counter] == 'W')
 			{
-				*player = map[i][counter];
+				*tmp = map[i][counter];
+				player->p->y = i * TILE_SIZE / 2;
+				player->p->x = counter * TILE_SIZE / 2;
+				store_directions(player->p, map[i][counter]);
 				rst++;
 			}
 			counter++;
@@ -151,9 +137,33 @@ void	free_2darray(char **array)
 	free(array);
 }
 
+int	*store_colors(char **var)
+{
+	int j;
+	int *color;
+	j = 0;
+	color = malloc(sizeof(int) * 3);
+	while (var[j])
+	{
+		color[j] = ft_atoi(var[j]);
+		if (color[j] < 0 || color[j] > 255)
+		{
+			write(2, "Error: Invalid RGB\n", 19);
+			exit(1);
+		}
+		j++;
+	}
+	
+	if (j != 3)
+	{
+		write(2, "Error: Invalid RGB\n", 19);
+		exit(1);
+	}
+	free_2darray(var);
+	return (color);
+}
 
-
-int	check_fcc(char **fsl)
+int	check_fcc(char **fsl, t_cub3d *p)
 {
 	int i;
 	int j;
@@ -164,6 +174,8 @@ int	check_fcc(char **fsl)
 	i = 0;
 	j = 0;
 	index = 0;
+	// p->F = malloc(sizeof(int) * 3);
+	// p->C = malloc(sizeof(int) * 3);
 	while (fsl[i])
 	{
 		if(ft_strchr(fsl[i], ','))
@@ -171,26 +183,18 @@ int	check_fcc(char **fsl)
 			str = ft_strchr(fsl[i], ' ');
 			++str;
 			if (fc_space(str, &index))
-			{
 				return (1);
-			}
 			if (index != 2)
 				return (1);
 			index = 0;
 			var = ft_split(str, ',');
-			j = 0;
-			while (var[j])
-			{
-				if (ft_atoi(var[j]) < 0 || ft_atoi(var[j]) > 255)
-					return (1);
-				j++;
-			}
-			if (j != 3)
-				return (1);
-			free_2darray(var);
+			if (ft_strncmp(fsl[i], "F", 1) == 0)
+				p->F = store_colors(var);
+			else if (ft_strncmp(fsl[i], "C", 1) == 0)
+				p->C = store_colors(var);
 		}
 		i++;
-	}
+}1
 	return (0);
 }
 
@@ -213,6 +217,34 @@ int fc_space(char *s, int *k)
 	return (0);
 }
 
+void	check_limits(char **map, int i, int k)
+{
+	int j;
+	
+	j = 0;
+	(void)i;
+	while (map[6][j] != '\0')
+	{
+		if ((map[6][j] != '1' && map[6][j] != ' '))
+		{
+			write(2, "Error: Map is not closed\n", 25);
+			exit(1);
+		}
+		j++;
+	}
+	j = 0;
+	while (map[k - 1][j])
+	{
+		if((map[k - 1][j] != '1' && map[k - 1][j] != ' '))
+		{
+			write(2, "Error: Map is not closed\n", 25);
+			exit(1);
+		}
+		j++;
+	}
+}
+
+
 int	map_isclosed(char **map, int i, char c, char p)
 {
 	int	k;
@@ -221,14 +253,12 @@ int	map_isclosed(char **map, int i, char c, char p)
 	k = 0;
 	while (map[k])
 		k++;
+	check_limits(map, i, k);
 	while (map[++i])
 	{
 		j = -1;
 		while (map[i][++j])
 		{
-			if (map[i][0] == c || (map[6][j] != '1' && map[6][j] != ' ' && i == 6) \
-				|| (map[k - 1][j] != '1' && map[k - 1][j] != ' ' && i == k - 1))
-				return (1);
 			if (map[i][j] == c && i != 6 && i != k - 1)
 			{
 				if (map[i][j + 1] != '1' && map[i][j + 1] != '0' && map[i][j + 1] != p)
@@ -236,7 +266,7 @@ int	map_isclosed(char **map, int i, char c, char p)
 				if (map[i][j - 1] != '1' && map[i][j - 1] != '0' \
 					&& map[i][j - 1] != p)
 					return (1);
-				if (map[i + 1][j] != '1' && map[i + 1][j] != '0' \
+				if (i + 1 != k - 1 && map[i + 1][j] != '1' && map[i + 1][j] != '0' \
 					&& map[i + 1][j] != p)
 					return (1);
 				if (map[i - 1][j] != '1' && map[i - 1][j] != '0' \
@@ -249,13 +279,11 @@ int	map_isclosed(char **map, int i, char c, char p)
 }
 
 
-
-
-int map_handling(char **fsl, char **map, int file)
+int map_handling(char **fsl, char **map, int file, t_cub3d *p)
 {
 	int i;
-	char player;
 	(void)file;
+	char tmp;
 
 	i = 0;
 	
@@ -273,7 +301,7 @@ int map_handling(char **fsl, char **map, int file)
 	// 	write(2, "Error: in texture\n", 19);
 	// 	return(1);
 	// }
-	if (check_fcc(fsl))
+	if (check_fcc(fsl, p))
 	{
 		write(2, "Error: in RGB\n", 14);
 		exit(1);
@@ -283,14 +311,14 @@ int map_handling(char **fsl, char **map, int file)
 		write(2, "Error: Duplicate elements\n", 26);
 		exit(1);
 	}
-	else if(check_player(map, &player))
+	else if(check_player(map, p, &tmp))
 		exit(1);
-	else if (map_isclosed(map, 5, '0', player))
+	else if (map_isclosed(map, 5, '0', tmp))
 	{
 		printf("map is not closed1\n");
 		exit(1);
 	}
-	else if (map_isclosed(map, 5, player, '0'))
+	else if (map_isclosed(map, 5, tmp, '0'))
 	{
 		printf("map is not closed2\n");
 		exit(1);

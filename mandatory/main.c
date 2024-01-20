@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:23 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/16 23:28:48 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/20 03:14:14 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,16 @@ void replace_spaces_with_2(char **map)
 {
     int i = 0;
     int j = 0;
-    int line_count = 0;
 
     while (map[i])
     {
-        if (line_count >= 6)
-        {
             j = 0;
             while (map[i][j]) {
                 if (map[i][j] == ' ')
                     map[i][j] = '2';
                 j++;
             }
-        }
         i++;
-        line_count++;
     }
 }
 
@@ -65,7 +60,7 @@ void    free_map(char **map)
     free(map);
 }
 
-char **full_map(char** map)
+char **full_map(char **map)
 {
     int max_length = 0;
     int i;
@@ -122,29 +117,97 @@ char **full_map(char** map)
         i++;
     }
     rectangle_map[rows] = NULL;
-    return (rectangle_map);
+    return (rectangle_map + 6);
 }
 
+// void	ft_setup(void *param)
+// {
+// 	t_cub3d		*cub;
+// 	mlx_image_t	*img[4];
+
+// 	// cub->map = ft_read_map(file);
+// 	// printf("#########################");
+// 	// if (!cub->map)
+// 	// 	exit(0);
+// 	// printf("hello world \n");
+// 	cub = param;
+// 	cub->p.width = 1;
+// 	cub->p.height = 1;
+// 	cub->p.turnDirection = 0;
+// 	cub->p.walkDirection = 0;
+// 	cub->p.turnDirection2 = 0;
+// 	// cub->p.rotationAngle = M_PI / 2;
+// 	cub->p.walkSpeed = 250;
+// 	cub->p.turnSpeed = 10 * (M_PI / 180);
+// 	cub->texture[0] = mlx_load_png("./brick.png");
+// 	cub->texture[1] = mlx_load_png("./Prev3.png");
+// 	cub->texture[2] = mlx_load_png("./matrix.png");
+// 	cub->texture[3] = mlx_load_png("./img.png");
+// 	if (!cub->texture[0] || !cub->texture[1] || !cub->texture[2] || !cub->texture[3])
+// 		return(perror("allocation failed"), exit(0));
+// 	img[0] = mlx_texture_to_image(cub->mlx, cub->texture[0]);
+// 	img[1] = mlx_texture_to_image(cub->mlx, cub->texture[1]);
+// 	img[2] = mlx_texture_to_image(cub->mlx, cub->texture[2]);
+// 	img[3] = mlx_texture_to_image(cub->mlx, cub->texture[3]);
+// 	if (!img[0] || !img[1] || !img[2] || !img[3])
+// 		return(perror("allocation failed"), exit(0));
+// 	mlx_resize_image(img[0], TEXTURE_HEIGHT, TEXTURE_HEIGHT);
+// 	mlx_resize_image(img[1], TEXTURE_HEIGHT, TEXTURE_HEIGHT);
+// 	mlx_resize_image(img[2], TEXTURE_HEIGHT, TEXTURE_HEIGHT);
+// 	mlx_resize_image(img[3], TEXTURE_HEIGHT, TEXTURE_HEIGHT);
+// 	cub->tab = malloc (4 * sizeof(uint32_t *));
+// 	cub->tab[0] = malloc((TEXTURE_HEIGHT * TEXTURE_HEIGHT) * sizeof(uint32_t));
+// 	cub->tab[1] = malloc((TEXTURE_HEIGHT * TEXTURE_HEIGHT) * sizeof(uint32_t));
+// 	cub->tab[2] = malloc((TEXTURE_HEIGHT * TEXTURE_HEIGHT) * sizeof(uint32_t));
+// 	cub->tab[3] = malloc((TEXTURE_HEIGHT * TEXTURE_HEIGHT) * sizeof(uint32_t));
+// 	if (!cub->tab[0] || !cub->tab[1] || !cub->tab[2] || !cub->tab[3])
+// 		return(perror("allocation failed"), exit(0));
+// 	int i = 0;
+// 	int j = 0;
+// 	int	k = 0;
+// 	while (k < 4)
+// 	{
+// 		while (i < img[k]->height * img[k]->width)
+// 		{
+// 			cub->tab[k][i] =  ft_pixel(img[k]->pixels[j], img[k]->pixels[j + 1],img[k]->pixels[j + 2], img[k]->pixels[j + 3]);
+// 			j += 4;
+// 			i++;
+// 		}
+// 		j = 0;
+// 		i = 0;
+// 		k++;
+// 	}
+// }
 
 int main(int ac, char **av)
 {
-	char **map;
+    t_cub3d *player;
 	int fd;
     
+    player = malloc(sizeof(t_cub3d));
+    // memset(player.inf, 0, sizeof(t_Infplayer));
+    if(!player)
+    {
+        write(2, "Error: Malloc failed\n", 22);
+        exit(1);
+    }
 	check_syntax(av[1], ac);
 	fd = open(av[1], O_RDONLY);
 	fd_error(fd);
-	map = read_map_file(fd);
-	map_error(map);
-	parsing(map, fd);
-	map = full_map(map);
-    replace_spaces_with_2(map);
-    int i = 0;
-    while (map[i])
-    {
-        printf("%s\n", map[i]);
-        i++;
-    }
+	player->map = read_map_file(fd);
+	map_error(player->map);
+	parsing(player->map, fd, player);
+	player->map = full_map(player->map);
+    replace_spaces_with_2(player->map);
+    // printf("#########################");
+
+    // printf("#########################");
+    // int i = 0;
+    // while (player->map[i])
+    // {
+    //     printf("%s\n", player->map[i]);
+    //     i++;
+    // }
     
     
 }
