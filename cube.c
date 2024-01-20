@@ -6,7 +6,7 @@
 /*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 10:13:58 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/19 00:03:18 by mlahlafi         ###   ########.fr       */
+/*   Updated: 2024/01/20 03:18:45 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,18 @@ void	ft_setup(void *param)
 	// 	exit(0);
 	// printf("hello world \n");
 	cub = param;
-	cub->p.y = MAP_NUM_ROWS * TILE_SIZE / 2;
-	cub->p.x = MAP_NUM_COLS * TILE_SIZE / 2;
+	cub->p.y = 250;
+	cub->p.x = 250;
 	cub->p.width = 1;
 	cub->p.height = 1;
 	cub->p.turnDirection = 0;
 	cub->p.walkDirection = 0;
 	cub->p.turnDirection2 = 0;
 	cub->p.rotationAngle = M_PI / 2;
-	cub->p.walkSpeed = 250;
+	cub->p.walkSpeed = 600;
 	cub->p.turnSpeed = 10 * (M_PI / 180);
+	cub->F = ft_pixel(82, 67, 6, 255);
+	cub->S = ft_pixel(2, 215, 246, 255);
 	cub->texture[0] = mlx_load_png("./brick.png");
 	cub->texture[1] = mlx_load_png("./Prev3.png");
 	cub->texture[2] = mlx_load_png("./matrix.png");
@@ -342,18 +344,18 @@ void	ft_update(void *param)
 	ft_move_player(param);
 	ft_cast_rays(param);
 }
-void	ft_renderPlayer(cub3d_t *cub)
+void	ft_renderPlayer(cub3d_t *cube)
 {
-	mlx_put_pixel(cub->image, 150-1, 100-1, 0x0000FFFF);
-	mlx_put_pixel(cub->image, 150, 100-1, 0x0000FFFF);
-	mlx_put_pixel(cub->image, 150+1, 100-1, 0x0000FFFF);
-	mlx_put_pixel(cub->image, 150-1, 100, 0x0000FFFF);
-	mlx_put_pixel(cub->image, 150, 100, 0x0000FFFF);
-	mlx_put_pixel(cub->image, 150+1, 100, 0x0000FFFF);
-	mlx_put_pixel(cub->image, 150-1, 100+1, 0x0000FFFF);
-	mlx_put_pixel(cub->image, 150, 100+1, 0x0000FFFF);
-	mlx_put_pixel(cub->image, 150+1, 100+1, 0x0000FFFF);
-
+	mlx_put_pixel(cube->image, 150-1, 100-1, 0x0000FFFF);
+	mlx_put_pixel(cube->image, 150, 100-1, 0x0000FFFF);
+	mlx_put_pixel(cube->image, 150+1, 100-1, 0x0000FFFF);
+	mlx_put_pixel(cube->image, 150-1, 100, 0x0000FFFF);
+	mlx_put_pixel(cube->image, 150, 100, 0x0000FFFF);
+	mlx_put_pixel(cube->image, 150+1, 100, 0x0000FFFF);
+	mlx_put_pixel(cube->image, 150-1, 100+1, 0x0000FFFF);
+	mlx_put_pixel(cube->image, 150, 100+1, 0x0000FFFF);
+	mlx_put_pixel(cube->image, 150+1, 100+1, 0x0000FFFF);
+	ft_DDA(300, 200, 300 + (float) cos(cube->p.rotationAngle) * 40, 200 + sin(cube->p.rotationAngle) * 40, cube);
 }
 void	ft_renderMap(void *param)
 {
@@ -376,7 +378,7 @@ void	ft_renderMap(void *param)
 
 	Cx = cub->p.x;
 	Cy = cub->p.y;
-	startX = cub->p.x- 150 + TILE_SIZE;
+	startX = cub->p.x - 150 + TILE_SIZE;
 	startY = cub->p.y - 100 + TILE_SIZE;
 	int x;
 	int y;
@@ -390,9 +392,9 @@ void	ft_renderMap(void *param)
 			y = (startY + i) / TILE_SIZE - 1;
 			if (x < 0 || y < 0)
 				tileColor = ft_pixel(0, 0, 0, 0);
-			else if (x < 20 && y < 13 && map[y][x] == '0')
+			else if (x < MAP_NUM_COLS && y < MAP_NUM_ROWS && map[y][x] == '0')
 				tileColor = 0xFFFFFFFF;
-			else if (x < 20 && y < 13 && map[y][x] == '1')
+			else if (x < MAP_NUM_COLS && y < MAP_NUM_ROWS && map[y][x] == '1')
 				tileColor = 0x808080FF;
 			else
 				tileColor = ft_pixel(0, 0, 0, 0);
@@ -463,7 +465,7 @@ void	ft_generate_projection(cub3d_t *cub)
 			return(perror("error in image"), exit(0));
 		while (j < wallTopPixel)
 		{
-			mlx_put_pixel(cub->image, i, j, ft_pixel(2, 215, 246, 255));
+			mlx_put_pixel(cub->image, i, j, cub->S);
 			j++;
 		}
 		uint32_t	tileColor;
@@ -506,7 +508,7 @@ void	ft_generate_projection(cub3d_t *cub)
 		j = wallBottomPixel;
 		while (j < WINDOW_HEIGHT)
 		{
-			mlx_put_pixel(cub->image, i, j, ft_pixel(82, 67, 6, 255));
+			mlx_put_pixel(cub->image, i, j, cub->F);
 			j++;
 		}
 		i++;
