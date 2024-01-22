@@ -6,13 +6,13 @@ MAKE = make
 
 NAME = cub3D
 
-HEADER = cub3d.h
+HEADER = ft_cub3d.h
 
 # SRC_DIR = src
 
 # OBJ_DIR = obj
 
-SRC = cube.c
+SRC = ft_cube.c ft_hooks.c ft_map_player.c ft_generate_projection.c ft_rays_hit.c ft_rays.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -35,7 +35,6 @@ all : libft $(NAME)
 
 $(NAME) : $(OBJ)
 	$(CC) $(CFLAGS) $(LIBFT) $(MLX42) -L $(LIB_GLFW) -lglfw $^ -o $@
-
 
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@

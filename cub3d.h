@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/22 03:36:35 by mlahlafi          #+#    #+#             */
+/*   Updated: 2024/01/22 04:03:21 by mlahlafi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#ifndef CUB3D_H
+# define CUB3D_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -205,6 +218,7 @@ typedef struct cub3d
     Player			p;
     Rays			rays[NUM_RAYS];
     mlx_texture_t   *texture[4];
+    uint32_t		*choice;
     uint32_t		**tab;
     char			**map;
     unsigned int	HEIGHT;
@@ -213,7 +227,18 @@ typedef struct cub3d
     uint32_t         S;
 } cub3d_t;
 
-int		mapHasWallAt(cub3d_t *cub,float x, float y);
-void	ft_horizentalIntersection(float rayAngle, int id, info * info1, cub3d_t *cub);
-void	ft_verticalIntersection(float rayAngle, int id, info * info2, cub3d_t *cub);
-void	ft_chooseSmallestDistance(info info1, info info2, int id, float rayAngle, cub3d_t *cub);
+int		    mapHasWallAt(cub3d_t *cub,float x, float y);
+void	    ft_horizentalIntersection(float rayAngle, int id, info * info1, cub3d_t *cub);
+void	    ft_verticalIntersection(float rayAngle, int id, info * info2, cub3d_t *cub);
+void	    ft_chooseSmallestDistance(info info1, info info2, int id, float rayAngle, cub3d_t *cub);
+void        ft_hook(void* param);
+void        ft_my_keyhook(mlx_key_data_t keydata, void *param);
+void	    ft_renderMap(cub3d_t *cub);
+void	    ft_renderPlayer(cub3d_t *cube);
+void	    ft_move_player(cub3d_t *cub);
+void	    ft_cast_rays(cub3d_t *cub);
+void	    ft_generate_projection(cub3d_t *cub, uint32_t tileColor);
+void	    ft_DDA(int X0, int Y0, int X1, int Y1, cub3d_t *cub);
+uint32_t    ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+
+#endif

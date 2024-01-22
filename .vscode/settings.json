@@ -10,6 +10,9 @@
         "locale": "c",
         "string": "c",
         "vector": "c",
-        "math.h": "c"
+        "math.h": "c",
+        "chrono": "c",
+        "complex": "c",
+        "ft_cub3d.h": "c"
     }
 }
