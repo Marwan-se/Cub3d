@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:09 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/03 21:41:54 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/21 17:41:27 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,19 @@ size_t	ft_strlcat(char *dst, char *src, size_t dstsize)
 	}
 	dst[i] = '\0';
 	return (ft_strlen(dst) + ft_strlen(&src[j]));
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	if (!s)
+		return ;
+	i = 0;
+	while (s[i])
+	{
+		write (fd, &s[i], 1);
+		i++;
+	}
+	exit(1);
 }

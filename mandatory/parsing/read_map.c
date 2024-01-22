@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:26:47 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/16 15:08:56 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/21 21:52:49 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int check_empty_newline(char **map, char *line)
     return 0;
 }
 
+
 char    **read_map_file(int file)
 {
     char **map;
@@ -84,17 +85,9 @@ char    **read_map_file(int file)
     char *line;
     int i;
 
-    if (file == -1)
-    {
-        write(2, "Error: File not found\n", 22);
-        return NULL;
-    }
     line = (char *)malloc(sizeof(char) * 2);
     if (!line)
-    {
-        write(2, "Error: Malloc failed\n", 22);
-        exit(1);
-    }
+        ft_putstr_fd("Error: Malloc failed\n", 2);
     joind_str = NULL;
     i = 1;
     while (i > 0)
@@ -113,8 +106,7 @@ char    **read_map_file(int file)
     if (check_empty_newline(map, joind_str))
     {
         free(joind_str);
-        write(2, "remove the extra newline!\n", 27);
-        exit(1);
+        ft_putstr_fd("Error: Empty line in map\n", 2);
     }
     free(joind_str);
     close(file);

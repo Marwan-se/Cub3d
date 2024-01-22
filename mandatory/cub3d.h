@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:19 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/20 03:29:13 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/22 02:34:29 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,10 @@ typedef struct s_cub3d
     unsigned int	WIDTH;
 	int *F;
 	int *C;
+    char *NO;
+    char *SO;
+    char *WE;
+    char *EA;
 } t_cub3d;
 
 
@@ -88,7 +92,7 @@ char	*ft_strjoin(char *s1, char *s2);
 char	*get_next_line(int fd, char **line);
 int parsing(char **map, int file, t_cub3d *player);
 int	ft_strncmp(char *s1, char *s2, size_t n);
-int check_fsl(char *str);
+int check_fsl(char *str, t_cub3d *p);
 int map_handling(char **fsl, char **map, int file, t_cub3d *p);
 int check_xpm(char **fsl);
 int	check_fcc(char **fsl, t_cub3d *p); 
@@ -103,6 +107,8 @@ char	**read_map_file(int file);
 int map_closed(char **map, int i, int j, char p);
 int	ft_atoi(const char *str);
 void	free_2darray(char **array);
+void	ft_putstr_fd(char *s, int fd);
+char *ft_strchr2(char *s, int i);
 
 
 

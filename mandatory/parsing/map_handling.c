@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:30:12 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/20 03:28:23 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/22 02:40:18 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,26 +83,67 @@ void	store_directions(t_Player *p, char c)
 		p->rotationAngle = M_PI;
 }
 
+// void process_map_character(char **map, int row, int col, t_cub3d *player, char *tmp, int *rst)
+// {
+// 	if (invalid_map_char(map, row, col))
+// 	{
+// 		ft_putstr_fd("Error: Invalid map\n", 2);
+// 		return;
+// 	}
+// 	if (map[row][col] == 'N' || map[row][col] == 'S' || map[row][col] == 'E' || map[row][col] == 'W')
+// 	{
+// 		*tmp = map[row][col];
+// 		player->p->y = row * TILE_SIZE / 2;
+// 		player->p->x = col * TILE_SIZE / 2;
+// 		store_directions(player->p, map[row][col]);
+// 		(*rst)++;
+// 	}
+// }
+
+// int check_player(char **map, t_cub3d *player, char *tmp)
+// {
+// 	int i;
+// 	int counter;
+// 	int rst;
+
+// 	i = 6;
+// 	rst = 0;
+// 	player->p = malloc(sizeof(t_Player));
+// 	if (!player->p)
+// 		ft_putstr_fd("Error: Malloc failed\n", 2);
+// 	while (map[i])
+// 	{
+// 		counter = 0;
+// 		while (map[i][counter])
+// 		{
+// 			process_map_character(map, i, counter, player, tmp, &rst);
+// 			counter++;
+// 		}
+// 		i++;
+// 	}
+// 	if (rst != 1)
+// 		ft_putstr_fd("Error: Invalid map\n", 2);
+// 	return 0;
+// }
+
 int	check_player(char **map, t_cub3d *player, char *tmp)
 {
 	int	i;
 	int	counter;
 	int	rst;
 	
-
 	i = 6;
 	rst = 0;
 	player->p = malloc(sizeof(t_Player));
+	if(!player->p)
+		ft_putstr_fd("Error: Malloc failed\n", 2);
 	while(map[i])
 	{
 		counter = 0;
 		while(map[i][counter])
 		{
 			if(invalid_map_char(map, i, counter) )
-			{
-				write(2, "Error: Invalid map character\n", 29);
-				exit(1);
-			}
+				ft_putstr_fd("Error: Invalid map\n", 2);
 			if (map[i][counter] == 'N' || map[i][counter] == 'S' \
 				|| map[i][counter] == 'E' || map[i][counter] == 'W')
 			{
@@ -117,10 +158,7 @@ int	check_player(char **map, t_cub3d *player, char *tmp)
 		i++;
 	}
 	if (rst != 1)
-	{
-		write(2, "Error: Player is not in the map\n", 32);
-		exit(1);
-	}
+		ft_putstr_fd("Error: Invalid map\n", 2);
 	return (0);
 }
 
@@ -153,7 +191,6 @@ int	*store_colors(char **var)
 		}
 		j++;
 	}
-	
 	if (j != 3)
 	{
 		write(2, "Error: Invalid RGB\n", 19);
@@ -162,20 +199,23 @@ int	*store_colors(char **var)
 	free_2darray(var);
 	return (color);
 }
+void	store_fc(char **fsl, int i, t_cub3d *p, char **var)
+{
+	if (ft_strncmp(fsl[i], "F", 1) == 0)
+		p->F = store_colors(var);
+	else if (ft_strncmp(fsl[i], "C", 1) == 0)
+		p->C = store_colors(var);
+}
 
 int	check_fcc(char **fsl, t_cub3d *p)
 {
 	int i;
-	int j;
 	int index;
 	char **var;
 	char *str;
 
 	i = 0;
-	j = 0;
 	index = 0;
-	// p->F = malloc(sizeof(int) * 3);
-	// p->C = malloc(sizeof(int) * 3);
 	while (fsl[i])
 	{
 		if(ft_strchr(fsl[i], ','))
@@ -188,13 +228,10 @@ int	check_fcc(char **fsl, t_cub3d *p)
 				return (1);
 			index = 0;
 			var = ft_split(str, ',');
-			if (ft_strncmp(fsl[i], "F", 1) == 0)
-				p->F = store_colors(var);
-			else if (ft_strncmp(fsl[i], "C", 1) == 0)
-				p->C = store_colors(var);
+			store_fc(fsl, i, p, var);
 		}
 		i++;
-}1
+	}
 	return (0);
 }
 
@@ -243,41 +280,144 @@ void	check_limits(char **map, int i, int k)
 		j++;
 	}
 }
-
-
-int	map_isclosed(char **map, int i, char c, char p)
+int is_surrounded(char **map, int i, int j, char p, int k)
 {
-	int	k;
-	int	j;
-
-	k = 0;
-	while (map[k])
-		k++;
-	check_limits(map, i, k);
-	while (map[++i])
-	{
-		j = -1;
-		while (map[i][++j])
-		{
-			if (map[i][j] == c && i != 6 && i != k - 1)
-			{
-				if (map[i][j + 1] != '1' && map[i][j + 1] != '0' && map[i][j + 1] != p)
-					return (1);
-				if (map[i][j - 1] != '1' && map[i][j - 1] != '0' \
-					&& map[i][j - 1] != p)
-					return (1);
-				if (i + 1 != k - 1 && map[i + 1][j] != '1' && map[i + 1][j] != '0' \
-					&& map[i + 1][j] != p)
-					return (1);
-				if (map[i - 1][j] != '1' && map[i - 1][j] != '0' \
-					&& map[i - 1][j] != p)
-					return (1);
-			}
-		}
-	}
-	return (0);
+    if (map[i][j + 1] != '1' && map[i][j + 1] != '0' && map[i][j + 1] != p)
+        return 1;
+    if (map[i][j - 1] != '1' && map[i][j - 1] != '0' && map[i][j - 1] != p)
+        return 1;
+    if (i + 1 != k - 1 && map[i + 1][j] != '1' && map[i + 1][j] != '0' && map[i + 1][j] != p)
+        return 1;
+    if (map[i - 1][j] != '1' && map[i - 1][j] != '0' && map[i - 1][j] != p)
+        return 1;
+    return 0;
 }
 
+int check_if_map_closed(char **map, int i, char c, char p)
+{
+    int k;
+    int j;
+
+    k = 0;
+    while (map[k])
+        k++;
+    check_limits(map, i, k);
+    while (map[++i])
+    {
+        j = -1;
+        while (map[i][++j])
+        {
+            if (map[i][j] == c && i != 6 && i != k - 1)
+            {
+                if (is_surrounded(map, i, j, p, k))
+                    return (1);
+            }
+        }
+    }
+    return (0);
+}
+
+// void	get_textures(char **fsl, t_cub3d *p)
+// {
+// 	int i;
+// 	char *str;
+
+// 	i = 0;
+// 	while (fsl[i])
+// 	{
+// 		if(ft_strncmp(fsl[i], "NO", 2) == 0)
+// 		{
+// 			str = ft_strchr(fsl[i], ' ');
+// 			++str;
+// 			p->NO = ft_strdup(str);
+// 		}
+// 		else if(ft_strncmp(fsl[i], "SO", 2) == 0)
+// 		{
+// 			str = ft_strchr(fsl[i], ' ');
+// 			++str;
+// 			p->SO = ft_strdup(str);
+// 		}
+// 		else if(ft_strncmp(fsl[i], "WE", 2) == 0)
+// 		{
+// 			str = ft_strchr(fsl[i], ' ');
+// 			++str;
+// 			p->WE = ft_strdup(str);
+// 		}
+// 		else if(ft_strncmp(fsl[i], "EA", 2) == 0)
+// 		{
+// 			str = ft_strchr(fsl[i], ' ');
+// 			++str;
+// 			p->EA = ft_strdup(str);
+// 		}
+// 		i++;
+// 	}
+// }
+
+
+// int ends_with_png(char *str)
+// {
+//     int i;
+
+//     i = 0;
+//     while (str[i])
+//         i++;
+//     while (str[i] == ' ' || str[i] == '\t')
+//         i--;
+    
+//         return (1);
+// 	else
+// 		ft_putstr_fd("Error: Invalid texture\n", 2);
+//     return (0);
+// }
+
+// int	check_texture(char *str)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	while (str[i])
+// 		i++;
+// 	while (str[i] == ' ' || str[i] == '\t')
+// 		i--;
+// 	if (str[i - 1] == 'g' && str[i - 2] == 'n' && str[i - 3] == 'p' && str[i - 4] == '.')
+// 		return (1);
+// 	else
+// 		ft_putstr_fd("Error: Invalid texture\n", 2);
+// 	return (0);
+// }
+
+// int	get_texture(char **fsl, t_cub3d *p)
+// {
+// 	int i;
+// 	char *str;
+
+// 	i = 0;
+// 	while (fsl[i])
+// 	{
+// 		if(ft_strncmp(fsl[i], "NO", 2) == 0 && check_texture(fsl[i]))
+// 		{
+// 			str = ft_strchr2(fsl[i], ' ');
+// 			p->NO = ft_strdup(str);
+// 		}
+// 		else if(ft_strncmp(fsl[i], "SO", 2) == 0 && check_texture(fsl[i]))
+// 		{
+// 			str = ft_strchr2(fsl[i], ' ');
+// 			p->SO = ft_strdup(str);
+// 		}
+// 		else if(ft_strncmp(fsl[i], "WE", 2) == 0 && check_texture(fsl[i]))
+// 		{
+// 			str = ft_strchr2(fsl[i], ' ');
+// 			p->WE = ft_strdup(str);
+// 		}
+// 		else if(ft_strncmp(fsl[i], "EA", 2) == 0 && check_texture(fsl[i]))
+// 		{
+// 			str = ft_strchr2(fsl[i], ' ');
+// 			p->EA = ft_strdup(str);
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 int map_handling(char **fsl, char **map, int file, t_cub3d *p)
 {
@@ -289,39 +429,21 @@ int map_handling(char **fsl, char **map, int file, t_cub3d *p)
 	
 	while (fsl[i] != NULL)
 	{
-		if(check_fsl(fsl[i]))
-		{
-			write(2, "Error: in elements\n", 19);
-			exit(1);		
-		}
+		if(check_fsl(fsl[i] , p))
+			ft_putstr_fd("Error: Invalid element\n", 2);
 		i++;
 	}
-	// if (check_texture(fsl))
-	// {
-	// 	write(2, "Error: in texture\n", 19);
-	// 	return(1);
-	// }
 	if (check_fcc(fsl, p))
-	{
-		write(2, "Error: in RGB\n", 14);
-		exit(1);
-	}
+		ft_putstr_fd("Error: Invalid RGB\n", 2);
 	else if(check_dupfsl(fsl))
-	{
-		write(2, "Error: Duplicate elements\n", 26);
-		exit(1);
-	}
+		ft_putstr_fd("Error: Duplicate element\n", 2);
 	else if(check_player(map, p, &tmp))
 		exit(1);
-	else if (map_isclosed(map, 5, '0', tmp))
-	{
-		printf("map is not closed1\n");
-		exit(1);
-	}
-	else if (map_isclosed(map, 5, tmp, '0'))
-	{
-		printf("map is not closed2\n");
-		exit(1);
-	}
+	else if (check_if_map_closed(map, 5, '0', tmp))
+		ft_putstr_fd("Error: Map is not closed\n", 2);
+	else if (check_if_map_closed(map, 5, tmp, '0'))
+		ft_putstr_fd("Error: Map is not closed\n", 2);
+	// else if (get_texture(fsl, p))
+	// 	ft_putstr_fd("Error: Invalid texture\n", 2);
 	return(0);
-}
+}	
