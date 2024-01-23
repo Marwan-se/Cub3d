@@ -6,14 +6,11 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:26:47 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/21 21:52:49 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/23 02:59:16 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
 
 int check_map_lines(char *line, int i, char *map)
 {
@@ -43,7 +40,7 @@ int find_newline(char *map, char *line)
             while (line[i] == '\n')
                 i++;
             if (check_map_lines(line, i, map))
-                break;
+                break ;
         }
         i++;
     }

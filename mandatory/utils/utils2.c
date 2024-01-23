@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:14 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/22 02:29:24 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/22 23:02:40 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 
 	str = (char *)malloc(sizeof(*s) * (len + 1));
 	if (!str)
-		return (NULL);
+		exit(1);
 	i = 0;
 	j = 0;
 	while (s[i])
@@ -92,7 +92,7 @@ char	*ft_strdup(char *s)
 		return (NULL);
 	str = (char *)malloc(sizeof(*str) * (j + 1));
 	if (!str)
-		return (NULL);
+		exit(1);
 	while (i < j)
 	{
 		str[i] = s[i];
@@ -116,7 +116,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	len = ft_strlen(s1)+ ft_strlen(s2);
 	str = (char *)malloc(len + 1 * sizeof(char));
 	if (str == NULL)
-		return (NULL);
+		exit(1);
 	len = -1;
 	while (s1[++len])
 		str[len] = s1[len];

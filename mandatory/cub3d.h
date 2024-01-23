@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:19 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/22 02:34:29 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/22 23:51:07 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,26 +89,38 @@ char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_strchr(char *s, int i);
 char	*ft_strdup(char *s1);
 char	*ft_strjoin(char *s1, char *s2);
-char	*get_next_line(int fd, char **line);
-int parsing(char **map, int file, t_cub3d *player);
-int	ft_strncmp(char *s1, char *s2, size_t n);
-int check_fsl(char *str, t_cub3d *p);
-int map_handling(char **fsl, char **map, int file, t_cub3d *p);
-int check_xpm(char **fsl);
-int	check_fcc(char **fsl, t_cub3d *p); 
-int	check_dupfsl(char **fsl);
-int	check_player(char **map, t_cub3d *p, char *tmp);
-int fc_space(char *s, int *k);
+int		parsing(char **map, int file, t_cub3d *player);
+int		ft_strncmp(char *s1, char *s2, size_t n);
+int		check_fsl(char *str, t_cub3d *p);
+int		map_handling(char **fsl, char **map, int file, t_cub3d *p);
+int		check_fcc(char **fsl, t_cub3d *p); 
+int		check_player(char **map, t_cub3d *p, char *tmp);
+int		fc_space(char *s, int *k);
 size_t	ft_strlcpy(char *dst,  char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, char *src, size_t dstsize);
 char	**ft_split(char *s, char c);
 size_t	ft_strlen(char *str);
 char	**read_map_file(int file);
-int map_closed(char **map, int i, int j, char p);
-int	ft_atoi(const char *str);
+int		ft_atoi(const char *str);
 void	free_2darray(char **array);
 void	ft_putstr_fd(char *s, int fd);
-char *ft_strchr2(char *s, int i);
+char	*ft_strchr2(char *s, int i);
+void	check_limits(char **map, int i, int k);
+int		is_surrounded(char **map, int i, int j, char p, int k);
+int		check_if_map_closed(char **map, int i, char c, char p);
+int		*store_colors(char **var);
+void	store_fc(char **fsl, int i, t_cub3d *p, char **var);
+int		check_fcc(char **fsl, t_cub3d *p);
+int		fc_space(char *s, int *k);
+void	free_2darray(char **array);
+int 	check_empty_line(char **map, int map_size);
+int		duplicate_elemnts_checker(char **fsl);
+void	replace_spaces_with_2(char **map);
+int		get_max_length(char **map);
+void	copy_row(char **rectangle_map, char **map, int i, int max_length);
+int		calculate_max_length(char **map);
+char	**full_map(char **map);
+
 
 
 

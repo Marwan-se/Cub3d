@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:09 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/21 17:41:27 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/22 22:56:42 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,17 @@ void	ft_putstr_fd(char *s, int fd)
 		i++;
 	}
 	exit(1);
+}
+
+void	free_2darray(char **array)
+{
+	int i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 }

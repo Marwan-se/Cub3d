@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:26:51 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/21 17:43:29 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/22 22:59:19 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,48 @@ void	check_syntax(char *file, int ac)
 	}
 	write(2, "Error: Wrong file extension\n", 28);
 	exit(1);
+}
+
+int check_empty_line(char **map, int map_size)
+{
+    int i = 0;
+    while (i < map_size)
+	{
+        int empty_line = 1;
+        int j = 0;
+        while (map[i][j] != '\0')
+		{
+            if (map[i][j] != ' ')
+			{
+                empty_line = 0;
+                break;
+            }
+            j++;
+        }
+        if (empty_line)
+            return 1;
+        i++;
+    }
+    return 0;
+}
+
+int	duplicate_elemnts_checker(char **fsl)
+{
+	int i;
+	int count;
+
+	i = 0;
+	count = 0;
+	while (fsl[i])
+	{
+		count = i + 1;
+		while (fsl[count])
+		{
+			if (ft_strncmp(fsl[i], fsl[count], ft_strlen(fsl[i])) == 0)
+				return (1);
+			count++;
+		}
+		i++;
+	}
+	return (0);
 }

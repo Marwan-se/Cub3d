@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:04 by msekhsou          #+#    #+#             */
-/*   Updated: 2023/12/28 23:20:01 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/22 23:02:58 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*ft_mem_word(char *s, char c)
 		i++;
 	tab = (char *)malloc(sizeof(char) * (i + 1));
 	if (!tab)
-		return (NULL);
+		exit(1);
 	ft_strlcpy(tab, s, i + 1);
 	return (tab);
 }
@@ -64,7 +64,7 @@ static char	**ft_fixn(char *s, char c)
 	words = ft_counter(s, c);
 	tab = malloc(sizeof(char *) * (words + 1));
 	if (!tab)
-		return (NULL);
+		exit(1);
 	while (i < words)
 	{
 		while (s[0] == c)

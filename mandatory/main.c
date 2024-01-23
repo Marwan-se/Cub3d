@@ -6,10 +6,9 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:23 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/22 03:03:21 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/22 23:52:34 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "cub3d.h"
 
@@ -31,24 +30,6 @@ void	map_error(char **map)
 	}
 }
 
-void replace_spaces_with_2(char **map)
-{
-    int i = 0;
-    int j = 0;
-
-    while (map[i])
-    {
-            j = 0;
-            while (map[i][j]) {
-                if (map[i][j] == ' ')
-                    map[i][j] = '2';
-                j++;
-            }
-        i++;
-    }
-}
-
-
 void    free_map(char **map)
 {
     int i = 0;
@@ -58,66 +39,6 @@ void    free_map(char **map)
         i++;
     }
     free(map);
-}
-
-char **full_map(char **map)
-{
-    int max_length = 0;
-    int i;
-    int j;
-    int rows;
-
-    rows = 0;
-    while (map[rows])
-        rows++;
-    i = 0;
-    while (i < rows)
-    {
-        int length = ft_strlen(map[i]);
-        if (length > max_length)
-            max_length = length;
-        i++;
-    }
-    char **rectangle_map = (char**)malloc((rows + 1) * sizeof(char*));
-    if(!rectangle_map)
-    {
-        write(2, "Error: Malloc failed\n", 22);
-        exit(1);
-    }
-    i = 0;
-    while (i < rows)
-    {
-        if (i < 6)
-        {
-            rectangle_map[i] = (char*)malloc((strlen(map[i]) + 1) * sizeof(char));
-            if(!rectangle_map[i])
-            {
-                write(2, "Error: Malloc failed\n", 22);
-                exit(1);
-            }
-            strcpy(rectangle_map[i], map[i]);
-        }
-        else
-        {
-            rectangle_map[i] = (char*)malloc((max_length + 1) * sizeof(char));
-            if(!rectangle_map[i])
-            {
-                write(2, "Error: Malloc failed\n", 22);
-                exit(1);
-            }
-            strcpy(rectangle_map[i], map[i]);
-            j = ft_strlen(rectangle_map[i]);
-            while (j < max_length)
-            {
-                rectangle_map[i][j] = '2';
-                j++;
-            }
-            rectangle_map[i][max_length] = '\0';
-        }
-        i++;
-    }
-    rectangle_map[rows] = NULL;
-    return (rectangle_map + 6);
 }
 
 // void	ft_setup(void *param)
@@ -185,7 +106,6 @@ int main(int ac, char **av)
 	int fd;
     
     player = malloc(sizeof(t_cub3d));
-    // memset(player.inf, 0, sizeof(t_Infplayer));
     if(!player)
         ft_putstr_fd("Error: Malloc failed\n", 2);
 	check_syntax(av[1], ac);
@@ -196,25 +116,23 @@ int main(int ac, char **av)
 	parsing(player->map, fd, player);
 	player->map = full_map(player->map);
     replace_spaces_with_2(player->map);
-    
-    // printf("#########################");
-
-    // printf("#########################");
-    // int i = 0;
-    // while (player->map[i])
-    // {
-    //     printf("%s\n", player->map[i]);
-    //     i++;
-    // }
-
-    // printf("%s\n", player->NO);
-    // printf("%s\n", player->SO);
-    // printf("%s\n", player->WE);
-    // printf("%s\n", player->EA);
-    // printf("%d\n", player->F[0]);
-    // printf("%d\n", player->F[1]);
-    // printf("%d\n", player->F[2]);
-    // printf("%d\n", player->C[0]);
-    // printf("%d\n", player->C[1]);
-    // printf("%d\n", player->C[2]);
+	int i = 0;
+	while (player->map[i])
+	{
+		printf("%s\n", player->map[i]);
+		i++;
+	}
+	// printf("%f\n", player->p->x);
+	// printf("%f\n", player->p->y);
 }
+
+// printf("%s\n", player->NO);
+// printf("%s\n", player->SO);
+// printf("%s\n", player->WE);
+// printf("%s\n", player->EA);
+// printf("%d\n", player->F[0]);
+// printf("%d\n", player->F[1]);
+// printf("%d\n", player->F[2]);
+// printf("%d\n", player->C[0]);
+// printf("%d\n", player->C[1]);
+// printf("%d\n", player->C[2]);
