@@ -6,7 +6,7 @@
 /*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:19 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 04:55:54 by mlahlafi         ###   ########.fr       */
+/*   Updated: 2024/01/24 07:02:42 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 #define FOV_ANGLE (80 * M_PI / 180)
 #define NUM_RAYS WINDOW_WIDTH
 #define SACALE_FACTOR 0.5
-#define texture_hight 64
-#define texture_width 64
+#define texture_hight 128
+#define texture_width 128
 
 
 
@@ -149,8 +149,8 @@ void	copy_row(char **rectangle_map, char **map, int i, int max_length);
 int		calculate_max_length(char **map);
 char	**full_map(char **map, t_cub3d *p);
 int			map_has_wall_at(t_cub3d *cub,float x, float y);
-void		ft_horizentalIntersection(float rayAngle, int id, info * info1, t_cub3d *cub);
-void		ft_verticalIntersection(float rayAngle, int id, info * info2, t_cub3d *cub);
+void		ft_horizentalIntersection(float rayAngle, info * info1, t_cub3d *cub);
+void		ft_verticalIntersection(float rayAngle, info * info2, t_cub3d *cub);
 void		ft_chooseSmallestDistance(info info1, info info2, int id, float rayAngle, t_cub3d *cub);
 void    	ft_hook(void* param);
 void    	ft_my_keyhook(mlx_key_data_t keydata, void *param);

@@ -6,7 +6,7 @@
 /*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 02:56:19 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/24 04:50:59 by mlahlafi         ###   ########.fr       */
+/*   Updated: 2024/01/24 06:27:28 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,10 @@ void	ft_wall_hight(t_cub3d *cub, int *wall_s_hight, int i, int *wall_top_btm)
 {
 	float	dpp;
 	float	wall_hight;
-	int		wall_tp_pixel;
-	int		wall_bt_pix;
 
 	dpp = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
-	wall_hight = tile_size / (cos(cub->rays[i].rayAngle - cub->p->rotation_angle)
-			* cub->rays[i].distance) * dpp;
+	wall_hight = tile_size / (cos(cub->rays[i].rayAngle
+				- cub->p->rotation_angle) * cub->rays[i].distance) * dpp;
 	*wall_s_hight = (int) wall_hight;
 	wall_top_btm[0] = WINDOW_HEIGHT / 2 - *wall_s_hight / 2;
 	wall_top_btm[0] = (wall_top_btm[0] < 0) * 0

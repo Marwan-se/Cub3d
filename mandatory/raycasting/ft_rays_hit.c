@@ -6,7 +6,7 @@
 /*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 02:50:29 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/24 05:02:23 by mlahlafi         ###   ########.fr       */
+/*   Updated: 2024/01/24 05:53:53 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_chooseSmallestDistance(info info1, info info2, int id, float rayAngle, t
 	cub->rays[id].isFacingRight = info1.facingRight;
 }
 //------------------------------------Horizental intersection code -----------------------------------------
-void	ft_horizentalIntersection(float rayAngle, int id, info * info1, t_cub3d *cub)
+void	ft_horizentalIntersection(float rayAngle, info * info1, t_cub3d *cub)
 {
     float	xstep;
 	float	ystep;
@@ -77,7 +77,7 @@ void	ft_horizentalIntersection(float rayAngle, int id, info * info1, t_cub3d *cu
 	}
 }
 //------------------------------------Vertical intersection code --------------------------------------------
-void	ft_verticalIntersection(float rayAngle, int id, info * info2, t_cub3d *cub)
+void	ft_verticalIntersection(float rayAngle, info * info2, t_cub3d *cub)
 {
 	float	xstep;
 	float	ystep;

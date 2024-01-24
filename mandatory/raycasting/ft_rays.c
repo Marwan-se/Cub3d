@@ -6,7 +6,7 @@
 /*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 02:52:25 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/24 05:02:23 by mlahlafi         ###   ########.fr       */
+/*   Updated: 2024/01/24 05:55:47 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void ft_castRay(float rayAngle, int stripId, t_cub3d *cub)
 	info2.foundWallHit = FALSE;
     info2.wallHitX = 0;
     info2.wallContent = 0;
-	ft_horizentalIntersection(rayAngle, stripId, &info1, cub);
-	ft_verticalIntersection(rayAngle, stripId, &info2, cub);
+	ft_horizentalIntersection(rayAngle, &info1, cub);
+	ft_verticalIntersection(rayAngle, &info2, cub);
 	ft_chooseSmallestDistance(info1, info2, stripId, rayAngle, cub);
 }
 

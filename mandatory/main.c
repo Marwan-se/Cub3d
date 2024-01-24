@@ -6,7 +6,7 @@
 /*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:23 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 04:58:04 by mlahlafi         ###   ########.fr       */
+/*   Updated: 2024/01/24 07:06:43 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	ft_setup(void *param)
 	player->p->turnDirection = 0;
 	player->p->walkDirection = 0;
 	player->p->turnDirection2 = 0;
+	player->p->sideWalkDirection = 0;
 	// player->p->rotation_angle = M_PI / 2;
 	player->p->walkSpeed = 250;
 	player->p->turnSpeed = 10 * (M_PI / 180);
@@ -72,15 +73,15 @@ void	ft_setup(void *param)
 	img[3] = mlx_texture_to_image(player->mlx, player->texture[3]);
 	if (!img[0] || !img[1] || !img[2] || !img[3])
 		return(perror("allocation failed"), exit(0));
-	mlx_resize_image(img[0], player->texture[0]->height, player->texture[0]->height);
-	mlx_resize_image(img[1], player->texture[1]->height, player->texture[1]->height);
-	mlx_resize_image(img[2], player->texture[2]->height, player->texture[2]->height);
-	mlx_resize_image(img[3], player->texture[3]->height, player->texture[3]->height);
+	mlx_resize_image(img[0], texture_hight, texture_hight);
+	mlx_resize_image(img[1], texture_hight, texture_hight);
+	mlx_resize_image(img[2], texture_hight, texture_hight);
+	mlx_resize_image(img[3], texture_hight, texture_hight);
 	player->tab = malloc (4 * sizeof(uint32_t *));
-	player->tab[0] = malloc((player->texture[0]->height * player->texture[0]->height) * sizeof(uint32_t));
-	player->tab[1] = malloc((player->texture[1]->height * player->texture[1]->height) * sizeof(uint32_t));
-	player->tab[2] = malloc((player->texture[2]->height * player->texture[2]->height) * sizeof(uint32_t));
-	player->tab[3] = malloc((player->texture[3]->height * player->texture[3]->height) * sizeof(uint32_t));
+	player->tab[0] = malloc((texture_hight * texture_hight) * sizeof(uint32_t));
+	player->tab[1] = malloc((texture_hight * texture_hight) * sizeof(uint32_t));
+	player->tab[2] = malloc((texture_hight * texture_hight) * sizeof(uint32_t));
+	player->tab[3] = malloc((texture_hight * texture_hight) * sizeof(uint32_t));
 	if (!player->tab[0] || !player->tab[1] || !player->tab[2] || !player->tab[3])
 		return(perror("allocation failed"), exit(0));
 	unsigned int i = 0;

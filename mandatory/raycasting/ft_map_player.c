@@ -6,7 +6,7 @@
 /*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 02:57:49 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/24 04:57:25 by mlahlafi         ###   ########.fr       */
+/*   Updated: 2024/01/24 06:09:59 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	map_has_wall_at(t_cub3d *cub, float x, float y)
 {
-	int	mapgrid_index_x;
-	int	mapgrid_index_y;
+	unsigned int	mapgrid_index_x;
+	unsigned int	mapgrid_index_y;
 
 	if (x < 0 || x > cub->map_num_cols * tile_size || y < 0
 		|| y > cub->map_num_rows * tile_size)
@@ -75,10 +75,10 @@ void	ft_render_player(t_cub3d *cube)
 
 void	ft_set_color(t_cub3d *cub, int startX, int startY, int i)
 {
-	int		x;
-	int		y;
+	unsigned int	x;
+	unsigned int	y;
 	int		tile_color;
-	int		j;
+	int				j;
 
 	j = 0;
 	while (j < 300)
