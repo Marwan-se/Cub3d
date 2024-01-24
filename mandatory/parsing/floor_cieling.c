@@ -6,11 +6,11 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 22:52:39 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 00:43:48 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 10:06:39 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../raycasting/cub3d.h"
 
 int	*store_colors(char **var)
 {
@@ -45,9 +45,9 @@ void	store_fc(char **fsl, int i, t_cub3d *p, char **var)
 
 	color = store_colors(var);
 	if (ft_strncmp2(fsl[i], "F", 1) == 0)
-		p->F = ft_pixel(color[0], color[1], color[2], 255);
+		p->f = ft_pixel(color[0], color[1], color[2], 255);
 	else if (ft_strncmp2(fsl[i], "C", 1) == 0)
-		p->C = ft_pixel(color[0], color[1], color[2], 255);
+		p->c = ft_pixel(color[0], color[1], color[2], 255);
 }
 
 int	check_fcc(char **fsl, t_cub3d *p)
@@ -61,7 +61,7 @@ int	check_fcc(char **fsl, t_cub3d *p)
 	index = 0;
 	while (fsl[i])
 	{
-		if(ft_strchr1(fsl[i], ','))
+		if (ft_strchr1(fsl[i], ','))
 		{
 			str = ft_strchr1(fsl[i], ' ');
 			++str;
@@ -78,10 +78,11 @@ int	check_fcc(char **fsl, t_cub3d *p)
 	return (0);
 }
 
-int fc_space(char *s, int *k)
+int	fc_space(char *s, int *k)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	while (s[i] == 32)
 		i++;
 	while (s[i] != 32 && s[i])

@@ -7,7 +7,7 @@
 
 #include "MLX42/MLX42_Int.h"
 
-const char* frag_shader = "#version 330 core\n"
+const char	*frag_shader = "#version 330 core\n"
 	"in vec2 TexCoord;"
 	"flat in int TexIndex;"
 	"out vec4 FragColor;"

@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlahlafi <mlahlafi@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 10:36:34 by mlahlafi          #+#    #+#             */
-/*   Updated: 2022/10/10 19:04:20 by mlahlafi         ###   ########.fr       */
+/*   Updated: 2024/01/24 10:12:04 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
 int	ft_tolower(int c)
 {
 	if (c - 'A' >= 0 && c - 'A' <= 25)
-			c += 32;
+		c += 32;
 	return (c);
 }
 /*int main(void)

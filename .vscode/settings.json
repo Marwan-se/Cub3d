@@ -9,6 +9,8 @@
         "locale": "c",
         "stdio.h": "c",
         "string.h": "c",
-        "sstream": "c"
+        "sstream": "c",
+        "mlx42.h": "c",
+        "chrono": "c"
     }
 }

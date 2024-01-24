@@ -6,12 +6,11 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:09 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/23 18:09:34 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 06:06:01 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "../cub3d.h"
+#include "../raycasting/cub3d.h"
 
 int	ft_strncmp2(char *s1, char *s2, size_t n)
 {
@@ -30,7 +29,7 @@ int	ft_strncmp2(char *s1, char *s2, size_t n)
 	return ((unsigned char)(s1[i]) - (unsigned char)(s2[i]));
 }
 
-size_t	ft_strlcpy2(char *dst,  char *src, size_t dstsize)
+size_t	ft_strlcpy2(char *dst, char *src, size_t dstsize)
 {
 	size_t	i;
 	size_t	j;
@@ -86,7 +85,7 @@ void	ft_putstr_fd(char *s, int fd)
 
 void	free_2darray(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (array[i])
