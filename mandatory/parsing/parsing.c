@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 02:33:54 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/22 02:37:03 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:14:56 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int parsing(char **map, int file, t_cub3d *player)
     }
     while (map[i] && i < 6)
     {
-        fsl[i] = ft_strdup(map[i]);
+        fsl[i] = ft_strdup2(map[i]);
         i++;
     }
     fsl[i] = NULL;

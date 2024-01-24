@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:28:26 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/22 23:29:03 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 03:15:50 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void replace_spaces_with_2(char **map)
     int i = 0;
     int j = 0;
 
-    while (map[i])
+    while (map[i] != NULL)
     {
             j = 0;
             while (map[i][j])
@@ -30,25 +30,6 @@ void replace_spaces_with_2(char **map)
     }
 }
 
-int get_max_length(char **map)
-{
-    int max_length = 0;
-    int rows = 0;
-
-    while (map[rows])
-        rows++;
-
-    int i = 0;
-    while (i < rows)
-    {
-        int length = ft_strlen(map[i]);
-        if (length > max_length)
-            max_length = length;
-        i++;
-    }
-
-    return max_length;
-}
 
 void copy_row(char **rectangle_map, char **map, int i, int max_length)
 {
@@ -56,10 +37,10 @@ void copy_row(char **rectangle_map, char **map, int i, int max_length)
 
     if (i < 6)
 	{
-        rectangle_map[i] = (char*)malloc((strlen(map[i]) + 1) * sizeof(char));
+        rectangle_map[i] = (char*)malloc((max_length + 1) * sizeof(char));
         if (!rectangle_map[i])
             ft_putstr_fd("Error: Malloc failed\n", 2);
-        strcpy(rectangle_map[i], map[i]);
+        ft_strlcpy2(rectangle_map[i], map[i], max_length + 1);
     }
     else
 	{
@@ -67,7 +48,7 @@ void copy_row(char **rectangle_map, char **map, int i, int max_length)
         if (!rectangle_map[i])
             ft_putstr_fd("Error: Malloc failed\n", 2);
         strcpy(rectangle_map[i], map[i]);
-        j = ft_strlen(rectangle_map[i]);
+        j = ft_strlen2(rectangle_map[i]);
         while (j < max_length)
 		{
             rectangle_map[i][j] = '2';
@@ -77,25 +58,25 @@ void copy_row(char **rectangle_map, char **map, int i, int max_length)
     }
 }
 
-int calculate_max_length(char **map)
+int calculate_max_cols_inmap(char **map)
 {
     int max_length;
     int i;
-	int	length;
+    int length;
 
-	i = 0;
-	max_length = 0;
+    i = 6;
+    max_length = 0;
     while (map[i])
-	{
-        length = ft_strlen(map[i]);
+    {
+        length = ft_strlen2(map[i]);
         if (length > max_length)
             max_length = length;
         i++;
     }
-    return (max_length);
+    return max_length;
 }
 
-char **full_map(char **map)
+char **full_map(char **map, t_cub3d *p)
 {
     int max_length;
     int i;
@@ -107,8 +88,10 @@ char **full_map(char **map)
 	max_length = 0;
     while (map[rows])
         rows++;
+    p->MAP_NUM_ROWS = rows - 6;
     i = 0;
-	max_length = calculate_max_length(map);
+    max_length = calculate_max_cols_inmap(map);
+    p->MAP_NUM_COLS = max_length;
     rectangle_map = (char**)malloc((rows + 1) * sizeof(char*));
     if(!rectangle_map)
         ft_putstr_fd("Error: Malloc failed\n", 2);

@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:04 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/22 23:02:58 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:09:20 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	*ft_mem_word(char *s, char c)
 	tab = (char *)malloc(sizeof(char) * (i + 1));
 	if (!tab)
 		exit(1);
-	ft_strlcpy(tab, s, i + 1);
+	ft_strlcpy2(tab, s, i + 1);
 	return (tab);
 }
 
@@ -74,14 +74,14 @@ static char	**ft_fixn(char *s, char c)
 		{
 			return (ft_free(tab, i));
 		}
-		s += ft_strlen(tab[i]);
+		s += ft_strlen2(tab[i]);
 		i++;
 	}
 	tab[i] = 0;
 	return (tab);
 }
 
-char	**ft_split(char *s, char c)
+char	**ft_split2(char *s, char c)
 {
 	if (!s)
 		return (NULL);

@@ -6,14 +6,14 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:14 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/22 23:02:40 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:15:36 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../cub3d.h"
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr2(char *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	size_t	j;
@@ -37,7 +37,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	return (str);
 }
 
-size_t	ft_strlen(char *s)
+size_t	ft_strlen2(char *s)
 {
 	int	i;
 
@@ -50,7 +50,7 @@ size_t	ft_strlen(char *s)
 	}
 	return (i);
 }
-char	*ft_strchr(char *s, int i)
+char	*ft_strchr1(char *s, int i)
 {
 	while (*s)
 	{
@@ -80,14 +80,14 @@ char	*ft_strchr2(char *s, int i)
 	return (0);
 }
 
-char	*ft_strdup(char *s)
+char	*ft_strdup2(char *s)
 {
 	int		i;
 	int		j;
 	char	*str;
 
 	i = 0;
-	j = ft_strlen(s);
+	j = ft_strlen2(s);
 	if(s == NULL)
 		return (NULL);
 	str = (char *)malloc(sizeof(*str) * (j + 1));
@@ -102,7 +102,7 @@ char	*ft_strdup(char *s)
 	return (str);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin2(char *s1, char *s2)
 {
 	char	*str;
 	size_t	len;
@@ -113,7 +113,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		s1 = (char *)malloc(1 * sizeof(char));
 		s1[0] = '\0';
 	}
-	len = ft_strlen(s1)+ ft_strlen(s2);
+	len = ft_strlen2(s1)+ ft_strlen2(s2);
 	str = (char *)malloc(len + 1 * sizeof(char));
 	if (str == NULL)
 		exit(1);
@@ -132,7 +132,7 @@ char	*ft_strjoin(char *s1, char *s2)
 
 
 
-int ft_atoi(const char *str)
+int ft_atoi2(const char *str)
 {
     int x;
     int sign;

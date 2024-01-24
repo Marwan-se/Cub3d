@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:26:47 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/23 02:59:16 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:15:22 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int check_map_lines(char *line, int i, char *map)
 {
-    int map_len = ft_strlen(map);
+    int map_len = ft_strlen2(map);
     int j = 0;
     
     while (line[i] != '\n')
@@ -30,7 +30,7 @@ int check_map_lines(char *line, int i, char *map)
 int find_newline(char *map, char *line)
 {
     int i = 0;
-    int string_len = ft_strlen(line);
+    int string_len = ft_strlen2(line);
     
     while (i < string_len)
     {
@@ -96,10 +96,10 @@ char    **read_map_file(int file)
             return NULL;
         }
         line[i] = '\0';
-        joind_str = ft_strjoin(joind_str, line);
+        joind_str = ft_strjoin2(joind_str, line);
     }
     free(line);
-    map = ft_split(joind_str, '\n');
+    map = ft_split2(joind_str, '\n');
     if (check_empty_newline(map, joind_str))
     {
         free(joind_str);

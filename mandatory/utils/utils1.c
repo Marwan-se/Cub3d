@@ -6,14 +6,14 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:09 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/22 22:56:42 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:09:34 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../cub3d.h"
 
-int	ft_strncmp(char *s1, char *s2, size_t n)
+int	ft_strncmp2(char *s1, char *s2, size_t n)
 {
 	size_t	i;
 
@@ -30,7 +30,7 @@ int	ft_strncmp(char *s1, char *s2, size_t n)
 	return ((unsigned char)(s1[i]) - (unsigned char)(s2[i]));
 }
 
-size_t	ft_strlcpy(char *dst,  char *src, size_t dstsize)
+size_t	ft_strlcpy2(char *dst,  char *src, size_t dstsize)
 {
 	size_t	i;
 	size_t	j;
@@ -50,14 +50,14 @@ size_t	ft_strlcpy(char *dst,  char *src, size_t dstsize)
 	return (i);
 }
 
-size_t	ft_strlcat(char *dst, char *src, size_t dstsize)
+size_t	ft_strlcat2(char *dst, char *src, size_t dstsize)
 {
 	size_t	i;
 	size_t	j;
 
-	if (dstsize == 0 || dstsize <= ft_strlen(dst))
-		return (dstsize + ft_strlen(src));
-	i = ft_strlen(dst);
+	if (dstsize == 0 || dstsize <= ft_strlen2(dst))
+		return (dstsize + ft_strlen2(src));
+	i = ft_strlen2(dst);
 	j = 0;
 	while (src[j] != '\0' && i + 1 < dstsize)
 	{
@@ -66,7 +66,7 @@ size_t	ft_strlcat(char *dst, char *src, size_t dstsize)
 		j++;
 	}
 	dst[i] = '\0';
-	return (ft_strlen(dst) + ft_strlen(&src[j]));
+	return (ft_strlen2(dst) + ft_strlen2(&src[j]));
 }
 
 void	ft_putstr_fd(char *s, int fd)
