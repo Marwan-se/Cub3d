@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 02:57:49 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/24 00:51:15 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 04:19:46 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_move_player(t_cub3d *cub)
 	float	moveStep2 = cub->p->sideWalkDirection * cub->p->walkSpeed / 4 * 0.1;
 	float	newPlayerX = cub->p->x + cos(cub->p->rotationAngle) * moveStep * 0.2 + cos(cub->p->rotationAngle + M_PI / 2) * moveStep2;
 	float	newPlayerY = cub->p->y + sin(cub->p->rotationAngle) * moveStep * 0.2 + sin(cub->p->rotationAngle + M_PI / 2) * moveStep2;
+	
 	if (!mapHasWallAt(cub, newPlayerX, cub->p->y))
 	{
 		cub->p->x = newPlayerX;
