@@ -12,7 +12,7 @@ HEADER = ft_cub3d.h
 
 # OBJ_DIR = obj
 
-SRC = ft_cube.c ft_hooks.c ft_map_player.c ft_generate_projection.c ft_rays_hit.c ft_rays.c
+SRC = ft_cube.c ft_hooks.c ft_map_player.c ft_generate_projection.c ft_rays_hit.c ft_rays.c read_map_file.c ft_new_full_map.c
 
 OBJ = $(SRC:.c=.o)
 

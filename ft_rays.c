@@ -6,13 +6,13 @@
 /*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 02:52:25 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/22 04:02:24 by mlahlafi         ###   ########.fr       */
+/*   Updated: 2024/01/24 00:17:50 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_DDA(int X0, int Y0, int X1, int Y1, cub3d_t *cub)
+void	ft_DDA(int X0, int Y0, int X1, int Y1, t_cub3d *cub)
 {
 	int		i;
 	float	X;
@@ -49,7 +49,7 @@ float ft_normalizeAngle(float angle)
     return angle;
 }
 
-void ft_castRay(float rayAngle, int stripId, cub3d_t *cub)
+void ft_castRay(float rayAngle, int stripId, t_cub3d *cub)
 {
 	info	info1;
 	info	info2;
@@ -70,7 +70,7 @@ void ft_castRay(float rayAngle, int stripId, cub3d_t *cub)
 	ft_chooseSmallestDistance(info1, info2, stripId, rayAngle, cub);
 }
 
-void	ft_cast_rays(cub3d_t *cub)
+void	ft_cast_rays(t_cub3d *cub)
 {
 	float	rayAngle;
 	int		id;
@@ -80,7 +80,7 @@ void	ft_cast_rays(cub3d_t *cub)
 	DPP = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
 	while (id < NUM_RAYS)
 	{
-		rayAngle = cub->p.rotationAngle + atan((id - NUM_RAYS / 2) / DPP);
+		rayAngle = cub->p.rotation_angle + atan((id - NUM_RAYS / 2) / DPP);
 		ft_castRay(rayAngle, id, cub);
 		id++;
 	}

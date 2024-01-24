@@ -4,17 +4,17 @@
 #define PI 3.14159265
 #define TWO_PI 6.28318530
 
-#define TILE_SIZE 64
-#define MAP_NUM_ROWS 13
-#define MAP_NUM_COLS 20
+#define tile_size 64
+#define map_num_rows 13
+#define map_num_cols 20
 #define NUM_TEXTURES 8
 
 #define MINIMAP_SCALE_FACTOR 0.2
 
-#define WINDOW_WIDTH (MAP_NUM_COLS * TILE_SIZE)
-#define WINDOW_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
+#define WINDOW_WIDTH (map_num_cols * tile_size)
+#define WINDOW_HEIGHT (map_num_rows * tile_size)
 
-#define TEXTURE_WIDTH 64
+#define texture_width 64
 #define TEXTURE_HEIGHT 64
 
 #define FOV_ANGLE (60 * (PI / 180))
