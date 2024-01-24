@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 06:08:03 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 08:01:42 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 20:02:13 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,14 @@ int	ft_atoi2(const char *str)
 		x++;
 	}
 	return (res * sign);
+}
+
+int	count_map_lines(char **map)
+{
+	int	count;
+
+	count = 0;
+	while (map[count] != NULL)
+		count++;
+	return (count);
 }

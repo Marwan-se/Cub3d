@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:19 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 10:05:15 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 20:02:27 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define FOV_ANGLE (80 * M_PI / 180)
 # define NUM_RAYS WINDOW_WIDTH
 # define SACALE_FACTOR 0.5
-# define TEXTURE_HIGHT 64
-# define TEXTURE_WIDTH 64
+# define TEXTURE_HIGHT 128
+# define TEXTURE_WIDTH 128
 
 typedef struct s_Player
 {
@@ -142,6 +142,7 @@ void		copy_row(char **rectangle_map, char **map, int i, int max_length);
 void		init_texture(t_cub3d *p, mlx_image_t **img);
 char		**full_map(char **map, t_cub3d *p);
 int			map_has_wall_at(t_cub3d *cub, float x, float y);
+int			count_map_lines(char **map);
 void		ft_horizental_intersection(float ray_angle, \
 				t_info *info1, t_cub3d *cub);
 void		ft_vertical_intersection(float ray_angle, t_info *info2, t_cub3d *cub);

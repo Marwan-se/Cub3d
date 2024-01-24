@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 02:33:54 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 10:06:30 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 19:55:37 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@ void	init_texture(t_cub3d *p, mlx_image_t **img)
 	img[3] = mlx_texture_to_image(p->mlx, p->txt[3]);
 	if (!img[0] || !img[1] || !img[2] || !img[3])
 		return (perror("allocation failed"), exit(0));
-	mlx_resize_image(img[0], p->txt[0]->height, p->txt[0]->height);
-	mlx_resize_image(img[1], p->txt[1]->height, p->txt[1]->height);
-	mlx_resize_image(img[2], p->txt[2]->height, p->txt[2]->height);
-	mlx_resize_image(img[3], p->txt[3]->height, p->txt[3]->height);
+	mlx_resize_image(img[0], TEXTURE_HIGHT, TEXTURE_HIGHT);
+	mlx_resize_image(img[1], TEXTURE_HIGHT, TEXTURE_HIGHT);
+	mlx_resize_image(img[2], TEXTURE_HIGHT, TEXTURE_HIGHT);
+	mlx_resize_image(img[3], TEXTURE_HIGHT, TEXTURE_HIGHT);
 	p->tab = malloc (4 * sizeof(uint32_t *));
-	p->tab[0] = malloc((p->txt[0]->height * p->txt[0]->height) * 4);
-	p->tab[1] = malloc((p->txt[1]->height * p->txt[1]->height) * 4);
-	p->tab[2] = malloc((p->txt[2]->height * p->txt[2]->height) * 4);
-	p->tab[3] = malloc((p->txt[3]->height * p->txt[3]->height) * 4);
+	p->tab[0] = malloc((TEXTURE_HIGHT * TEXTURE_HIGHT) * 4);
+	p->tab[1] = malloc((TEXTURE_HIGHT * TEXTURE_HIGHT) * 4);
+	p->tab[2] = malloc((TEXTURE_HIGHT * TEXTURE_HIGHT) * 4);
+	p->tab[3] = malloc((TEXTURE_HIGHT * TEXTURE_HIGHT) * 4);
 	if (!p->tab[0] || !p->tab[1] || !p->tab[2] || !p->tab[3])
 		return (perror("allocation failed"), exit(0));
 }
