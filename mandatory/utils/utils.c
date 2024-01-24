@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:04 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/23 18:09:20 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 05:04:18 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../raycasting/cub3d.h"
 
 static size_t	ft_counter(char const *s, char c)
 {

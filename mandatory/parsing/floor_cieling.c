@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   floor_cieling.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 22:52:39 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 00:43:48 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 05:05:43 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../raycasting/cub3d.h"
 
 int	*store_colors(char **var)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:26:51 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/23 19:38:28 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 05:03:59 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../raycasting/cub3d.h"
 
 void	check_syntax(char *file, int ac)
 {

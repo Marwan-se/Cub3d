@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   new_full_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:28:26 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 03:15:50 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 05:01:29 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../raycasting/cub3d.h"
 
 void replace_spaces_with_2(char **map)
 {
@@ -76,7 +76,7 @@ int calculate_max_cols_inmap(char **map)
     return max_length;
 }
 
-char **full_map(char **map, t_cub3d *p)
+char **full_map(char **map, t_cub3d *cub)
 {
     int max_length;
     int i;
@@ -88,10 +88,10 @@ char **full_map(char **map, t_cub3d *p)
 	max_length = 0;
     while (map[rows])
         rows++;
-    p->MAP_NUM_ROWS = rows - 6;
+    cub->map_num_rows = rows - 6;
     i = 0;
     max_length = calculate_max_cols_inmap(map);
-    p->MAP_NUM_COLS = max_length;
+    cub->map_num_cols = max_length;
     rectangle_map = (char**)malloc((rows + 1) * sizeof(char*));
     if(!rectangle_map)
         ft_putstr_fd("Error: Malloc failed\n", 2);

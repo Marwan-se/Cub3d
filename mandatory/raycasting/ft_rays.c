@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_rays.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 02:52:25 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/23 17:57:58 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 05:02:23 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "cub3d.h"
 
 void	ft_DDA(int X0, int Y0, int X1, int Y1, t_cub3d *cub)
 {
@@ -80,7 +80,7 @@ void	ft_cast_rays(t_cub3d *cub)
 	DPP = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
 	while (id < NUM_RAYS)
 	{
-		rayAngle = cub->p->rotationAngle + atan((id - NUM_RAYS / 2) / DPP);
+		rayAngle = cub->p->rotation_angle + atan((id - NUM_RAYS / 2) / DPP);
 		ft_castRay(rayAngle, id, cub);
 		id++;
 	}

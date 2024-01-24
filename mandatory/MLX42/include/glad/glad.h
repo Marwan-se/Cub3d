@@ -241,8 +241,8 @@ typedef void (APIENTRY *GLVULKANPROCNV)(void);
 #define GL_SUBPIXEL_BITS 0x0D50
 #define GL_TEXTURE_1D 0x0DE0
 #define GL_TEXTURE_2D 0x0DE1
-#define GL_TEXTURE_WIDTH 0x1000
-#define GL_TEXTURE_HEIGHT 0x1001
+#define GL_texture_width 0x1000
+#define GL_texture_hight 0x1001
 #define GL_TEXTURE_BORDER_COLOR 0x1004
 #define GL_DONT_CARE 0x1100
 #define GL_FASTEST 0x1101

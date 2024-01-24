@@ -9,6 +9,7 @@
         "locale": "c",
         "stdio.h": "c",
         "string.h": "c",
-        "sstream": "c"
+        "sstream": "c",
+        "algorithm": "c"
     }
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:23 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 03:43:40 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 04:58:04 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "./raycasting/cub3d.h"
 
 void	fd_error(int fd)
 {
@@ -43,7 +43,7 @@ void    free_map(char **map)
 
 void	ft_setup(void *param)
 {
-	t_cub3d		*player;
+	t_cub3d	*player;
 	mlx_image_t	*img[4];
 
 	// cub->map = ft_read_map(file);
@@ -57,7 +57,7 @@ void	ft_setup(void *param)
 	player->p->turnDirection = 0;
 	player->p->walkDirection = 0;
 	player->p->turnDirection2 = 0;
-	// player->p->rotationAngle = M_PI / 2;
+	// player->p->rotation_angle = M_PI / 2;
 	player->p->walkSpeed = 250;
 	player->p->turnSpeed = 10 * (M_PI / 180);
 	player->texture[0] = mlx_load_png(player->EA);
@@ -108,15 +108,15 @@ void	ft_update(void *param)
 
 void	ft_render(void *param)
 {
-	t_cub3d	*cub;
+	t_cub3d*cub;
 	uint32_t	tileColor;
 
 	tileColor = 0;
 	cub = param;
 	// ft_renederRays(param);
 	ft_generate_projection(cub, tileColor);
-	ft_renderMap(cub);
-	ft_renderPlayer(cub);
+	ft_render_map(cub);
+	ft_render_player(cub);
 }
 
 int main(int ac, char **av)
@@ -143,8 +143,8 @@ int main(int ac, char **av)
 	// 	printf("%s\n", player->map[i]);
 	// 	i++;
 	// }
-	// printf("%d\n", player->MAP_NUM_ROWS);
-	// printf("%d\n", player->MAP_NUM_COLS);
+	// printf("%d\n", player->cub->map_num_rows);
+	// printf("%d\n", player->cub->map_num_cols);
 	printf("%f\n", player->p->x);
 	printf("%f\n", player->p->y);
 	if (!(mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "MLX42", true)))

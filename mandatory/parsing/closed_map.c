@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   closed_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 22:49:19 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/23 19:52:51 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 05:05:36 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../raycasting/cub3d.h"
 
 void	check_limits(char **map, int i, int k)
 {

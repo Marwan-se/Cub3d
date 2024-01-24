@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cube.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 10:13:58 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/23 18:35:04 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 05:02:23 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "cub3d.h"
 
 // static	mlx_image_t* image;
 // static	Player	p;
@@ -18,34 +18,39 @@
 // static	mlx_texture_t*texture[4];
 // -----------------------------------------------------------------------------
 
-// uint32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
-// {
-//     return (r << 24 | g << 16 | b << 8 | a);
-// }
+uint32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+{
+    return (r << 24 | g << 16 | b << 8 | a);
+}
 
 // void	ft_setup(void *param)
 // {
-// 	cub3d_t		*cub;
+// 	t_cub3d	*cub;
 // 	mlx_image_t	*img[4];
 
-// 	// cub->map = ft_read_map(file);
-// 	// printf("#########################");
-// 	// if (!cub->map)
-// 	// 	exit(0);
-// 	// printf("hello world \n");
 // 	cub = param;
-// 	cub->p.y = 250;
-// 	cub->p.x = 250;
-// 	cub->p.width = 1;
-// 	cub->p.height = 1;
-// 	cub->p.turnDirection = 0;
-// 	cub->p.walkDirection = 0;
-// 	cub->p.turnDirection2 = 0;
-// 	cub->p.rotationAngle = M_PI / 2;
-// 	cub->p.walkSpeed = 600;
-// 	cub->p.turnSpeed = 10 * (M_PI / 180);
+// 	int fd = open("map05.cub", O_RDONLY);
+// 	if (fd < 0)
+// 		printf("error in open\n\n");
+// 	// printf("fd is %d\n", fd);
+// 	// map_error(player->map);
+// 	// parsing(player->map, fd, player);
+// 	// printf("hello again \n");
+// 	full_map(cub, read_map_file(fd));
+//     // replace_spaces_with_2(cub->map);
+// 	cub = param;
+// 	cub->p->y = 250;
+// 	cub->p->x = 250;
+// 	cub->p->width = 1;
+// 	cub->p->height = 1;
+// 	cub->p->turnDirection = 0;
+// 	cub->p->walkDirection = 0;
+// 	cub->p->turnDirection2 = 0;
+// 	cub->p->rotation_angle = M_PI / 2;
+// 	cub->p->walkSpeed = 600;
+// 	cub->p->turnSpeed = 10 * (M_PI / 180);
 // 	cub->F = ft_pixel(82, 67, 6, 255);
-// 	cub->S = ft_pixel(2, 215, 246, 255);
+// 	cub->C = ft_pixel(2, 215, 246, 255);
 // 	cub->texture[0] = mlx_load_png("./brick.png");
 // 	cub->texture[1] = mlx_load_png("./Prev3.png");
 // 	cub->texture[2] = mlx_load_png("./matrix.png");
@@ -86,32 +91,32 @@
 // 	}
 // }
 
-// void	ft_update(void *param)
-// {
-// 	ft_move_player(param);
-// 	ft_cast_rays(param);
-// }
+void	ft_update(void *param)
+{
+	ft_move_player(param);
+	ft_cast_rays(param);
+}
 
-// void	ft_render(void *param)
-// {
-// 	t_cub3d	*cub;
-// 	uint32_t	tileColor;
+void	ft_render(void *param)
+{
+	t_cub3d*cub;
+	uint32_t	tile_color;
 
-// 	cub = param;
-// 	// ft_renederRays(param);
-// 	ft_generate_projection(cub, tileColor);
-// 	ft_renderMap(cub);
-// 	ft_renderPlayer(cub);
-// }
+	cub = param;
+	// ft_renederRays(param);
+	ft_generate_projection(cub, tile_color);
+	ft_render_map(cub);
+	ft_render_player(cub);
+}
 
 // -----------------------------------------------------------------------------
 // int	main(int argc, const char** argv)
 // {
-// 	cub3d_t*		cube;
+// 	t_cub3d*		cube;
 // 	mlx_t			*mlx;
 // 	mlx_image_t		*image;
 
-// 	cube = malloc(sizeof(cub3d_t));
+// 	cube = malloc(sizeof(t_cub3d));
 // 	if (!(mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "MLX42", true)))
 // 	{
 // 		puts(mlx_strerror(mlx_errno));

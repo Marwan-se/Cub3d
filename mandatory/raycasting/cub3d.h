@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:19 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 01:00:52 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 04:55:54 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@
 #include <fcntl.h>
 #include <math.h>
 #include <string.h>
-#include "libft/libft.h"
-#include "MLX42/include/MLX42/MLX42.h"
+#include "../libft/libft.h"
+#include "../MLX42/include/MLX42/MLX42.h"
 
 #define TRUE 1
 #define FALSE 0
-#define TILE_SIZE 64
+#define tile_size 64
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 768
 #define FOV_ANGLE (80 * M_PI / 180)
 #define NUM_RAYS WINDOW_WIDTH
 #define SACALE_FACTOR 0.5
-#define TEXTURE_HEIGHT 64
-#define TEXTURE_WIDTH 64
+#define texture_hight 64
+#define texture_width 64
 
 
 
@@ -45,7 +45,7 @@ typedef struct s_Player
 	float	height;
 	int		turnDirection;
 	int		walkDirection;
-	float	rotationAngle;
+	float	rotation_angle;
 	float	walkSpeed;
 	float	turnSpeed;
     int     turnDirection2;
@@ -97,8 +97,8 @@ typedef struct s_cub3d
     uint32_t		*choice;
     uint32_t		**tab;
     char			**map;
-    unsigned int    MAP_NUM_ROWS;
-    unsigned int    MAP_NUM_COLS;
+    unsigned int    map_num_rows;
+    unsigned int   	map_num_cols;
 	uint32_t		F;
 	uint32_t		C;
     char *NO;
@@ -148,19 +148,20 @@ int		get_max_length(char **map);
 void	copy_row(char **rectangle_map, char **map, int i, int max_length);
 int		calculate_max_length(char **map);
 char	**full_map(char **map, t_cub3d *p);
-int		    mapHasWallAt(t_cub3d *cub,float x, float y);
-void	    ft_horizentalIntersection(float rayAngle, int id, info * info1, t_cub3d *cub);
-void	    ft_verticalIntersection(float rayAngle, int id, info * info2, t_cub3d *cub);
-void	    ft_chooseSmallestDistance(info info1, info info2, int id, float rayAngle, t_cub3d *cub);
-void        ft_hook(void* param);
-void        ft_my_keyhook(mlx_key_data_t keydata, void *param);
-void	    ft_renderMap(t_cub3d *cub);
-void	    ft_renderPlayer(t_cub3d *cube);
-void	    ft_move_player(t_cub3d *cub);
-void	    ft_cast_rays(t_cub3d *cub);
-void	    ft_generate_projection(t_cub3d *cub, uint32_t tileColor);
-void	    ft_DDA(int X0, int Y0, int X1, int Y1, t_cub3d *cub);
-uint32_t    ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+int			map_has_wall_at(t_cub3d *cub,float x, float y);
+void		ft_horizentalIntersection(float rayAngle, int id, info * info1, t_cub3d *cub);
+void		ft_verticalIntersection(float rayAngle, int id, info * info2, t_cub3d *cub);
+void		ft_chooseSmallestDistance(info info1, info info2, int id, float rayAngle, t_cub3d *cub);
+void    	ft_hook(void* param);
+void    	ft_my_keyhook(mlx_key_data_t keydata, void *param);
+void		ft_render_map(t_cub3d *cub);
+void		ft_render_player(t_cub3d *cube);
+void		ft_move_player(t_cub3d *cub);
+void		ft_cast_rays(t_cub3d *cub);
+void		ft_generate_projection(t_cub3d *cub, uint32_t tile_color);
+void		ft_DDA(int X0, int Y0, int X1, int Y1, t_cub3d *cub);
+uint32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+
 
 
 

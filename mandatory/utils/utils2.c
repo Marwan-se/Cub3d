@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:14 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/23 18:15:36 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 05:04:54 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../cub3d.h"
+#include "../raycasting/cub3d.h"
 
 char	*ft_substr2(char *s, unsigned int start, size_t len)
 {

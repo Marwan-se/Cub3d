@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_generate_projection.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 02:56:19 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/23 18:26:16 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 04:50:59 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "cub3d.h"
 
-void	ft_ceiling_floor(t_cub3d *cub, int i, int wallTopPixel, int wallBottomPixel)
+void	ft_ceiling_floor(t_cub3d *cub, int i, int wallTopPixel, int wall_bt_pix)
 {
 	int	j;
 
@@ -22,7 +22,7 @@ void	ft_ceiling_floor(t_cub3d *cub, int i, int wallTopPixel, int wallBottomPixel
 		mlx_put_pixel(cub->image, i, j, cub->C);
 		j++;
 	}
-	j = wallBottomPixel;
+	j = wall_bt_pix;
 	while (j < WINDOW_HEIGHT)
 	{
 		mlx_put_pixel(cub->image, i, j, cub->F);
@@ -30,11 +30,11 @@ void	ft_ceiling_floor(t_cub3d *cub, int i, int wallTopPixel, int wallBottomPixel
 	}
 }
 
-void	ft_set_offsetX(t_cub3d *cub, int i, int *textureOffSetX)
+void	ft_set_offset_x(t_cub3d *cub, int i, int *textureOffSetX)
 {
 	if (cub->rays[i].wasHitVertical)
 	{
-		*textureOffSetX = (int) cub->rays[i].wallHitY % TILE_SIZE;
+		*textureOffSetX = (int) cub->rays[i].wallHitY % tile_size;
 		if (cub->rays[i].isFacingRight)
 			cub->choice = cub->tab[0];
 		else
@@ -46,51 +46,55 @@ void	ft_set_offsetX(t_cub3d *cub, int i, int *textureOffSetX)
 			cub->choice = cub->tab[2];
 		else
 			cub->choice = cub->tab[3];
-		*textureOffSetX = (int) cub->rays[i].wallHitX % TILE_SIZE;
+		*textureOffSetX = (int) cub->rays[i].wallHitX % tile_size;
 	}
 }
 
-void	ft_set_wall_hight(t_cub3d *cub, int *wallStripHight, int i, int *wall_Top_Bottom)
+void	ft_wall_hight(t_cub3d *cub, int *wall_s_hight, int i, int *wall_top_btm)
 {
-		float	DPP;
-		float	wallHight;
-		// int		wallTopPixel;
-		// int		wallBottomPixel;
+	float	dpp;
+	float	wall_hight;
+	int		wall_tp_pixel;
+	int		wall_bt_pix;
 
-		DPP = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
-		wallHight = TILE_SIZE / (cos(cub->rays[i].rayAngle - cub->p->rotationAngle) * cub->rays[i].distance) * DPP;
-		*wallStripHight = (int) wallHight;
-		wall_Top_Bottom[0] = WINDOW_HEIGHT / 2 - *wallStripHight / 2;
-		wall_Top_Bottom[0] = (wall_Top_Bottom[0] < 0) * 0
-								+ !(wall_Top_Bottom[0] < 0) * wall_Top_Bottom[0];
-		wall_Top_Bottom[1] = WINDOW_HEIGHT / 2 + *wallStripHight / 2;
-		wall_Top_Bottom[1] = (wall_Top_Bottom[1] > WINDOW_HEIGHT) * WINDOW_HEIGHT
-								+ !(wall_Top_Bottom[1] > WINDOW_HEIGHT) * wall_Top_Bottom[1];
-		if (wallHight > WINDOW_HEIGHT)
-			wallHight = WINDOW_HEIGHT;
+	dpp = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
+	wall_hight = tile_size / (cos(cub->rays[i].rayAngle - cub->p->rotation_angle)
+			* cub->rays[i].distance) * dpp;
+	*wall_s_hight = (int) wall_hight;
+	wall_top_btm[0] = WINDOW_HEIGHT / 2 - *wall_s_hight / 2;
+	wall_top_btm[0] = (wall_top_btm[0] < 0) * 0
+		+ !(wall_top_btm[0] < 0) * wall_top_btm[0];
+	wall_top_btm[1] = WINDOW_HEIGHT / 2 + *wall_s_hight / 2;
+	wall_top_btm[1] = (wall_top_btm[1] > WINDOW_HEIGHT) * WINDOW_HEIGHT
+		+ !(wall_top_btm[1] > WINDOW_HEIGHT) * wall_top_btm[1];
+	if (wall_hight > WINDOW_HEIGHT)
+		wall_hight = WINDOW_HEIGHT;
 }
 
-void	ft_generate_projection(t_cub3d *cub, uint32_t tileColor)
+void	ft_generate_projection(t_cub3d *cub, uint32_t tile_color)
 {
 	int			i;
-	int			wall_Top_Bottom[2];
-	int			txtrOfSet_XY[2];
+	int			wall_top_btm[2];
+	int			txtrof_set_xy[2];
 	int			w;
-	int			wallHight_distncFrmTop[2];
+	int			wall_hight_distnc_top[2];
 
 	i = 0;
 	while (i < NUM_RAYS)
 	{
-		ft_set_wall_hight(cub, &wallHight_distncFrmTop[0], i, wall_Top_Bottom);
-		ft_set_offsetX(cub, i , &txtrOfSet_XY[0]);
-		ft_ceiling_floor(cub, i, wall_Top_Bottom[0], wall_Top_Bottom[1]);
-		w = wall_Top_Bottom[0];
-		while (w < wall_Top_Bottom[1])
+		ft_wall_hight(cub, &wall_hight_distnc_top[0], i, wall_top_btm);
+		ft_set_offset_x(cub, i, &txtrof_set_xy[0]);
+		ft_ceiling_floor(cub, i, wall_top_btm[0], wall_top_btm[1]);
+		w = wall_top_btm[0];
+		while (w < wall_top_btm[1])
 		{
-			wallHight_distncFrmTop[1] = w + wallHight_distncFrmTop[0] / 2 - WINDOW_HEIGHT / 2;
-			txtrOfSet_XY[1] = wallHight_distncFrmTop[1] * (((float) TEXTURE_HEIGHT) / wallHight_distncFrmTop[0]);
-			tileColor = cub->choice[(TEXTURE_WIDTH * txtrOfSet_XY[1]) + txtrOfSet_XY[0] * TEXTURE_WIDTH / TILE_SIZE];
-			mlx_put_pixel(cub->image, i, w, tileColor);
+			wall_hight_distnc_top[1] = w + wall_hight_distnc_top[0] / 2
+				- WINDOW_HEIGHT / 2;
+			txtrof_set_xy[1] = wall_hight_distnc_top[1]
+				* (((float) texture_hight) / wall_hight_distnc_top[0]);
+			tile_color = cub->choice[(texture_width * txtrof_set_xy[1])
+				+ txtrof_set_xy[0] * texture_width / tile_size];
+			mlx_put_pixel(cub->image, i, w, tile_color);
 			w++;
 		}
 		i++;

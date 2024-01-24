@@ -7,7 +7,7 @@ INC = cub3d.h
 SRC =  mandatory/main.c mandatory/parsing/check_syntax.c mandatory/utils/utils.c mandatory/utils/utils1.c mandatory/utils/utils2.c mandatory/parsing/read_map.c\
 		mandatory/parsing/check_directions.c mandatory/parsing/parsing.c mandatory/parsing/map_handling.c mandatory/parsing/closed_map.c\
 		mandatory/parsing/floor_cieling.c mandatory/parsing/new_full_map.c \
-		mandatory/raycasting/ft_cube.c mandatory/raycasting/ft_generate_projection.c mandatory/raycasting/ft_map_player.c \
+		mandatory/raycasting/ft_generate_projection.c mandatory/raycasting/ft_map_player.c \
 		mandatory/raycasting/ft_hooks.c mandatory/raycasting/ft_rays_hit.c mandatory/raycasting/ft_rays.c
 
 OBJ = $(SRC:.c=.o)

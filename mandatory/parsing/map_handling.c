@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_handling.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:30:12 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 04:15:03 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 05:05:27 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../raycasting/cub3d.h"
 
 int	invalid_map_char(char **map, int i, int j)
 {
@@ -26,13 +26,13 @@ int	invalid_map_char(char **map, int i, int j)
 void	store_directions(t_Player *p, char c)
 {
 	if (c == 'N')
-		p->rotationAngle = 3 * M_PI / 2;
+		p->rotation_angle = 3 * M_PI / 2;
 	else if (c == 'S')
-		p->rotationAngle = M_PI / 2;
+		p->rotation_angle = M_PI / 2;
 	else if (c == 'E')
-		p->rotationAngle = 0;
+		p->rotation_angle = 0;
 	else if (c == 'W')
-		p->rotationAngle = M_PI;
+		p->rotation_angle = M_PI;
 }
 
 int	store_player(char **map, int i, t_cub3d *player, char *tmp)
@@ -53,8 +53,8 @@ int	store_player(char **map, int i, t_cub3d *player, char *tmp)
 					|| map[i][counter] == 'E' || map[i][counter] == 'W')
 				{
 					*tmp = map[i][counter];
-					player->p->y = (i * TILE_SIZE) + TILE_SIZE / 2;
-					player->p->x = (counter * TILE_SIZE) + TILE_SIZE / 2;
+					player->p->y = (i * tile_size) + tile_size / 2;
+					player->p->x = (counter * tile_size) + tile_size / 2;
 					// player->p->y = i;
 					// player->p->x = counter;
 					store_directions(player->p, map[i][counter]);
@@ -73,7 +73,7 @@ int	check_player(char **map, t_cub3d *player, char *tmp)
 	int	i;
 	
 	i = 0;
-	player->p = malloc(sizeof(t_Player));
+	player->p = malloc(sizeof(t_cub3d));
 	if(!player->p)
 		ft_putstr_fd("Error: Malloc failed\n", 2);
 	if (store_player(map+6, i, player, tmp) != 1)
