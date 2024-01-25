@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:23 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/25 11:09:11 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:44:35 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ int	main(int ac, char **av)
 	player->image = image;
 	ft_setup(player);
 	norm_mlx_hk(mlx, player);
-	free(player);
 	close(fd);
 	free_struct_content(player);
+	free(player);
 	return (EXIT_SUCCESS);
 }
