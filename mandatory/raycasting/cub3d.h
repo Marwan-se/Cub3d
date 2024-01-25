@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:19 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 20:02:27 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/25 05:58:59 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # define TRUE 1
 # define FALSE 0
-# define TILE_SIZE 64
+# define TL_SZ 64
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 768
 # define FOV_ANGLE (80 * M_PI / 180)
@@ -52,20 +52,20 @@ typedef struct s_Player
 
 typedef struct s_info
 {
-	int		facing_down;
-	int		facing_right;
+	int		fc_dn;
+	int		fc_rt;
 	float	x_intercept;
 	float	y_intercept;
 	float	x_step;
 	float	y_step;
 	float	wall_hit_x;
 	float	wall_hit_y;
-	int		wall_content;
+	int		wall_data;
 	float	next_x;
 	float	next_y;
 	float	x_check;
 	float	y_check;
-	int		found_wall_hit;
+	int		fnd_wl_hit;
 }	t_info;
 
 typedef struct s_Ray
@@ -76,10 +76,8 @@ typedef struct s_Ray
 	float	distance;
 	int		was_hit_vertical;
 	int		was_hit_horz;
-	int		is_facing_up;
-	int		isfacing_down;
-	int		isfacing_left;
-	int		isfacing_right;
+	int		isfc_dn;
+	int		isfc_rt;
 	int		wall_hit_content;
 }	t_Rays;
 
@@ -145,9 +143,9 @@ int			map_has_wall_at(t_cub3d *cub, float x, float y);
 int			count_map_lines(char **map);
 void		ft_horizental_intersection(float ray_angle, \
 				t_info *info1, t_cub3d *cub);
-void		ft_vertical_intersection(float ray_angle, t_info *info2, t_cub3d *cub);
-void		ft_choose_smallest_distance(t_info info1, t_info info2, \
-				int id, float ray_angle, t_cub3d *cub);
+void		ft_vertical_intersect(float ray_angle, t_info *info2, t_cub3d *cub);
+void		ft_choose_small_dist(t_info info1, t_info info2, \
+				int id, t_cub3d *cub);
 void		ft_hook(void *param);
 void		ft_update(void *param);
 void		ft_render(void *param);
@@ -157,7 +155,7 @@ void		ft_render_player(t_cub3d *cube);
 void		ft_move_player(t_cub3d *cub);
 void		ft_cast_rays(t_cub3d *cub);
 void		ft_generate_projection(t_cub3d *cub, uint32_t tile_color);
-void		ft_DDA(int X0, int Y0, int X1, int Y1, t_cub3d *cub);
+void		ft_dda(int *Tx, int *Ty, t_cub3d *cub);
 void		norm_mlx_hk(mlx_t *mlx, t_cub3d *player);
 uint32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 

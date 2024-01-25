@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_player.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 02:57:49 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/24 10:18:22 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/25 06:11:10 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ int	map_has_wall_at(t_cub3d *cub, float x, float y)
 	unsigned int	mapgrid_index_x;
 	unsigned int	mapgrid_index_y;
 
-	if (x < 0 || x > cub->map_num_cols * TILE_SIZE || y < 0
-		|| y > cub->map_num_rows * TILE_SIZE)
+	if (x < 0 || x > cub->map_num_cols * TL_SZ || y < 0
+		|| y > cub->map_num_rows * TL_SZ)
 		return (TRUE);
-	mapgrid_index_x = floor(x / TILE_SIZE);
-	mapgrid_index_y = floor(y / TILE_SIZE);
+	mapgrid_index_x = floor(x / TL_SZ);
+	mapgrid_index_y = floor(y / TL_SZ);
 	if (mapgrid_index_x > cub->map_num_cols)
 	{
 		mapgrid_index_x = cub->map_num_cols;
@@ -59,6 +59,9 @@ void	ft_move_player(t_cub3d *cub)
 
 void	ft_render_player(t_cub3d *cube)
 {
+	int	tx[2];
+	int	ty[2];
+
 	mlx_put_pixel(cube->image, 149, 99, 0x0000FFFF);
 	mlx_put_pixel(cube->image, 150, 99, 0x0000FFFF);
 	mlx_put_pixel(cube->image, 151, 99, 0x0000FFFF);
@@ -68,8 +71,11 @@ void	ft_render_player(t_cub3d *cube)
 	mlx_put_pixel(cube->image, 149, 101, 0x0000FFFF);
 	mlx_put_pixel(cube->image, 150, 101, 0x0000FFFF);
 	mlx_put_pixel(cube->image, 151, 101, 0x0000FFFF);
-	ft_DDA(300, 200, 300 + (float) cos(cube->p->rotation_angle)
-		* 40, 200 + sin(cube->p->rotation_angle) * 40, cube);
+	tx[0] = 300;
+	ty[0] = 200;
+	tx[1] = 300 + (float) cos(cube->p->rotation_angle) * 40;
+	ty[1] = 200 + sin(cube->p->rotation_angle) * 40;
+	ft_dda(tx, ty, cube);
 }
 
 void	ft_set_color(t_cub3d *cub, int startX, int startY, int i)
@@ -82,8 +88,8 @@ void	ft_set_color(t_cub3d *cub, int startX, int startY, int i)
 	j = 0;
 	while (j < 300)
 	{
-		x = (startX + j) / TILE_SIZE - 1;
-		y = (startY + i) / TILE_SIZE - 1;
+		x = (startX + j) / TL_SZ - 1;
+		y = (startY + i) / TL_SZ - 1;
 		if (x < 0 || y < 0)
 			tile_color = ft_pixel(0, 0, 0, 0);
 		else if (x < cub->map_num_cols && y < \
@@ -110,8 +116,8 @@ void	ft_render_map(t_cub3d *cub)
 	1 && (i = 0) && (j = 0) && (tile_color = 0);
 	i = 0;
 	j = 0;
-	start_x = cub->p->x - 150 + TILE_SIZE;
-	start_y = cub->p->y - 100 + TILE_SIZE;
+	start_x = cub->p->x - 150 + TL_SZ;
+	start_y = cub->p->y - 100 + TL_SZ;
 	while (i < 200)
 	{
 		j = 0;

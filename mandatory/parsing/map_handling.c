@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_handling.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:30:12 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 09:49:13 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/25 05:58:59 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int	store_player(char **map, int i, t_cub3d *player, char *tmp)
 				|| map[i][counter] == 'E' || map[i][counter] == 'W')
 			{
 				*tmp = map[i][counter];
-				player->p->y = (i * TILE_SIZE) + TILE_SIZE / 2;
-				player->p->x = (counter * TILE_SIZE) + TILE_SIZE / 2;
+				player->p->y = (i * TL_SZ) + TL_SZ / 2;
+				player->p->x = (counter * TL_SZ) + TL_SZ / 2;
 				store_directions(player->p, map[i][counter]);
 				map[i][counter] = '0';
 				rst++;

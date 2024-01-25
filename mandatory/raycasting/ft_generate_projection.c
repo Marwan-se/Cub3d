@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_generate_projection.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 02:56:19 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/24 10:05:28 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/25 05:58:59 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,19 @@ void	ft_set_offset_x(t_cub3d *cub, int i, int *textureOffSetX)
 {
 	if (cub->rays[i].was_hit_vertical)
 	{
-		*textureOffSetX = (int) cub->rays[i].wall_hit_y % TILE_SIZE;
-		if (cub->rays[i].isfacing_right)
+		*textureOffSetX = (int) cub->rays[i].wall_hit_y % TL_SZ;
+		if (cub->rays[i].isfc_rt)
 			cub->choice = cub->tab[0];
 		else
 			cub->choice = cub->tab[1];
 	}
 	else
 	{
-		if (cub->rays[i].is_facing_up)
+		if (!cub->rays[i].isfc_dn)
 			cub->choice = cub->tab[2];
 		else
 			cub->choice = cub->tab[3];
-		*textureOffSetX = (int) cub->rays[i].wall_hit_x % TILE_SIZE;
+		*textureOffSetX = (int) cub->rays[i].wall_hit_x % TL_SZ;
 	}
 }
 
@@ -56,7 +56,7 @@ void	ft_wall_hight(t_cub3d *cub, int *wall_s_hight, int i, int *wall_top_btm)
 	float	wall_hight;
 
 	dpp = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
-	wall_hight = TILE_SIZE / (cos(cub->rays[i].ray_angle
+	wall_hight = TL_SZ / (cos(cub->rays[i].ray_angle
 				- cub->p->rotation_angle) * cub->rays[i].distance) * dpp;
 	*wall_s_hight = (int) wall_hight;
 	wall_top_btm[0] = WINDOW_HEIGHT / 2 - *wall_s_hight / 2;
@@ -90,7 +90,7 @@ void	ft_generate_projection(t_cub3d *cub, uint32_t tile_color)
 			txtrof_set_xy[1] = wll_hght_tp[1]
 				* (((float) TEXTURE_HIGHT) / wll_hght_tp[0]);
 			tile_color = cub->choice[(TEXTURE_WIDTH * txtrof_set_xy[1])
-				+ txtrof_set_xy[0] * TEXTURE_WIDTH / TILE_SIZE];
+				+ txtrof_set_xy[0] * TEXTURE_WIDTH / TL_SZ];
 			mlx_put_pixel(cub->image, i, w, tile_color);
 			w++;
 		}

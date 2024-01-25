@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hooks.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 03:02:56 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/24 09:55:14 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 20:26:16 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_my_keyhook(mlx_key_data_t keydata, void *param)
 // 	tile_color = ft_pixel(255, 0, 0, 255);
 // 	while (i < WINDOW_WIDTH)
 // 	{
-// 		ft_DDA(cub->p->x, cub->p->y, cub->rays[i].wallHit_x, 
+// 		ft_dda(cub->p->x, cub->p->y, cub->rays[i].wallHit_x, 
 // cub->rays[i].wall_hit_y, cub);
 // 		i++;
 // 	}
