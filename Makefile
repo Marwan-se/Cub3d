@@ -2,7 +2,7 @@ Name = cub3D
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 RM = rm -f
-INC = cub3d.h
+INC = mandatory/raycasting/cub3d.h
 SRC =  mandatory/main.c mandatory/parsing/check_syntax.c mandatory/utils/utils.c mandatory/utils/utils1.c mandatory/utils/utils2.c mandatory/parsing/read_map.c \
 		mandatory/parsing/check_directions.c mandatory/parsing/parsing.c mandatory/parsing/map_handling.c mandatory/parsing/closed_map.c\
 		mandatory/parsing/floor_cieling.c mandatory/parsing/new_full_map.c \

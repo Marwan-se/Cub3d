@@ -6,7 +6,7 @@
 /*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:19 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/25 05:58:59 by mlahlafi         ###   ########.fr       */
+/*   Updated: 2024/01/25 06:25:26 by mlahlafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define TL_SZ 64
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 768
-# define FOV_ANGLE (80 * M_PI / 180)
+# define FOV_ANGLE 1.396263
 # define NUM_RAYS WINDOW_WIDTH
 # define SACALE_FACTOR 0.5
 # define TEXTURE_HIGHT 128
