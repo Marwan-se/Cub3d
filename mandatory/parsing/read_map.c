@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:26:47 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 20:02:00 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/25 07:40:01 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,5 @@ char	**read_map_file(int file)
 		ft_putstr_fd("Error: Invalid map\n", 2);
 	}
 	free(joind_str);
-	close(file);
 	return (map);
 }

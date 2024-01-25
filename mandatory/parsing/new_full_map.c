@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:28:26 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/25 00:03:31 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/25 07:42:13 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ void	copy_row(char **rectangle_map, char **map, int i, int max_length)
 	if (i < 6)
 	{
 		rectangle_map[i] = (char *)malloc((max_length + 1) * sizeof(char));
-		if (!rectangle_map[i])
+		if (rectangle_map[i] == NULL)
 			ft_putstr_fd("Error: Malloc failed\n", 2);
+		rectangle_map[i][0] = '\0';
 		ft_strlcpy2(rectangle_map[i], map[i], max_length + 1);
 	}
 	else
@@ -48,6 +49,7 @@ void	copy_row(char **rectangle_map, char **map, int i, int max_length)
 		rectangle_map[i] = (char *)malloc((max_length + 1) * sizeof(char));
 		if (!rectangle_map[i])
 			ft_putstr_fd("Error: Malloc failed\n", 2);
+		rectangle_map[i][0] = '\0';
 		ft_strlcpy2(rectangle_map[i], map[i], max_length + 1);
 		j = ft_strlen2(rectangle_map[i]);
 		while (j < max_length)
@@ -102,5 +104,6 @@ char	**full_map(char **map, t_cub3d *p)
 		i++;
 	}
 	rectangle_map[rows] = NULL;
+	free_2darray(map);
 	return (rectangle_map + 6);
 }

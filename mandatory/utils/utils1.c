@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:09 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 06:06:01 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/25 07:40:38 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ size_t	ft_strlcpy2(char *dst, char *src, size_t dstsize)
 
 	i = 0;
 	j = 0;
+	if(!src || !dst || dstsize == 0)
+		return (0);
 	while (src[i])
 		i++;
 	if (dstsize == 0)
 		return (i);
-	while (j < dstsize - 1 && src[j])
+	while (j < dstsize - 1 && src[j] != '\0')
 	{
 		dst[j] = src[j];
 		j++;

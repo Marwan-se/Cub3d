@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:23 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/25 02:31:23 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/25 07:39:41 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,11 @@ void	init_mlx_norm(mlx_t **mlx, mlx_image_t **image)
 	}
 }
 
+void	ft()
+{
+	system("leaks cub3D");
+}
+
 int	main(int ac, char **av)
 {
 	t_cub3d		*player;
@@ -91,6 +96,7 @@ int	main(int ac, char **av)
 	mlx_image_t	*image;
 	int			fd;
 
+	atexit(ft);
 	player = malloc(sizeof(t_cub3d));
 	if (!player)
 		ft_putstr_fd("Error: Malloc failed\n", 2);
@@ -107,5 +113,6 @@ int	main(int ac, char **av)
 	player->image = image;
 	ft_setup(player);
 	norm_mlx_hk(mlx, player);
+	close(fd);
 	return (EXIT_SUCCESS);
 }

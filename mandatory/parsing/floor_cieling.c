@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 22:52:39 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 20:45:00 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/25 07:42:43 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	store_fc(char **fsl, int i, t_cub3d *p, char **var)
 		p->f = ft_pixel(color[0], color[1], color[2], 255);
 	else if (ft_strncmp2(fsl[i], "C", 1) == 0)
 		p->c = ft_pixel(color[0], color[1], color[2], 255);
+	free(color);
 }
 
 int	check_fcc(char **fsl, t_cub3d *p)
