@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 02:50:29 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/24 10:20:27 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/25 02:32:54 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	ft_vertical_intersection(float ray_angle, t_info *info2, t_cub3d *cub)
 	y_step = TILE_SIZE * tan(ray_angle);
 	y_step *= (!info2->facing_down && y_step > 0) * -1 + !(!info2->facing_down && y_step > 0) * 1;
 	y_step *= (info2->facing_down && y_step < 0) * -1 + !(info2->facing_down && y_step < 0) * 1;
-	while (info2->next_x >= 0 && info2->next_x <= cub->map_num_cols * TILE_SIZE && info2->next_y >= 0 && info2->next_y <= cub->map_num_rows * TILE_SIZE)// Increment xstep and y_step until we find a wall
+	while (info2->next_x >= 0 && info2->next_x < cub->map_num_cols * TILE_SIZE && info2->next_y >= 0 && info2->next_y < cub->map_num_rows * TILE_SIZE)// Increment xstep and y_step until we find a wall
 	{
 		x_to_check = info2->next_x + !info2->facing_right * -1;
 		if (map_has_wall_at(cub, x_to_check, info2->next_y))

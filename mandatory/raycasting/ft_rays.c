@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 02:52:25 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/24 10:17:36 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 20:11:20 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ float	ft_normalize_angle(float angle)
 	return (angle);
 }
 
-void ft_cast_ray(float ray_angle, int stripId, t_cub3d *cub)
+void	ft_cast_ray(float ray_angle, int stripId, t_cub3d *cub)
 {
 	t_info	info1;
 	t_info	info2;

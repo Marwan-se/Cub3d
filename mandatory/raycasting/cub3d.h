@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:19 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 20:02:27 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 23:47:09 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define TILE_SIZE 64
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 768
-# define FOV_ANGLE (80 * M_PI / 180)
+# define FOV_ANGLE 1.396263
 # define NUM_RAYS WINDOW_WIDTH
 # define SACALE_FACTOR 0.5
 # define TEXTURE_HIGHT 128
@@ -145,7 +145,8 @@ int			map_has_wall_at(t_cub3d *cub, float x, float y);
 int			count_map_lines(char **map);
 void		ft_horizental_intersection(float ray_angle, \
 				t_info *info1, t_cub3d *cub);
-void		ft_vertical_intersection(float ray_angle, t_info *info2, t_cub3d *cub);
+void		ft_vertical_intersection(float ray_angle, \
+				t_info *info2, t_cub3d *cub);
 void		ft_choose_smallest_distance(t_info info1, t_info info2, \
 				int id, float ray_angle, t_cub3d *cub);
 void		ft_hook(void *param);

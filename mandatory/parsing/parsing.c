@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 02:33:54 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 19:55:37 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/24 20:21:16 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	parsing(char **map, int file, t_cub3d *player)
 	}
 	fsl[i] = NULL;
 	map_handling(fsl, map, file, player);
-	free_2darray(fsl);
 	return (0);
 }
 

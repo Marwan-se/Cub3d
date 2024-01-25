@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 02:57:49 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/24 10:18:22 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/25 00:12:05 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,16 @@ int	map_has_wall_at(t_cub3d *cub, float x, float y)
 		return (TRUE);
 	mapgrid_index_x = floor(x / TILE_SIZE);
 	mapgrid_index_y = floor(y / TILE_SIZE);
-	if (mapgrid_index_x > cub->map_num_cols)
+	if (mapgrid_index_x >= cub->map_num_cols)
 	{
-		mapgrid_index_x = cub->map_num_cols;
+		mapgrid_index_x = cub->map_num_cols - 1;
 	}
-	if (mapgrid_index_y > cub->map_num_rows)
+	if (mapgrid_index_y >= cub->map_num_rows)
 	{
-		mapgrid_index_y = cub->map_num_rows;
+		mapgrid_index_y = cub->map_num_rows - 1;
 	}
+	// printf("mapgrid_index_x = %d\n", mapgrid_index_x);
+	// printf("mapgrid_index_y = %d\n", mapgrid_index_y);
 	return (cub->map[mapgrid_index_y][mapgrid_index_x] != '0');
 }
 
