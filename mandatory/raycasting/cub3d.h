@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:19 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/25 06:25:26 by mlahlafi         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:32:13 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_cub3d
 }	t_cub3d;
 
 void		check_syntax(char *file, int ac);
+void	    free_struct_content(t_cub3d *p);
 char		*ft_substr2(char *s, unsigned int start, size_t len);
 char		*ft_strchr1(char *s, int i);
 char		*ft_strdup2(char *s1);

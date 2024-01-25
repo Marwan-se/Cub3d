@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:23 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/25 07:39:41 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:09:11 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,19 @@ int	main(int ac, char **av)
 	map_error(player->map);
 	parsing(player->map, fd, player);
 	player->map = full_map(player->map, player);
-	replace_spaces_with_2(player->map);
+	int i = 0;
+	while (player->map[i])
+	{
+		printf("%s\n", player->map[i]);
+		i++;
+	}
 	init_mlx_norm(&mlx, &image);
 	player->mlx = mlx;
 	player->image = image;
 	ft_setup(player);
 	norm_mlx_hk(mlx, player);
+	free(player);
 	close(fd);
+	free_struct_content(player);
 	return (EXIT_SUCCESS);
 }

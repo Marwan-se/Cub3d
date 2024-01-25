@@ -1,6 +1,6 @@
 Name = cub3D
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 RM = rm -f
 INC = mandatory/raycasting/cub3d.h
 SRC =  mandatory/main.c mandatory/parsing/check_syntax.c mandatory/utils/utils.c mandatory/utils/utils1.c mandatory/utils/utils2.c mandatory/parsing/read_map.c \
@@ -8,7 +8,7 @@ SRC =  mandatory/main.c mandatory/parsing/check_syntax.c mandatory/utils/utils.c
 		mandatory/parsing/floor_cieling.c mandatory/parsing/new_full_map.c \
 		mandatory/raycasting/ft_generate_projection.c mandatory/raycasting/ft_map_player.c \
 		mandatory/raycasting/ft_hooks.c mandatory/raycasting/ft_rays_hit.c mandatory/raycasting/ft_rays.c\
-		mandatory/utils/utils3.c mandatory/parsing/errors_chk.c 
+		mandatory/utils/utils3.c mandatory/parsing/errors_chk.c mandatory/raycasting/free_struct_content.c
 
 OBJ = $(SRC:.c=.o)
 

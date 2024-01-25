@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:28:26 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/25 07:42:13 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:14:29 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ char	**full_map(char **map, t_cub3d *p)
 	while (map[rows])
 		rows++;
 	p->map_num_rows = rows - 6;
-	i = 0;
 	max_length = calculate_max_cols_inmap(map);
 	p->map_num_cols = max_length;
 	rectangle_map = (char **)malloc((rows + 1) * sizeof(char *));
@@ -99,11 +98,12 @@ char	**full_map(char **map, t_cub3d *p)
 		ft_putstr_fd("Error: Malloc failed\n", 2);
 	i = 0;
 	while (i < rows)
-	{
-		copy_row(rectangle_map, map, i, max_length);
-		i++;
-	}
+		copy_row(rectangle_map, map, i++, max_length);
 	rectangle_map[rows] = NULL;
+	replace_spaces_with_2(rectangle_map);
 	free_2darray(map);
+	i = 0;
+	while (rectangle_map[i] && i < 6)
+		free(rectangle_map[i++]);
 	return (rectangle_map + 6);
 }
