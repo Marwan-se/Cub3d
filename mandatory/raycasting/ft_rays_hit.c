@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_rays_hit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 02:50:29 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/25 06:23:16 by mlahlafi         ###   ########.fr       */
+/*   Updated: 2024/01/26 08:11:54 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	ft_choose_small_dist(t_info info1, t_info info2, int id, t_cub3d *cub)
 		cub->rays[id].wall_hit_content = info1.wall_data;
 		cub->rays[id].was_hit_vertical = 0;
 	}
+	if (cub->rays[id].distance < 0.01)
+		cub->rays[id].distance = 1;
 	cub->rays[id].isfc_dn = info1.fc_dn;
 	cub->rays[id].isfc_rt = info1.fc_rt;
 }

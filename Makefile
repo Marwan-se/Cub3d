@@ -1,6 +1,6 @@
 Name = cub3D
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 RM = rm -f
 INC = mandatory/raycasting/cub3d.h
 SRC =  mandatory/main.c mandatory/parsing/check_syntax.c mandatory/utils/utils.c mandatory/utils/utils1.c mandatory/utils/utils2.c mandatory/parsing/read_map.c \

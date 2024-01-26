@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_generate_projection.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlahlafi <mlahlafi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 02:56:19 by mlahlafi          #+#    #+#             */
-/*   Updated: 2024/01/25 05:58:59 by mlahlafi         ###   ########.fr       */
+/*   Updated: 2024/01/26 08:06:53 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,16 @@ void	ft_wall_hight(t_cub3d *cub, int *wall_s_hight, int i, int *wall_top_btm)
 	float	wall_hight;
 
 	dpp = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
-	wall_hight = TL_SZ / (cos(cub->rays[i].ray_angle
-				- cub->p->rotation_angle) * cub->rays[i].distance) * dpp;
+	if (cub->rays[i].distance < 0.01)
+		cub->rays[i].distance = 1;
+	if (cos(cub->rays[i].ray_angle - cub->p->rotation_angle) \
+		* cub->rays[i].distance < 0.01)
+		wall_hight = TL_SZ / (cub->rays[i].distance) * dpp;
+	else
+		wall_hight = TL_SZ / (cos(cub->rays[i].ray_angle
+					- cub->p->rotation_angle) * cub->rays[i].distance) * dpp;
+	if (wall_hight < 0)
+		wall_hight = 0;
 	*wall_s_hight = (int) wall_hight;
 	wall_top_btm[0] = WINDOW_HEIGHT / 2 - *wall_s_hight / 2;
 	wall_top_btm[0] = (wall_top_btm[0] < 0) * 0
@@ -65,8 +73,6 @@ void	ft_wall_hight(t_cub3d *cub, int *wall_s_hight, int i, int *wall_top_btm)
 	wall_top_btm[1] = WINDOW_HEIGHT / 2 + *wall_s_hight / 2;
 	wall_top_btm[1] = (wall_top_btm[1] > WINDOW_HEIGHT) * WINDOW_HEIGHT
 		+ !(wall_top_btm[1] > WINDOW_HEIGHT) * wall_top_btm[1];
-	if (wall_hight > WINDOW_HEIGHT)
-		wall_hight = WINDOW_HEIGHT;
 }
 
 void	ft_generate_projection(t_cub3d *cub, uint32_t tile_color)
