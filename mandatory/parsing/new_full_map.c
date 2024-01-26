@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 23:28:26 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/25 11:14:29 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/26 02:27:58 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ char	**full_map(char **map, t_cub3d *p)
 	while (i < rows)
 		copy_row(rectangle_map, map, i++, max_length);
 	rectangle_map[rows] = NULL;
-	replace_spaces_with_2(rectangle_map);
 	free_2darray(map);
 	i = 0;
+	p->tmp_map = rectangle_map;
 	while (rectangle_map[i] && i < 6)
 		free(rectangle_map[i++]);
 	return (rectangle_map + 6);

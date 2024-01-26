@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:26:47 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/25 07:40:01 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/26 01:42:01 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	find_newline(char *map, char *line)
 	return (i);
 }
 
-int	check_empty_newline(char **map, char *line)
+int	line_check(char **map, char *line)
 {
 	int		i;
 	char	**map_ptr;
@@ -122,7 +122,7 @@ char	**read_map_file(int file)
 		free(joind_str);
 		ft_putstr_fd("Error: Invalid map\n", 2);
 	}
-	if (check_empty_newline(map, joind_str))
+	if (line_check(map, joind_str))
 	{
 		free(joind_str);
 		ft_putstr_fd("Error: Invalid map\n", 2);

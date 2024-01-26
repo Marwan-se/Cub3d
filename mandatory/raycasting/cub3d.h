@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:19 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/25 10:32:13 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/26 02:19:57 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_cub3d
 	uint32_t		*choice;
 	uint32_t		**tab;
 	char			**map;
+	char			**tmp_map;
 	unsigned int	map_num_rows;
 	unsigned int	map_num_cols;
 	uint32_t		f;
@@ -102,11 +103,11 @@ typedef struct s_cub3d
 }	t_cub3d;
 
 void		check_syntax(char *file, int ac);
-void	    free_struct_content(t_cub3d *p);
+void		free_struct_content(t_cub3d *p);
 char		*ft_substr2(char *s, unsigned int start, size_t len);
 char		*ft_strchr1(char *s, int i);
 char		*ft_strdup2(char *s1);
-char		*ft_strjoin2(char *s1, char *s2);
+char		*ft_strjoin2(char *src, char *dst);
 int			parsing(char **map, int file, t_cub3d *player);
 int			ft_strncmp2(char *s1, char *s2, size_t n);
 int			check_fsl(char *str, t_cub3d *p);
@@ -135,7 +136,7 @@ void		map_error(char **map);
 void		free_2darray(char **array);
 void		free_map(char **map);
 int			check_empty_line(char **map, int map_size);
-int			duplicate_elemnts_checker(char **fsl);
+int			is_dup(char **fsl);
 void		replace_spaces_with_2(char **map);
 void		copy_row(char **rectangle_map, char **map, int i, int max_length);
 void		init_texture(t_cub3d *p, mlx_image_t **img);

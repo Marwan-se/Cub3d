@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:14 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 06:07:53 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/26 01:18:38 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_substr2(char *s, unsigned int start, size_t len)
 	size_t	j;
 	char	*str;
 
-	str = (char *)malloc(sizeof(*s) * (len + 1));
+	str = (char *)malloc((len + 1));
 	if (!str)
 		exit(1);
 	i = 0;

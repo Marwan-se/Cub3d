@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 02:33:54 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/25 10:20:20 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/26 01:52:11 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ int	parsing(char **map, int file, t_cub3d *player)
 	i = 0;
 	fsl = malloc(sizeof(char *) * (6 + 1));
 	if (!fsl)
-	{
-		write(2, "Error: Malloc failed\n", 22);
-		exit(1);
-	}
+		ft_putstr_fd("Error: Malloc failed\n", 2);
 	while (map[i] && i < 6)
 	{
 		fsl[i] = ft_strdup2(map[i]);
@@ -43,7 +40,7 @@ void	init_texture(t_cub3d *p, mlx_image_t **img)
 	p->txt[2] = mlx_load_png(p->no);
 	p->txt[3] = mlx_load_png(p->so);
 	if (!p->txt[0] || !p->txt[1] || !p->txt[2] || !p->txt[3])
-		return (exit(0));
+		return (ft_putstr_fd("Error: Invalid texture\n", 2));
 	img[0] = mlx_texture_to_image(p->mlx, p->txt[0]);
 	img[1] = mlx_texture_to_image(p->mlx, p->txt[1]);
 	img[2] = mlx_texture_to_image(p->mlx, p->txt[2]);

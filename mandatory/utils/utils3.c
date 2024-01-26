@@ -6,36 +6,37 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 06:08:03 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 20:02:13 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/26 02:25:53 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../raycasting/cub3d.h"
 
-char	*ft_strjoin2(char *s1, char *s2)
+char	*ft_strjoin2(char *src, char *dst)
 {
 	char	*str;
 	size_t	len;
 	size_t	j;
 
-	if (s1 == NULL)
+	if (src == NULL)
 	{
-		s1 = (char *)malloc(1 * sizeof(char));
-		s1[0] = '\0';
+		src = (char *)malloc(1 * sizeof(char));
+		src[0] = '\0';
 	}
-	len = ft_strlen2(s1)+ ft_strlen2(s2);
+	len = ft_strlen2(src)+ ft_strlen2(dst);
 	str = (char *)malloc(len + 1 * sizeof(char));
 	if (str == NULL)
 		exit(1);
-	len = -1;
-	while (s1[++len])
-		str[len] = s1[len];
-	free(s1);
-	j = 0;
-	while (s2[j])
+	len = 0;
+	while (src[len])
 	{
-		str[len++] = s2[j++];
+		str[len] = src[len];
+		len++;
 	}
+	free(src);
+	j = 0;
+	while (dst[j])
+		str[len++] = dst[j++];
 	str[len] = '\0';
 	return (str);
 }

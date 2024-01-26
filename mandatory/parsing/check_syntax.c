@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:26:51 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 05:26:50 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/26 01:54:30 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	check_empty_line(char **map, int map_size)
 	return (0);
 }
 
-int	duplicate_elemnts_checker(char **fsl)
+int	is_dup(char **fsl)
 {
 	int	i;
 	int	count;

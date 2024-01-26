@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:30:12 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/25 11:53:48 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/26 02:03:16 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,13 @@ int	map_handling(char **fsl, char **map, int file, t_cub3d *p)
 	}
 	if (check_fcc(fsl, p))
 		ft_putstr_fd("Error: Invalid RGB\n", 2);
-	else if (duplicate_elemnts_checker(fsl))
+	else if (is_dup(fsl))
 		ft_putstr_fd("Error: Duplicate element\n", 2);
 	else if (check_player(map, p, &tmp))
 		exit(1);
-	else if (check_if_map_closed(map, 5, '0', tmp))
+	else if (check_if_map_closed(map, 6, '0', tmp))
 		ft_putstr_fd("Error: Map is not closed\n", 2);
-	else if (check_if_map_closed(map, 5, tmp, '0'))
+	else if (check_if_map_closed(map, 6, tmp, '0'))
 		ft_putstr_fd("Error: Map is not closed\n", 2);
 	return (0);
 }

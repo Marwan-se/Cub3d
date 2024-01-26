@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 06:26:25 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/24 06:37:48 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/26 01:45:20 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,14 @@
 
 void	fd_error(int fd)
 {
-	if (fd == -1)
-	{
-		write(2, "Error: File not found\n", 22);
-		exit(1);
-	}
+	if (fd < 0)
+		ft_putstr_fd("Error: File descriptor\n", 2);
 }
 
 void	map_error(char **map)
 {
 	if (!map)
-	{
-		write(2, "Error: Map is empty\n", 20);
-		exit(1);
-	}
+		ft_putstr_fd("Error: Map not found\n", 2);
 }
 
 void	free_map(char **map)
