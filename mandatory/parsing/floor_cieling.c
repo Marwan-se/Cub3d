@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 22:52:39 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/25 07:42:43 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/26 21:45:00 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	store_fc(char **fsl, int i, t_cub3d *p, char **var)
 	int	*color;
 
 	color = store_colors(var);
-	if (ft_strncmp2(fsl[i], "F", 1) == 0)
+	if (ft_strchr1(fsl[i], 'F'))
 		p->f = ft_pixel(color[0], color[1], color[2], 255);
-	else if (ft_strncmp2(fsl[i], "C", 1) == 0)
+	if (ft_strchr1(fsl[i], 'C'))
 		p->c = ft_pixel(color[0], color[1], color[2], 255);
 	free(color);
 }
@@ -64,8 +64,8 @@ int	check_fcc(char **fsl, t_cub3d *p)
 	{
 		if (ft_strchr1(fsl[i], ','))
 		{
-			str = ft_strchr1(fsl[i], ' ');
-			++str;
+			str = ft_strchr2(fsl[i], 'F', 'C');
+			str++;
 			if (fc_space(str, &index))
 				return (1);
 			if (index != 2)
@@ -82,19 +82,26 @@ int	check_fcc(char **fsl, t_cub3d *p)
 int	fc_space(char *s, int *k)
 {
 	int	i;
+	int	n;
 
 	i = 0;
+	n = 0;
 	while (s[i] == 32)
 		i++;
-	while (s[i] != 32 && s[i])
+	while (s[i])
 	{
-		if (s[i] != 44 && (!(s[i] >= 48 && s[i] <= 57)))
+		if (s[i] != 44 && (!(s[i] >= 48 && s[i] <= 57)) && s[i] != 32)
 			return (1);
+		if (s[i] >= 48 && s[i] <= 57)
+			n++;
+		while ((s[i] >= 48 && s[i] <= 57) && s[i])
+			i++;
 		if (s[i] == 44)
 			(*k)++;
-		i++;
+		if (s[i])
+			i++;
 	}
-	if (s[i] == 32)
+	if (n != 3)
 		return (1);
 	return (0);
 }

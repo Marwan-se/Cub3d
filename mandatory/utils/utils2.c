@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:14 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/26 01:18:38 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/26 21:48:02 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,28 @@ char	*ft_strchr1(char *s, int i)
 	return (0);
 }
 
-char	*ft_strchr2(char *s, int i)
+char	*ft_strchr2(char *s, int i, int j)
 {
-	while (*s)
+	int	k;
+
+	k = 0;
+	while (s[k])
 	{
-		if (*s == i)
+		if (s[k] == i)
 		{
-			while (*s == i)
-				s++;
-			return ((char *)s);
+			return (s + k);
 		}
-		s++;
+		k++;
 	}
-	if (i == '\0')
-		return ((char *)s);
+	k = 0;
+	while (s[k])
+	{
+		if (s[k] == j)
+		{
+			return (s + k);
+		}
+		k++;
+	}
 	return (0);
 }
 

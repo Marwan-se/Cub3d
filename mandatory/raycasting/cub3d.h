@@ -6,7 +6,7 @@
 /*   By: msekhsou <msekhsou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 10:27:19 by msekhsou          #+#    #+#             */
-/*   Updated: 2024/01/26 08:33:53 by msekhsou         ###   ########.fr       */
+/*   Updated: 2024/01/26 21:12:56 by msekhsou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ char		**read_map_file(int file);
 int			ft_atoi2(const char *str);
 void		free_2darray(char **array);
 void		ft_putstr_fd(char *s, int fd);
-char		*ft_strchr2(char *s, int i);
+char		*ft_strchr2(char *s, int i, int j);
 void		check_limits(char **map, int i, int k);
 int			is_surrounded(char **map, int i, int j, char p);
 int			check_if_map_closed(char **map, int i, char c, char p);
